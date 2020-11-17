@@ -21,7 +21,19 @@ namespace MechArmor
 		/// The number of states from the currently equiped armor
 		/// </summary>
 		public byte MaxArmorStates;
-        
+
+        /// <summary>
+        /// Sets the current maximum number of the armor states
+        /// </summary>
+        /// <param name="value">The number of possible armor states</param>
+        public void SetMaxArmorStates(byte value)
+        {
+            MaxArmorStates = value;
+            // If we are in an illegal armor status, we reset it to 0
+            if (ArmorState >= value)
+                ArmorState = 0;
+        }
+
 
         public override void ResetEffects()
         {
@@ -47,7 +59,6 @@ namespace MechArmor
 					ArmorState++;
 					ArmorState %= MaxArmorStates;
                 }
-				//TODO: check how to do a player sync
 			}
         }
 

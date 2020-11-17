@@ -18,6 +18,7 @@ namespace MechArmor
             MechArmorStateChangeKey = RegisterHotKey("MechArmorStateChangeKey", "V");
             // Keeping a static instance of the mod in the packet handler
             MechArmorPacketHandler.mod = this;
+
         }
 
         public override void Unload()

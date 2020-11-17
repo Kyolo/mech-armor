@@ -31,7 +31,7 @@ namespace MechArmor.Items.Armor
         public override void UpdateArmorSet(Player player)
         {
             MechArmorPlayer mAP = player.GetModPlayer<MechArmorPlayer>();
-            mAP.MaxArmorStates = 2;
+            mAP.SetMaxArmorStates(2);
 
             //TODO: find correct value
             switch(mAP.ArmorState)
