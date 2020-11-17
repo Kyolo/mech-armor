@@ -1,0 +1,1 @@
+Mechanical Armors is a mod about armors with multiple states, giving bonus and malus in certains situations and not in others.
