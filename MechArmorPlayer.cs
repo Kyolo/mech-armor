@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria;
 using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -22,6 +23,12 @@ namespace MechArmor
 		/// </summary>
 		public byte MaxArmorStates;
 
+		/// <summary>
+		/// If the player can use the heaviest guns of the mod.
+		/// Only possible with mecha and heavy armors
+		/// </summary>
+		public bool CanUseHeavyGuns;
+
         /// <summary>
         /// Sets the current maximum number of the armor states
         /// </summary>
@@ -35,13 +42,25 @@ namespace MechArmor
         }
 
 
+        // Effects use
+
+
         public override void ResetEffects()
         {
 			// The number of states this armor has
             MaxArmorStates = 0;
+			CanUseHeavyGuns = false;
         }
 
-        public override void ProcessTriggers(TriggersSet triggersSet)
+		public override void UpdateDead()
+		{
+			MaxArmorStates = 0;
+			CanUseHeavyGuns = false;
+		}
+
+		// Key trigger
+
+		public override void ProcessTriggers(TriggersSet triggersSet)
         {
 			// When pressing the key, change the state of the armor
 			// Could be changed for a number
@@ -61,6 +80,8 @@ namespace MechArmor
                 }
 			}
         }
+
+		// Save
 
         public override void Load(TagCompound tag)
         {
@@ -85,6 +106,8 @@ namespace MechArmor
 
 			return tag;
         }
+
+		// Sync
 
         // In MP, other clients need accurate information about your player or else bugs happen.
         // clientClone, SyncPlayer, and SendClientChanges, ensure that information is correct.
@@ -135,9 +158,6 @@ namespace MechArmor
 			}
 		}
 
-        public override void UpdateDead()
-        {
-			MaxArmorStates = 0;
-        }
+
     }
 }
