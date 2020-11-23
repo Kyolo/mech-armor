@@ -27,7 +27,11 @@ namespace MechArmor
 		/// If the player can use the heaviest guns of the mod.
 		/// Only possible with mecha and heavy armors
 		/// </summary>
-		public bool CanUseHeavyGuns;
+		public bool CanUseHeavyGuns {
+			get { return ArmorHeavyGun; }
+		}
+
+		public bool ArmorHeavyGun;
 
         /// <summary>
         /// Sets the current maximum number of the armor states
@@ -49,13 +53,13 @@ namespace MechArmor
         {
 			// The number of states this armor has
             MaxArmorStates = 0;
-			CanUseHeavyGuns = false;
+			ArmorHeavyGun = false;
         }
 
 		public override void UpdateDead()
 		{
 			MaxArmorStates = 0;
-			CanUseHeavyGuns = false;
+			ArmorHeavyGun = false;
 		}
 
 		// Key trigger

@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MechArmor.Items
+namespace MechArmor.Items.Weapons
 {
 	public class TestSword : ModItem
 	{

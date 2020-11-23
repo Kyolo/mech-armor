@@ -34,6 +34,8 @@ namespace MechArmor.Items.Armor
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
             // We need to indicate the maximum number of states for this armor
             armorPlayer.SetMaxArmorStates(2);
+            // And then we allow the use of heavy guns
+            armorPlayer.ArmorHeavyGun = true;
 
             switch(armorPlayer.ArmorState)
             {
@@ -52,7 +54,7 @@ namespace MechArmor.Items.Armor
                         // Reduce speed by (at most) 1.0
                         player.moveSpeed -= player.moveSpeed > 1.0f ? 1.0f : player.moveSpeed;
                         // Immobilize the player in the air
-                        //player.vortexDebuff = true;
+                        //player.vortexDebuff = true;// didn't work as expected
                     }
                     break;
             }
