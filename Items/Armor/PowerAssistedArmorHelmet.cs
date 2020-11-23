@@ -10,7 +10,7 @@ namespace MechArmor.Items.Armor
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A helmet with alloyed hellstone and evilmetal armor plates");
+            Tooltip.SetDefault("A helmet with basic control systems");
         }
 
         public override void SetDefaults()

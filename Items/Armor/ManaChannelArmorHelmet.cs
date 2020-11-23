@@ -6,7 +6,7 @@ using static Terraria.ModLoader.ModContent;
 namespace MechArmor.Items.Armor
 {
     [AutoloadEquip(EquipType.Head)]
-    class ArtilleryArmorHelmet : ModItem
+    class ManaChannelArmorHelmet : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -24,35 +24,39 @@ namespace MechArmor.Items.Armor
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return body.type == ItemType<ArtilleryArmorBreastplate>() && legs.type == ItemType<ArtilleryArmorLeggings>();
+            return body.type == ItemType<ManaChannelArmorBreastplate>() && legs.type == ItemType<ManaChannelArmorLeggings>();
         }
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "This armor systems allow you to either hit hard or flee fast";
+            player.setBonus = "This mana conductive armor can help you channel magic in different ways";
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
             // We need to indicate the maximum number of states for this armor
-            armorPlayer.SetMaxArmorStates(2);
+            armorPlayer.SetMaxArmorStates(3);
 
             switch(armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:// Efficient mode : a bit less damage, better efficiency
                     {
-                        player.setBonus += "\nSetup Mode : Increased movement but slightly reduced damage";
-                        player.rangedDamage -= 0.10f;
-                        player.moveSpeed += 0.5f;
+                        player.setBonus += "\nEfficiency Mode : Reduced mana cost and damage";
+                        player.magicDamage -= 0.10f;
+                        player.manaCost -= 0.20f;
                     }
                     break;
-                case 1:
+                case 1:// Damage mode : more damage, less efficiency
                     {
-                        player.setBonus += "\nFiring Mode : Almost cannot move but highly increased ranged damage";
-                        player.rangedDamage += 1.0f;//TODO : balance that
-
-                        // Reduce speed by (at most) 1.0
-                        player.moveSpeed -= player.moveSpeed > 1.0f ? 1.0f : player.moveSpeed;
-                        // Immobilize the player in the air
-                        //player.vortexDebuff = true;
+                        player.setBonus += "\nPower Mode : Increased damage and mana cost";
+                        player.magicDamage += 0.30f;
+                        player.manaCost += 0.20f;
+                    }
+                    break;
+                case 2://Regen mode, less damage, less efficiency, more regen
+                    {
+                        player.setBonus += "\nRegen Mode : Increased mana regeneration for a slight mana cost increase and reduce in magic damage";
+                        player.magicDamage -= 0.10f;
+                        player.manaCost += 0.10f;
+                        player.manaRegenBonus += 50;// Boost in %
                     }
                     break;
             }

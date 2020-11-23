@@ -36,7 +36,7 @@ namespace MechArmor.Items.Armor
             {
                 player.setBonus += "\nDefensive Mode : You are protected and slowed down by heavy plates";
                 player.statDefense += 6; //(5+6+5)*.4 = 8
-                player.moveSpeed -= 0.15f;
+                player.moveSpeed -= 0.1f;
             }
             else // Otherwise when health is low, we add move speed to better move away
             {
