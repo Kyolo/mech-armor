@@ -20,18 +20,24 @@ namespace MechArmor.Items.Weapons
 		{
 			item.damage = 48;
 			item.ranged = true;
-			
-			item.width = 26;
-			item.height = 28;
-			item.useTime = 36;
-			item.useAnimation = 36;
+
+			item.width = 40;
+			item.height = 40;
+
+			item.useTime = 60;
+			item.useAnimation = 60;
+
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.noMelee = true;
+
 			item.knockBack = 3;
 			item.value = Item.buyPrice(0, 30, 0, 0);
+
 			item.rare = ItemRarityID.Cyan;
-			item.UseSound = SoundID.Item44;
-			item.shoot = AmmoID.Bullet;
+			item.UseSound = SoundID.Item11;
+			item.useAmmo = AmmoID.Bullet;
+			item.shoot = ProjectileID.Bullet;
+			item.shootSpeed = 16f;
 			
 		}
 
@@ -44,6 +50,15 @@ namespace MechArmor.Items.Weapons
 			
 			return base.Shoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
 		}
-		
-	}
+
+        public override void AddRecipes()
+        {
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.DirtBlock, 10);
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+
+    }
 }
