@@ -8,6 +8,8 @@ using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
+using MechArmor.Buffs;
+
 namespace MechArmor
 {
     class MechArmorPlayer : ModPlayer
@@ -17,6 +19,11 @@ namespace MechArmor
 		/// State effect depend on armor;
         /// </summary>
         public byte ArmorState;
+
+        /// <summary>
+        /// Is on cooldown between changes ?
+        /// </summary>
+        public bool ArmorCooldown;
 
 		/// <summary>
 		/// The number of states from the currently equiped armor
@@ -54,12 +61,14 @@ namespace MechArmor
 			// The number of states this armor has
             MaxArmorStates = 0;
 			ArmorHeavyGun = false;
+            ArmorCooldown = false;
         }
 
 		public override void UpdateDead()
 		{
 			MaxArmorStates = 0;
 			ArmorHeavyGun = false;
+            ArmorCooldown = false;
 		}
 
 		// Key trigger
@@ -68,7 +77,7 @@ namespace MechArmor
         {
 			// When pressing the key, change the state of the armor
 			// Could be changed for a number
-			if (MechArmor.MechArmorStateChangeKey.JustPressed)
+			if (MechArmor.MechArmorStateChangeKey.JustPressed && !ArmorCooldown)
 			{
 				//First, we need to check if we have an illegal armor state
 				if(ArmorState >= MaxArmorStates && MaxArmorStates != 0)
@@ -81,6 +90,7 @@ namespace MechArmor
 					//Otherwise we increase the state by one
 					ArmorState++;
 					ArmorState %= MaxArmorStates;
+                    player.AddBuff(ModContent.BuffType<BuffStateCooldown>(), 120);
                 }
 			}
         }
