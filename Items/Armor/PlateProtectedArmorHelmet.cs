@@ -19,7 +19,7 @@ namespace MechArmor.Items.Armor
             item.height = 18;
             item.value = 90;
             item.rare = ItemRarityID.Orange;
-            item.defense = 5;
+            item.defense = 4;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -32,10 +32,10 @@ namespace MechArmor.Items.Armor
             player.setBonus = "Gives additionnal armor and reduced speed when healthy.\nAdd move speed to flee when heavily damaged.";
 
             // When health is high, we give a better defense
-            if(player.statLife > player.statLifeMax2 / 10)
+            if(player.statLife > player.statLifeMax2 * .15f)
             {
                 player.setBonus += "\nDefensive Mode : You are protected and slowed down by heavy plates";
-                player.statDefense += 8; //(5+6+5)/2 = 8
+                player.statDefense += 6; //(5+6+5)/2 = 8
                 player.moveSpeed -= 0.2f;
             }
             else // Otherwise when health is low, we add move speed to better move away
@@ -59,8 +59,7 @@ namespace MechArmor.Items.Armor
             else
             {
                 recipe.AddTile(TileID.Anvils);
-                recipe.AddIngredient(ItemID.Wire, 20);
-                recipe.AddIngredient(ItemID.DartTrap, 1);
+                recipe.AddIngredient(ItemID.DartTrap, 2);
                 recipe.AddRecipeGroup("MechArmor:Armor:Head:T2");
             }
             recipe.SetResult(this);

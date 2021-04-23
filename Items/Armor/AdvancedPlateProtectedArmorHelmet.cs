@@ -33,7 +33,7 @@ namespace MechArmor.Items.Armor
             player.magmaStone = true;
 
             // When health is high, we give a better defense
-            if(player.statLife > player.statLifeMax2 *.15f)
+            if(player.statLife > player.statLifeMax2 *.25f)
             {
                 player.setBonus += "\nDefensive Mode : You are protected and slowed down by heavy plates";
                 player.statDefense += 11; //(6+7+6)*.6 = 11
@@ -65,6 +65,7 @@ namespace MechArmor.Items.Armor
             recipeUpgradeHeavy.AddTile(TileID.Anvils);
             recipeUpgradeHeavy.AddIngredient(ModContent.ItemType<HeavyPlateProtectedArmorHelmet>());
             recipeUpgradeHeavy.AddRecipeGroup("MechArmor:Bars:Evil", 10);
+            recipeUpgradeHeavy.AddIngredient(ItemID.Wire, 10);
 
             recipeUpgradeHeavy.SetResult(this);
             recipeUpgradeHeavy.AddRecipe();
@@ -74,6 +75,7 @@ namespace MechArmor.Items.Armor
             recipeUpgradeLight.AddTile(TileID.Anvils);
             recipeUpgradeLight.AddIngredient(ModContent.ItemType<LightPlateProtectedArmorHelmet>());
             recipeUpgradeLight.AddIngredient(ItemID.HellstoneBar, 10);
+            recipeUpgradeLight.AddIngredient(ItemID.Wire, 10);
 
             recipeUpgradeLight.SetResult(this);
             recipeUpgradeLight.AddRecipe();
@@ -84,6 +86,7 @@ namespace MechArmor.Items.Armor
             recipeUpgradeBasic.AddIngredient(ModContent.ItemType<PlateProtectedArmorHelmet>());
             recipeUpgradeBasic.AddIngredient(ItemID.HellstoneBar, 10);
             recipeUpgradeBasic.AddRecipeGroup("MechArmor:Bars:Evil", 10);
+            recipeUpgradeBasic.AddIngredient(ItemID.Wire, 10);
 
             recipeUpgradeBasic.SetResult(this);
             recipeUpgradeBasic.AddRecipe();

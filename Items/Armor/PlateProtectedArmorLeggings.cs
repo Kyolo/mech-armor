@@ -17,7 +17,7 @@ namespace MechArmor.Items.Armor
             item.height = 18;
             item.value = 70;
             item.rare = ItemRarityID.Orange;
-            item.defense = 5;
+            item.defense = 4;
             
         }
 
@@ -35,8 +35,7 @@ namespace MechArmor.Items.Armor
             else
             {
                 recipe.AddTile(TileID.Anvils);
-                recipe.AddIngredient(ItemID.Wire, 20);
-                recipe.AddIngredient(ItemID.DartTrap, 1);
+                recipe.AddIngredient(ItemID.DartTrap, 2);
                 recipe.AddRecipeGroup("MechArmor:Armor:Pants:T2");
             }
             recipe.SetResult(this);

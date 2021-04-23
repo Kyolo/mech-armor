@@ -17,7 +17,7 @@ namespace MechArmor.Items.Armor
             item.height = 18;
             item.value = 70;
             item.rare = ItemRarityID.Orange;
-            item.defense = 6;
+            item.defense = 5;
         }
 
         // Set bonus in PlateProtectedArmorHelmet.cs
@@ -34,8 +34,7 @@ namespace MechArmor.Items.Armor
             else
             {
                 recipe.AddTile(TileID.Anvils);
-                recipe.AddIngredient(ItemID.Wire, 40);
-                recipe.AddIngredient(ItemID.DartTrap, 2);
+                recipe.AddIngredient(ItemID.DartTrap, 4);
                 recipe.AddRecipeGroup("MechArmor:Armor:Chest:T2");
             }
             recipe.SetResult(this);

@@ -33,7 +33,7 @@ namespace MechArmor.Items.Armor
             player.magmaStone = true;
 
             // When health is high, we give a better defense
-            if(player.statLife > player.statLifeMax2 *.15f)
+            if(player.statLife > player.statLifeMax2 *.20f)
             {
                 player.setBonus += "\nDefensive Mode : You are protected and slowed down by heavy plates";
                 player.statDefense += 11; //(6+7+6)*.6 = 11

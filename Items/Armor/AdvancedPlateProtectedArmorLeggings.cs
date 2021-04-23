@@ -42,6 +42,7 @@ namespace MechArmor.Items.Armor
             recipeUpgradeHeavy.AddTile(TileID.Anvils);
             recipeUpgradeHeavy.AddIngredient(ModContent.ItemType<HeavyPlateProtectedArmorLeggings>());
             recipeUpgradeHeavy.AddRecipeGroup("MechArmor:Bars:Evil", 10);
+            recipeUpgradeHeavy.AddIngredient(ItemID.Wire, 10);
 
             recipeUpgradeHeavy.SetResult(this);
             recipeUpgradeHeavy.AddRecipe();
@@ -51,6 +52,7 @@ namespace MechArmor.Items.Armor
             recipeUpgradeLight.AddTile(TileID.Anvils);
             recipeUpgradeLight.AddIngredient(ModContent.ItemType<LightPlateProtectedArmorLeggings>());
             recipeUpgradeLight.AddIngredient(ItemID.HellstoneBar, 10);
+            recipeUpgradeLight.AddIngredient(ItemID.Wire, 10);
 
             recipeUpgradeLight.SetResult(this);
             recipeUpgradeLight.AddRecipe();
@@ -61,6 +63,7 @@ namespace MechArmor.Items.Armor
             recipeUpgradeBasic.AddIngredient(ModContent.ItemType<PlateProtectedArmorLeggings>());
             recipeUpgradeBasic.AddIngredient(ItemID.HellstoneBar, 10);
             recipeUpgradeBasic.AddRecipeGroup("MechArmor:Bars:Evil", 10);
+            recipeUpgradeBasic.AddIngredient(ItemID.Wire, 10);
 
             recipeUpgradeBasic.SetResult(this);
             recipeUpgradeBasic.AddRecipe();

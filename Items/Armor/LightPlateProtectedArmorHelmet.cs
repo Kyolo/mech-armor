@@ -32,7 +32,7 @@ namespace MechArmor.Items.Armor
             player.setBonus = "Functionnally identical to the basic Plate Protected Armor but the new plates allow for easier movement.";
 
             // When health is high, we give a better defense
-            if(player.statLife > player.statLifeMax2 *.15)
+            if(player.statLife > player.statLifeMax2 *.20)
             {
                 player.setBonus += "\nDefensive Mode : You are protected and slowed down by heavy plates";
                 player.statDefense += 6; //(5+6+5)*.4 = 8
