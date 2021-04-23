@@ -1,4 +1,5 @@
-﻿using Terraria.ID;
+﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MechArmor.Items.Armor
@@ -18,7 +19,12 @@ namespace MechArmor.Items.Armor
             //TODO: find best values
             item.value = 70;
             item.rare = ItemRarityID.Orange;
-            item.defense = 7;
+            item.defense = 15;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.meleeCrit += 5;
         }
 
         // Set bonus in helmet(s)

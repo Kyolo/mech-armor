@@ -20,7 +20,7 @@ namespace MechArmor.Items.Armor
             //TODO: find best values
             item.value = 90;
             item.rare = ItemRarityID.Orange;
-            item.defense = 6;
+            item.defense = 22;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -28,19 +28,28 @@ namespace MechArmor.Items.Armor
             return body.type == ItemType<PowerAssistedArmorBreastplate>() && legs.type == ItemType<PowerAssistedArmorLeggings>();
         }
 
+        public override void UpdateEquip(Player player)
+        {
+            player.meleeCrit += 5;
+            player.meleeDamage += 0.10f;
+        }
+
         public override void UpdateArmorSet(Player player)
         {
             MechArmorPlayer mAP = player.GetModPlayer<MechArmorPlayer>();
             mAP.SetMaxArmorStates(2);
+            mAP.ArmorCooldownDuration = 10;
 
-            //TODO: find correct value
+
             switch(mAP.ArmorState)
             {
                 case 0:
-                    player.moveSpeed += 1.0f;
+                    player.moveSpeed += 0.20f;
+                    player.meleeSpeed += 0.20f;
                     break;
                 case 1:
-                    player.statDefense += 20;
+                    player.statDefense += 24; // (22 + 15 +11) * 0.5 = 24
+                    player.moveSpeed -= 0.10f;
                     break;
             }
         }

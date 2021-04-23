@@ -20,15 +20,40 @@ namespace MechArmor
         /// </summary>
         public byte ArmorState;
 
-        /// <summary>
-        /// Is on cooldown between changes ?
-        /// </summary>
-        public bool ArmorCooldown;
-
 		/// <summary>
 		/// The number of states from the currently equiped armor
 		/// </summary>
 		public byte MaxArmorStates;
+
+        /// <summary>
+        /// Is on cooldown between changes ?
+        /// </summary>
+        public bool IsArmorOnCooldown;
+
+        /// <summary>
+        /// The duration in seconds of the armor cooldown when the change is triggered
+        /// </summary>
+        public int ArmorCooldownDuration;
+
+        /// <summary>
+        /// The armor cooldown modifier.
+        /// </summary>
+        public float ArmorCooldownDurationModifier;
+
+        /// <summary>
+        /// Is on warmup after a change ?
+        /// </summary>
+        public bool IsArmorOnWarmup;
+
+        /// <summary>
+        /// The duration in seconds of the armor warmup
+        /// </summary>
+        public int ArmorWarmupDuration;
+
+        /// <summary>
+        /// The armor warmup modifier.
+        /// </summary>
+        public float ArmorWarmupDurationModifier;
 
 		/// <summary>
 		/// If the player can use the heaviest guns of the mod.
@@ -60,15 +85,31 @@ namespace MechArmor
         {
 			// The number of states this armor has
             MaxArmorStates = 0;
-			ArmorHeavyGun = false;
-            ArmorCooldown = false;
+            // Cooldown stuff
+            ArmorCooldownDuration = 0;
+            ArmorCooldownDurationModifier = 1;
+            IsArmorOnCooldown = false;
+            // Warmup stuff
+            ArmorWarmupDuration = 0;
+            ArmorWarmupDurationModifier = 1;
+            IsArmorOnWarmup = false;
+            //If armor can yield heavy weapons
+            ArmorHeavyGun = false;
         }
 
 		public override void UpdateDead()
 		{
 			MaxArmorStates = 0;
-			ArmorHeavyGun = false;
-            ArmorCooldown = false;
+
+            ArmorCooldownDuration = 0;
+            ArmorCooldownDurationModifier = 1;
+            IsArmorOnCooldown = false;
+
+            ArmorWarmupDuration = 0;
+            ArmorWarmupDurationModifier = 1;
+            IsArmorOnWarmup = false;
+
+            ArmorHeavyGun = false;
 		}
 
 		// Key trigger
@@ -77,7 +118,7 @@ namespace MechArmor
         {
 			// When pressing the key, change the state of the armor
 			// Could be changed for a number
-			if (MechArmor.MechArmorStateChangeKey.JustPressed && !ArmorCooldown)
+			if (MechArmor.MechArmorStateChangeKey.JustPressed && !IsArmorOnCooldown)
 			{
 				//First, we need to check if we have an illegal armor state
 				if(ArmorState >= MaxArmorStates && MaxArmorStates != 0)
@@ -90,7 +131,10 @@ namespace MechArmor
 					//Otherwise we increase the state by one
 					ArmorState++;
 					ArmorState %= MaxArmorStates;
-                    player.AddBuff(ModContent.BuffType<BuffStateCooldown>(), 120);
+                    if(ArmorCooldownDuration > 0)
+                        player.AddBuff(ModContent.BuffType<BuffStateCooldown>(), (int)(ArmorCooldownDuration*ArmorCooldownDurationModifier* 60));
+                    if (ArmorWarmupDuration > 0)
+                        player.AddBuff(ModContent.BuffType<BuffStateWarmup>(), (int)(ArmorWarmupDuration * ArmorWarmupDurationModifier * 60));
                 }
 			}
         }

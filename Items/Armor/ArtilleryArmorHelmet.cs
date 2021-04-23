@@ -19,7 +19,12 @@ namespace MechArmor.Items.Armor
             item.height = 18;
             item.value = 90;
             item.rare = ItemRarityID.Orange;
-            item.defense = 6;
+            item.defense = 8;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.rangedCrit += 5;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -34,6 +39,8 @@ namespace MechArmor.Items.Armor
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
             // We need to indicate the maximum number of states for this armor
             armorPlayer.SetMaxArmorStates(2);
+            armorPlayer.ArmorCooldownDuration = 15;
+            armorPlayer.ArmorWarmupDuration = 2;
             // And then we allow the use of heavy guns
             armorPlayer.ArmorHeavyGun = true;
 
@@ -43,13 +50,15 @@ namespace MechArmor.Items.Armor
                     {
                         player.setBonus += "\nSetup Mode : Increased movement but slightly reduced damage";
                         player.rangedDamage -= 0.10f;
-                        player.moveSpeed += 0.5f;
+                        player.moveSpeed += 0.3f;
                     }
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nFiring Mode : Almost cannot move but highly increased ranged damage";
-                        player.rangedDamage += 1.0f;//TODO : balance that
+                        player.setBonus += "\nFiring Mode : Almost immobilized but highly increased ranged damage";
+                        // We wait for the warmup to finish
+                        if(!armorPlayer.IsArmorOnWarmup) 
+                            player.rangedDamage += 1.0f;//TODO : balance that
 
                         // Reduce speed by (at most) 1.0
                         player.moveSpeed -= player.moveSpeed > 1.0f ? 1.0f : player.moveSpeed;

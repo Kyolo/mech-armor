@@ -1,4 +1,5 @@
-﻿using Terraria.ID;
+﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MechArmor.Items.Armor
@@ -17,8 +18,13 @@ namespace MechArmor.Items.Armor
             item.height = 18;
             item.value = 70;
             item.rare = ItemRarityID.Orange;
-            item.defense = 6;
+            item.defense = 11;
             
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.moveSpeed += 5;
         }
 
 

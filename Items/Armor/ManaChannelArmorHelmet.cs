@@ -19,7 +19,12 @@ namespace MechArmor.Items.Armor
             item.height = 18;
             item.value = 90;
             item.rare = ItemRarityID.Orange;
-            item.defense = 6;
+            item.defense = 4;
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.statManaMax2 += 100;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -33,30 +38,23 @@ namespace MechArmor.Items.Armor
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
             // We need to indicate the maximum number of states for this armor
-            armorPlayer.SetMaxArmorStates(3);
+            armorPlayer.SetMaxArmorStates(2);
+            armorPlayer.ArmorCooldownDuration = 5;
 
             switch(armorPlayer.ArmorState)
             {
                 case 0:// Efficient mode : a bit less damage, better efficiency
                     {
-                        player.setBonus += "\nEfficiency Mode : Reduced mana cost and damage";
-                        player.magicDamage -= 0.10f;
+                        player.setBonus += "\nMana Mode : Reduced mana cost and increased mana regeneration";
                         player.manaCost -= 0.20f;
+                        player.manaRegenBonus += 50;
                     }
                     break;
                 case 1:// Damage mode : more damage, less efficiency
                     {
                         player.setBonus += "\nPower Mode : Increased damage and mana cost";
                         player.magicDamage += 0.30f;
-                        player.manaCost += 0.20f;
-                    }
-                    break;
-                case 2://Regen mode, less damage, less efficiency, more regen
-                    {
-                        player.setBonus += "\nRegen Mode : Increased mana regeneration for a slight mana cost increase and reduce in magic damage";
-                        player.magicDamage -= 0.10f;
                         player.manaCost += 0.10f;
-                        player.manaRegenBonus += 50;// Boost in %
                     }
                     break;
             }
