@@ -48,6 +48,23 @@ namespace MechArmor
                 ItemID.CrimtaneBar
             });
 
+            //Adding recipe group for early HM Bars
+            RecipeGroup groupHMT1Bars = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Cobalt Bar", new int[]
+            {
+                ItemID.CobaltBar,
+                ItemID.PalladiumBar
+            });
+            RecipeGroup groupHMT2Bars = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Mythril Bar", new int[]
+            {
+                ItemID.MythrilBar,
+                ItemID.OrichalcumBar
+            });
+            RecipeGroup groupHMT3Bars = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Adamantite Bar", new int[]
+            {
+                ItemID.AdamantiteBar,
+                ItemID.TitaniumBar
+            });
+
             //Groups for Silver/Tungsten Armors
             RecipeGroup groupHelmet = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Silver Helmet", new int[]
             {
@@ -69,6 +86,10 @@ namespace MechArmor
             // Bars
             RecipeGroup.RegisterGroup("MechArmor:Bars:T2", groupT2Bars);
             RecipeGroup.RegisterGroup("MechArmor:Bars:Evil", groupEvilBars);
+
+            RecipeGroup.RegisterGroup("MechArmor:Bars:HMT1", groupHMT1Bars);
+            RecipeGroup.RegisterGroup("MechArmor:Bars:HMT2", groupHMT2Bars);
+            RecipeGroup.RegisterGroup("MechArmor:Bars:HMT3", groupHMT3Bars);
 
             //// Armors
             // Silver/Tungsten

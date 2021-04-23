@@ -31,7 +31,22 @@ namespace MechArmor.Items.Armor
 
         public override void AddRecipes()
         {
-            // TODO : find recipe
+            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
+            {
+                ModRecipe r = new ModRecipe(mod);
+                r.AddTile(TileID.WorkBenches);
+                r.AddRecipeGroup("Wood");
+                r.SetResult(this);
+                r.AddRecipe();
+            }
+
+            ModRecipe regularRecipe = new ModRecipe(mod);
+            regularRecipe.AddTile(TileID.MythrilAnvil);
+            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT1", 20);
+            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT2", 20);
+            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT3", 20);
+            regularRecipe.SetResult(this);
+            regularRecipe.AddRecipe();
         }
     }
 }

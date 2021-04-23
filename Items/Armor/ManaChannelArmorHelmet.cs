@@ -41,7 +41,7 @@ namespace MechArmor.Items.Armor
             armorPlayer.SetMaxArmorStates(2);
             armorPlayer.ArmorCooldownDuration = 5;
 
-            switch(armorPlayer.ArmorState)
+            switch (armorPlayer.ArmorState)
             {
                 case 0:// Efficient mode : a bit less damage, better efficiency
                     {
@@ -64,13 +64,22 @@ namespace MechArmor.Items.Armor
 
         public override void AddRecipes()
         {
-            // TODO: add recipes
-            // 
-            ModRecipe r = new ModRecipe(mod);
-            r.AddTile(TileID.WorkBenches);
-            r.AddRecipeGroup("Wood");
-            r.SetResult(this);
-            r.AddRecipe();
+            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
+            {
+                ModRecipe r = new ModRecipe(mod);
+                r.AddTile(TileID.WorkBenches);
+                r.AddRecipeGroup("Wood");
+                r.SetResult(this);
+                r.AddRecipe();
+            }
+
+            ModRecipe regularRecipe = new ModRecipe(mod);
+            regularRecipe.AddTile(TileID.MythrilAnvil);
+            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT1", 10);
+            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT2", 10);
+            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT3", 10);
+            regularRecipe.SetResult(this);
+            regularRecipe.AddRecipe();
         }
     }
 }
