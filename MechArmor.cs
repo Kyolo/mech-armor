@@ -10,12 +10,14 @@ namespace MechArmor
 	{
 
         public static ModHotKey MechArmorStateChangeKey;
+        public static ModHotKey MechArmorStateChangeReverseKey;
        
 
         public override void Load()
         {
             // Creating the hotkey for the pst-hm armor state change
             MechArmorStateChangeKey = RegisterHotKey("MechArmorStateChangeKey", "V");
+            MechArmorStateChangeReverseKey = RegisterHotKey("MechArmorStateChangeReverseKey", "C");
             // Keeping a static instance of the mod in the packet handler
             MechArmorPacketHandler.mod = this;
 

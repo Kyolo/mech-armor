@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 using MechArmor.Buffs;
+using Terraria.DataStructures;
 
 namespace MechArmor
 {
@@ -55,6 +56,17 @@ namespace MechArmor
         /// </summary>
         public float ArmorWarmupDurationModifier;
 
+        /// <summary>
+        /// Percent of damage that should be inflicted on the user's mana instead of their health
+        /// </summary>
+        public float MagicDamageAbsorptionAmount;
+
+        /// <summary>
+        /// If we need to absorb damage
+        /// </summary>
+        public bool MagicDamageAbsorption;
+
+
 		/// <summary>
 		/// If the player can use the heaviest guns of the mod.
 		/// Only possible with mecha and heavy armors
@@ -95,6 +107,8 @@ namespace MechArmor
             IsArmorOnWarmup = false;
             //If armor can yield heavy weapons
             ArmorHeavyGun = false;
+            // Part of damage inflicted on mana instead of health
+            MagicDamageAbsorptionAmount = 0;
         }
 
 		public override void UpdateDead()
@@ -110,15 +124,60 @@ namespace MechArmor
             IsArmorOnWarmup = false;
 
             ArmorHeavyGun = false;
-		}
 
-		// Key trigger
+            MagicDamageAbsorptionAmount = 0;
+            MagicDamageAbsorption = false;
+        }
 
-		public override void ProcessTriggers(TriggersSet triggersSet)
+        // Damage Modification
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-			// When pressing the key, change the state of the armor
-			// Could be changed for a number
-			if (MechArmor.MechArmorStateChangeKey.JustPressed && !IsArmorOnCooldown)
+
+            if (MagicDamageAbsorption)
+            {
+                // First we compute the amount of damage avoided
+                int removedDamage = (int)(damage * MagicDamageAbsorptionAmount);
+
+                // We check if there is damageto remove
+                if (removedDamage > 0)
+                {
+                    // We don't remove more damage than we have mana
+                    int manaRemoved = Math.Min(removedDamage, player.statMana);
+
+                    // If we can remove damage
+                    if (manaRemoved > 0)
+                    {
+                        // we remove it from the total
+                        damage -= manaRemoved;
+                        // Then we remove the mana
+                        player.statMana -= manaRemoved;
+                        // And lastly we restart the mana regeneration delay
+                        player.manaRegenDelay = (int)player.maxRegenDelay;
+                    }
+
+                }
+            }
+            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
+        }
+
+        // Key trigger
+
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            // When pressing the key, change the state of the armor
+            byte stateChange = 0;
+
+            if(MechArmor.MechArmorStateChangeKey.JustPressed)
+            {
+                stateChange = 1;//Forward
+            }
+
+            if(MechArmor.MechArmorStateChangeReverseKey.JustPressed)
+            {
+                stateChange = 2;//Backward
+            }
+
+            if (stateChange != 0 && !IsArmorOnCooldown)
 			{
 				//First, we need to check if we have an illegal armor state
 				if(ArmorState >= MaxArmorStates && MaxArmorStates != 0)
@@ -128,9 +187,24 @@ namespace MechArmor
                 }
 				else
                 {
-					//Otherwise we increase the state by one
-					ArmorState++;
-					ArmorState %= MaxArmorStates;
+					//Otherwise we increase or decrease the state by one
+					switch(stateChange)
+                    {
+                        case 1:
+                            ArmorState++;
+                            break;
+                        case 2:
+                            ArmorState--;
+                            break;
+                        default:
+                            break;
+                    }
+                    // If we end up on 255, it means we need the last position
+                    if (ArmorState == 255)
+                        ArmorState = (byte)(MaxArmorStates - 1);
+                    else
+                        ArmorState %= MaxArmorStates;
+
                     if(ArmorCooldownDuration > 0)
                         player.AddBuff(ModContent.BuffType<BuffStateCooldown>(), (int)(ArmorCooldownDuration*ArmorCooldownDurationModifier* 60));
                     if (ArmorWarmupDuration > 0)
@@ -183,6 +257,7 @@ namespace MechArmor
 			clone.ArmorState = ArmorState;
 		}
 
+        // I think this is used to sync players when a player first come into the world
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
 			//Create a packet
@@ -201,6 +276,7 @@ namespace MechArmor
 			packet.Send(toWho, fromWho);
 		}
 
+        // Send any information that need syncing but was not already synced by Terraria (like buffs and items)
 		public override void SendClientChanges(ModPlayer clientPlayer)
 		{
 			// Here we would sync something like an RPG stat whenever the player changes it.

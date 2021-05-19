@@ -3,4 +3,8 @@
 This folder store all armor post mech boss but before Plantera.
 
 It currently include :
-- Nothing
+- Holy Armor
+	- Melee
+	- Magic
+	- Ranged
+	- Summon
