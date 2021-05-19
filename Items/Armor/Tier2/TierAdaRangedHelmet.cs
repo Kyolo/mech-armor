@@ -89,6 +89,7 @@ namespace MechArmor.Items.Armor.Tier2
             regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT1", 10);
             regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT2", 10);
             regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT3", 10);
+            regularRecipe.AddIngredient(ItemID.Lens, 10);
             regularRecipe.SetResult(this);
             regularRecipe.AddRecipe();
         }

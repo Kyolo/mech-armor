@@ -73,13 +73,25 @@ namespace MechArmor.Items.Armor.Tier2
                 r.AddRecipe();
             }
 
+            // Corrupted world recipe
             ModRecipe regularRecipe = new ModRecipe(mod);
             regularRecipe.AddTile(TileID.MythrilAnvil);
             regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT1", 10);
             regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT2", 10);
             regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT3", 10);
+            regularRecipe.AddIngredient(ItemID.CursedFlame, 20);
             regularRecipe.SetResult(this);
             regularRecipe.AddRecipe();
+
+            // Crimson world recipe
+            ModRecipe otherRecipe = new ModRecipe(mod);
+            otherRecipe.AddTile(TileID.MythrilAnvil);
+            otherRecipe.AddRecipeGroup("MechArmor:Bars:HMT1", 10);
+            otherRecipe.AddRecipeGroup("MechArmor:Bars:HMT2", 10);
+            otherRecipe.AddRecipeGroup("MechArmor:Bars:HMT3", 10);
+            otherRecipe.AddIngredient(ItemID.Ichor, 20);
+            otherRecipe.SetResult(this);
+            otherRecipe.AddRecipe();
         }
     }
 }
