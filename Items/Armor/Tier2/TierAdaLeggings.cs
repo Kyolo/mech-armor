@@ -9,7 +9,7 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+5% Movement Speed\nA leggings with alloyed hellstone and evilmetal armor plates");
+            Tooltip.SetDefault("+5% Movement Speed");
         }
 
         public override void SetDefaults()

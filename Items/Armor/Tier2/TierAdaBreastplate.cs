@@ -9,7 +9,7 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+5% Critical Strike Chance\nA breastplate with alloyed hellstone and evil metal armor plates");
+            Tooltip.SetDefault("+5% Critical Strike Chance");
         }
 
         public override void SetDefaults()
