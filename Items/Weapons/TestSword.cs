@@ -29,11 +29,14 @@ namespace MechArmor.Items.Weapons
 
 		public override void AddRecipes() 
 		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.DirtBlock, 10);
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
+            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
+            {
+                ModRecipe wRecipe = new ModRecipe(mod);
+                wRecipe.AddRecipeGroup("Wood", 10);
+                wRecipe.AddTile(TileID.WorkBenches);
+                wRecipe.SetResult(this);
+                wRecipe.AddRecipe();
+            }
+        }
 	}
 }
