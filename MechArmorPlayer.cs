@@ -66,12 +66,21 @@ namespace MechArmor
         /// </summary>
         public bool MagicDamageAbsorption;
 
+        /// <summary>
+        /// Modify the UseTime of a Magic Weapon
+        /// </summary>
+        public float MagicUseTimeModifier;
 
-		/// <summary>
-		/// If the player can use the heaviest guns of the mod.
-		/// Only possible with mecha and heavy armors
-		/// </summary>
-		public bool CanUseHeavyGuns {
+        /// <summary>
+        /// Modify the UseTime of a Ranged Weapon
+        /// </summary>
+        public float RangedUseTimeModifier;
+
+        /// <summary>
+        /// If the player can use the heaviest guns of the mod.
+        /// Only possible with mecha and heavy armors
+        /// </summary>
+        public bool CanUseHeavyGuns {
 			get { return ArmorHeavyGun; }
 		}
 
@@ -109,6 +118,10 @@ namespace MechArmor
             ArmorHeavyGun = false;
             // Part of damage inflicted on mana instead of health
             MagicDamageAbsorptionAmount = 0;
+            // A modifier for the UseTime of magical weapons
+            MagicUseTimeModifier = 1.0f;
+            RangedUseTimeModifier = 1.0f;
+
         }
 
 		public override void UpdateDead()
@@ -127,6 +140,10 @@ namespace MechArmor
 
             MagicDamageAbsorptionAmount = 0;
             MagicDamageAbsorption = false;
+
+            MagicUseTimeModifier = 1.0f;
+            RangedUseTimeModifier = 1.0f;
+
         }
 
         // Damage Modification
@@ -159,6 +176,24 @@ namespace MechArmor
             }
             return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
         }
+
+        // Use Time modification
+        public override float UseTimeMultiplier(Item item)
+        {
+            // If this is a magic weapon
+            if(item.magic)
+            {
+                return MagicUseTimeModifier;
+            }
+            if (item.ranged)
+            {
+                return RangedUseTimeModifier;
+            }
+            return 1.0f;
+        }
+
+
+
 
         // Key trigger
 
