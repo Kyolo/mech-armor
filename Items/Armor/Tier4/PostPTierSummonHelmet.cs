@@ -82,6 +82,7 @@ namespace MechArmor.Items.Armor.Tier4
             ModRecipe regularRecipe = new ModRecipe(mod);
             regularRecipe.AddTile(TileID.MythrilAnvil);
             regularRecipe.AddIngredient(ItemID.Cog, 20);
+            regularRecipe.AddIngredient(ModContent.ItemType<StrangeWood>(), 5);
 
             regularRecipe.SetResult(this);
             regularRecipe.AddRecipe();
