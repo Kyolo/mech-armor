@@ -85,8 +85,8 @@ namespace MechArmor.UI
 
             // And we end with the text
             stateIndicator = new UIText("0/0");
-            stateIndicator.Width.Set(148, 0f);
-            stateIndicator.Height.Set(148, 0f);
+            //stateIndicator.Width.Set(148, 0f);
+            //stateIndicator.Height.Set(148, 0f);
             stateIndicator.HAlign = 0.5f;
             stateIndicator.VAlign = 0.5f;
 
@@ -168,6 +168,9 @@ namespace MechArmor.UI
             defense.Visible = (mAP.ArmorStateType & (byte)EnumArmorStateType.Defense) != 0;
             mobility.Visible = (mAP.ArmorStateType & (byte)EnumArmorStateType.Movement) != 0;
             utility.Visible = (mAP.ArmorStateType & (byte)EnumArmorStateType.Utility) != 0;
+
+            // And we don't forget to set the correct indicator
+            stateIndicator.SetText((mAP.ArmorState+1) + "/" + (mAP.MaxArmorStates+1));
         }
     }
 }
