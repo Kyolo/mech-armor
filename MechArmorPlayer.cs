@@ -21,6 +21,12 @@ namespace MechArmor
         /// </summary>
         public byte ArmorState;
 
+
+        /// <summary>
+        /// The type of the current armor state
+        /// </summary>
+        public byte ArmorStateType;
+
 		/// <summary>
 		/// The number of states from the currently equiped armor
 		/// </summary>
@@ -77,6 +83,16 @@ namespace MechArmor
         public float RangedUseTimeModifier;
 
         /// <summary>
+        /// If we need to attract nearby enemy projectiles
+        /// </summary>
+        public bool ProjectileAttractor;
+
+        /// <summary>
+        /// The range of the projectile attractor;
+        /// </summary>
+        public float ProjectileAttractorRange;
+
+        /// <summary>
         /// If the player can use the heaviest guns of the mod.
         /// Only possible with mecha and heavy armors
         /// </summary>
@@ -106,6 +122,8 @@ namespace MechArmor
         {
 			// The number of states this armor has
             MaxArmorStates = 0;
+            // The type of the current armor
+            ArmorStateType = 0;
             // Cooldown stuff
             ArmorCooldownDuration = 0;
             ArmorCooldownDurationModifier = 1;
@@ -122,11 +140,18 @@ namespace MechArmor
             MagicUseTimeModifier = 1.0f;
             RangedUseTimeModifier = 1.0f;
 
+            // If this player attract projectile
+            ProjectileAttractor = false;
+            // The range of the attractor
+            ProjectileAttractorRange = 0.0f;
+
         }
 
 		public override void UpdateDead()
 		{
 			MaxArmorStates = 0;
+
+            ArmorStateType = 0;
 
             ArmorCooldownDuration = 0;
             ArmorCooldownDurationModifier = 1;
@@ -144,6 +169,11 @@ namespace MechArmor
             MagicUseTimeModifier = 1.0f;
             RangedUseTimeModifier = 1.0f;
 
+            // If this player attract projectile
+            ProjectileAttractor = false;
+            // The range of the attractor
+            ProjectileAttractorRange = 0.0f;
+
         }
 
         // Damage Modification
@@ -155,7 +185,7 @@ namespace MechArmor
                 // First we compute the amount of damage avoided
                 int removedDamage = (int)(damage * MagicDamageAbsorptionAmount);
 
-                // We check if there is damageto remove
+                // We check if there is damage to remove
                 if (removedDamage > 0)
                 {
                     // We don't remove more damage than we have mana

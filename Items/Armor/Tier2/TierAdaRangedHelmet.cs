@@ -52,6 +52,7 @@ namespace MechArmor.Items.Armor.Tier2
                         player.setBonus += "\nMovement Mode :\n -10% Ranged Damage\n +30% Movement Speed";
                         player.rangedDamage -= 0.10f;
                         player.moveSpeed += 0.3f;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Movement;
                     }
                     break;
                 case 1:
@@ -65,7 +66,8 @@ namespace MechArmor.Items.Armor.Tier2
                         player.moveSpeed -= player.moveSpeed > 1.0f ? 1.0f : player.moveSpeed;
                         // Immobilize the player in the air
                         //player.vortexDebuff = true;// didn't work as expected
-                        //TODO: check where if I can remove the vertical speep
+                        //TODO: check where I can remove the vertical speep
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
             }

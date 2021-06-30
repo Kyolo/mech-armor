@@ -37,6 +37,7 @@ namespace MechArmor.Items.Armor.Tier1
                 player.setBonus += "\nDefense Mode :\n +40% Armor\n -10% Movement Speed";
                 player.statDefense += 6; //(5+6+5)*.4 = 8
                 player.moveSpeed -= 0.1f;
+                player.GetModPlayer<MechArmorPlayer>().ArmorStateType = (byte)EnumArmorStateType.Defense;
             }
             else // Otherwise when health is low, we add move speed to better move away
             {
@@ -45,6 +46,7 @@ namespace MechArmor.Items.Armor.Tier1
                 player.moveSpeed += 0.6f;
 
                 player.allDamage -= 0.05f;
+                player.GetModPlayer<MechArmorPlayer>().ArmorStateType = (byte)EnumArmorStateType.Movement;
             }
         }
         public override void AddRecipes()

@@ -52,15 +52,17 @@ namespace MechArmor.Items.Armor.Tier4
                         player.setBonus += "\nOffense Mode :\n +40% Melee Swing Speed\n +25% Movement Speed";
                         player.meleeSpeed += 0.40f;
                         player.moveSpeed += 0.25f;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
                 case 1:
                     {
                         player.setBonus += "\nDefensive Utility Mode :\n -50% Movement Speed\n +50% Armor";
-                        //armorPlayer.ProjectileAttractor = true;
-                        //armorPlayer.ProjectileAttractorRange = 10*16;//10 blocks times 16pixel per block
+                        armorPlayer.ProjectileAttractor = true;
+                        armorPlayer.ProjectileAttractorRange = 10*16;//10 blocks times 16pixel per block
                         player.moveSpeed -= 0.50f;
                         player.statDefense += 30; // (20 + 25 + 15) * 0.5 = 30
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
                     }
                     break;
             }

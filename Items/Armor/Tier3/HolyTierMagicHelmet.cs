@@ -49,6 +49,7 @@ namespace MechArmor.Items.Armor.Tier3
                         player.setBonus += "\nOffense Mode :\n +20% Magic Damage\n -10% Mana Cost";
                         player.manaCost -= 0.20f;
                         player.manaRegenBonus += 50;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
                 case 1:
@@ -56,12 +57,14 @@ namespace MechArmor.Items.Armor.Tier3
                     player.statDefense += 6; // (5 + 15 +11) * 0.2 = 6
                     armorPlayer.MagicDamageAbsorption = true;
                     armorPlayer.MagicDamageAbsorptionAmount = 0.10f;
+                    armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
                     
                     break;
                 case 2:
                     player.setBonus += "\nMovement Mode :\n +20% Movement Speed\n +25% Wing Time";
                     player.moveSpeed += 0.20f;
                     player.wingTimeMax = (int)((float)player.wingTimeMax * 1.25f);
+                    armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Movement;
                     break;
             }
 

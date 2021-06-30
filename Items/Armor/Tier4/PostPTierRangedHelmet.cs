@@ -53,16 +53,18 @@ namespace MechArmor.Items.Armor.Tier4
                         player.setBonus += "\nOffense Mode :\n -25% UseTime\n Scope Effect";
                         armorPlayer.RangedUseTimeModifier -= 0.25f;
                         player.scope = true;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nDefensive Utility Mode :\n +25% Movement Speed\n Invisibility and reduced aggro\n -50 Ranged Damage";
+                        player.setBonus += "\nDefensive Utility Mode :\n +25% Movement Speed\n Invisibility and reduced aggro\n -50% Ranged Damage";
 
                         player.moveSpeed += 0.25f;
                         player.rangedDamage -= 0.5f;
                         player.invis = true;
                         player.aggro -= 400;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense | (byte)EnumArmorStateType.Utility;
                     }
                     break;
             }

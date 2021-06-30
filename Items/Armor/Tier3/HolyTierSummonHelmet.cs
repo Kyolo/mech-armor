@@ -53,6 +53,7 @@ namespace MechArmor.Items.Armor.Tier3
                         player.setBonus += "\nOffensive Mode :\n +10% Minion Damage\n +1 Minion Slot";
                         player.minionDamage += 0.10f;
                         player.maxMinions += 1;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
                 case 1:
@@ -60,6 +61,7 @@ namespace MechArmor.Items.Armor.Tier3
                         player.setBonus += "\nDefense Mode :\n +2 Armor per minion";//\n +5% Damage Resistance per sentry";
                         player.statDefense += 2 * player.numMinions;
                         //player.endurance += 0.5f * player.
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
 
                     }
                     break;
@@ -67,6 +69,7 @@ namespace MechArmor.Items.Armor.Tier3
                     player.setBonus += "\nMovement Mode :\n +20% Movement Speed\n +25% Wing Time";
                     player.moveSpeed += 0.20f;
                     player.wingTimeMax = (int)(player.wingTimeMax * 1.25f);
+                    armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Movement;
                     break;
             }
 

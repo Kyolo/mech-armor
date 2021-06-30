@@ -54,6 +54,7 @@ namespace MechArmor.Items.Armor.Tier4
                         armorPlayer.MagicDamageAbsorption = true;
                         armorPlayer.MagicDamageAbsorptionAmount += 0.15f;
                         armorPlayer.MagicUseTimeModifier -= 0.10f;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
                     }
                     break;
                 case 1:
@@ -62,6 +63,7 @@ namespace MechArmor.Items.Armor.Tier4
                         player.ghostHeal = true;
                         player.manaCost += 0.50f;
                         player.moveSpeed -= 0.10f;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
             }

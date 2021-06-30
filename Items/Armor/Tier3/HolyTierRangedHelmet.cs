@@ -52,6 +52,7 @@ namespace MechArmor.Items.Armor.Tier3
                         player.setBonus += "\nOffense Mode :\n +20% Ranged Damage\n -20% Movement Speed";
                         player.rangedDamage += 0.20f;
                         player.moveSpeed -= 0.2f;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
                 case 1:
@@ -60,12 +61,14 @@ namespace MechArmor.Items.Armor.Tier3
 
                         player.moveSpeed += 0.20f;
                         player.statDefense += 7; // (9 + 15 +11) * 0.2 = 17
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
                     }
                     break;
                 case 2:
                     player.setBonus += "\nMovement Mode :\n +20% Movement Speed\n +25% Wing Time";
                     player.moveSpeed += 0.20f;
                     player.wingTimeMax = (int)((float)player.wingTimeMax * 1.25f);
+                    armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Movement;
                     break;
             }
 

@@ -49,17 +49,20 @@ namespace MechArmor.Items.Armor.Tier3
                     player.setBonus += "\nOffensive Movement Mode :\n +20% Movement Speed\n +30% Melee Swing Speed";
                     player.moveSpeed += 0.20f;
                     player.meleeSpeed += 0.30f;
+                    mAP.ArmorStateType = (byte)EnumArmorStateType.Offense | (byte)EnumArmorStateType.Movement;
                     break;
                 case 1:
                     player.setBonus += "\nDefense Mode :\n +50% Armor\n +10% Damage Reduction\n -20% Movement Speed";
                     player.statDefense += 25; // (24 + 15 +11) * 0.5 = 24
                     player.moveSpeed -= 0.20f;
                     player.endurance += 0.10f;
+                    mAP.ArmorStateType = (byte)EnumArmorStateType.Defense;
                     break;
                 case 2:
                     player.setBonus += "\nMovement Mode :\n +20% Movement Speed\n +25% Wing Time";
                     player.moveSpeed += 0.20f;
                     player.wingTimeMax = (int)((float)player.wingTimeMax * 1.25f);
+                    mAP.ArmorStateType = (byte)EnumArmorStateType.Movement;
                     break;
             }
         }

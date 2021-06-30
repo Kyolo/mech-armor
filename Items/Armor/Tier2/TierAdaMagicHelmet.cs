@@ -48,6 +48,7 @@ namespace MechArmor.Items.Armor.Tier2
                         player.setBonus += "\nUtility Mode :\n -20% Mana Cost\n Increased mana regeneration";
                         player.manaCost -= 0.20f;
                         player.manaRegenBonus += 50;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Utility;
                     }
                     break;
                 case 1:// Damage mode : more damage, less efficiency
@@ -55,6 +56,7 @@ namespace MechArmor.Items.Armor.Tier2
                         player.setBonus += "\nOffense Mode :\n +30% Magic Damage\n +10% Mana Cost";
                         player.magicDamage += 0.30f;
                         player.manaCost += 0.10f;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
             }

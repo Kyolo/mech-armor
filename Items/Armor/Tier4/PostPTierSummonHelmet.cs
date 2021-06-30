@@ -53,6 +53,7 @@ namespace MechArmor.Items.Armor.Tier4
                         player.setBonus += "\nDefense Mode :\n +2 Armor per minion slot filed\n +5% Movement Speed per minion slot filed";
                         player.statDefense += 2 * player.numMinions;
                         player.moveSpeed += 0.05f * player.numMinions;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
                     }
                     break;
                 case 1:
@@ -61,6 +62,7 @@ namespace MechArmor.Items.Armor.Tier4
 
                         player.minionDamage += 0.20f;
                         player.maxMinions += 2;
+                        armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
             }
