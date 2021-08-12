@@ -47,7 +47,7 @@ namespace MechArmor.Items.Armor.Tier4
 
             switch(armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
                         player.setBonus += "\nOffense Mode :\n +40% Melee Swing Speed\n +25% Movement Speed";
                         player.meleeSpeed += 0.40f;

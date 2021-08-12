@@ -10,9 +10,9 @@ namespace MechArmor.UI.Lib
     //class UIToggle : T {
     //  static_assert(std::is_base_of<UIElement, T>::value);
     //}
-    //And I'll be able to easily add a few new methods to an existing classs
-    //Instead I need to create a full container object
-    //I never thought I'd miss C++ templates
+    // And I'll be able to easily add a few new methods to an existing classs
+    // Instead I need to create a full container object
+    // I never thought I'd miss C++ templates
     public class UIToggle : UIElement
     {
 

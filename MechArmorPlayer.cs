@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using Microsoft.Xna.Framework;
+
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.DataStructures;
 
 using MechArmor.Buffs;
-using Terraria.DataStructures;
 
 namespace MechArmor
 {
@@ -223,6 +226,62 @@ namespace MechArmor
         }
 
 
+        private static byte RotationOffset = 0;
+        // (More or less) Fancy particles effects
+        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        {
+
+            // If we have a projectile attractor and at the first shadow pass (I think, I'll have to check).
+            if(ProjectileAttractor)
+            {
+                // We make a full circle of dust arround the player
+                for(int i = 0; i < 360; i+=8)
+                {
+                    float dX = (float)Math.Cos(Math.PI / 180f * (i+RotationOffset)) * ProjectileAttractorRange;
+                    float dY = (float)Math.Sin(Math.PI / 180f * (i+RotationOffset)) * ProjectileAttractorRange;
+                    int dustIndex = Dust.NewDust(this.player.position + new Vector2(dX, dY), 8, 8, 55, 0, 0,0,default, 0.5f);
+
+                }
+            }
+            RotationOffset = (byte)((RotationOffset + 1) & 0xff);
+        }
+
+        // Bullet attractor
+        public override void PostUpdate()
+        {
+            if(ProjectileAttractor)
+            {
+                foreach(Projectile proj in Main.projectile)
+                {
+                    if (proj.hostile)
+                    {
+                        // Are we are in range ?
+                        Vector2 projToPlayer = player.position - proj.position;
+                        if (ProjectileAttractorRange * ProjectileAttractorRange > projToPlayer.LengthSquared())
+                        {
+                            //Yes, attract the projectile
+                            //But first, do we need to kill it ?
+                            if(256 > projToPlayer.LengthSquared())
+                            {
+                                //1 tile = 16 pixel
+                                //16² = 256
+                                proj.Kill();
+                                //TODO: check if this don't make complexe projectile break
+                                //TODO: add a whitelist/blacklist as required
+                            }
+                            else
+                            {
+                                //float speed = 100f / projToPlayer.LengthSquared();
+                                //projToPlayer.Normalize();
+                                projToPlayer.Normalize();
+                                proj.velocity = projToPlayer * proj.velocity.Length();
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
 
 
         // Key trigger
