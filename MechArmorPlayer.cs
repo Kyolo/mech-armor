@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
 using Terraria;
+using Terraria.ID;
 using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.DataStructures;
 
 using MechArmor.Buffs;
+using MechArmor.Projectiles;
+using MechArmor.Items.Armor.Tier5;
 
 namespace MechArmor
 {
@@ -76,6 +79,11 @@ namespace MechArmor
         public bool MagicDamageAbsorption;
 
         /// <summary>
+        /// The amount of damage absorbed by the MagicDamageAbsorption
+        /// </summary>
+        public int MagicDamageAbsorbed;
+
+        /// <summary>
         /// Modify the UseTime of a Magic Weapon
         /// </summary>
         public float MagicUseTimeModifier;
@@ -105,6 +113,18 @@ namespace MechArmor
 
 		public bool ArmorHeavyGun;
 
+
+        /// <summary>
+        /// The amount of lunar drones following this player.
+        /// Used by the lunar and proto-lunar armors
+        /// </summary>
+        public byte LunarDroneCount;
+
+        /// <summary>
+        /// The mode of the lunar 
+        /// </summary>
+        public LunarDroneModes LunarDroneMode;
+
         /// <summary>
         /// Sets the current maximum number of the armor states
         /// </summary>
@@ -116,6 +136,7 @@ namespace MechArmor
             if (ArmorState >= value)
                 ArmorState = 0;
         }
+
 
 
         // Effects use
@@ -148,6 +169,9 @@ namespace MechArmor
             // The range of the attractor
             ProjectileAttractorRange = 0.0f;
 
+            //The amount of lunar drones this player should have
+            LunarDroneCount = 0;
+            LunarDroneMode = LunarDroneModes.Idle;
         }
 
 		public override void UpdateDead()
@@ -177,6 +201,10 @@ namespace MechArmor
             // The range of the attractor
             ProjectileAttractorRange = 0.0f;
 
+            //The amount of lunar drones this player should have
+            LunarDroneCount = 0;
+            LunarDroneMode = LunarDroneModes.Idle;
+
         }
 
         // Damage Modification
@@ -203,18 +231,20 @@ namespace MechArmor
                         player.statMana -= manaRemoved;
                         // And lastly we restart the mana regeneration delay
                         player.manaRegenDelay = (int)player.maxRegenDelay;
+
+                        MagicDamageAbsorbed += damage;
                     }
 
                 }
             }
-            return base.PreHurt(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource);
+            return true;
         }
 
         // Use Time modification
         public override float UseTimeMultiplier(Item item)
         {
             // If this is a magic weapon
-            if(item.magic)
+            if (item.magic)
             {
                 return MagicUseTimeModifier;
             }
@@ -226,7 +256,33 @@ namespace MechArmor
         }
 
 
-        private static byte RotationOffset = 0;
+        public override bool Shoot(Item item, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+            // Lunar drone multishoot
+            // TODO: doesn't works on some weapons, because the hook is not called for those
+            // Will strangely works better on mooded weapons
+            if (item.ranged && LunarDroneMode == LunarDroneModes.Multishot)
+            {
+                // We need to find our lunar drones
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    Projectile proj = Main.projectile[i];
+
+                    // When we find one of our drone
+                    Dust.NewDust(proj.Center, 8, 8, 55);
+                    if(proj.owner == player.whoAmI && proj.type == ModContent.ProjectileType<LunarArmorDrone>())
+                    {
+                        // we shoot a new projectile
+                        int newProj = Projectile.NewProjectile(proj.Center, new Vector2(speedX, speedY), type, (int)(damage * 0.25f), knockBack, player.whoAmI);
+                    }
+                }
+            }
+
+            return true;
+        }
+
+
+        private static byte ProjectileAttractorDrawingRotationOffset = 0;
         // (More or less) Fancy particles effects
         public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
@@ -237,16 +293,44 @@ namespace MechArmor
                 // We make a full circle of dust arround the player
                 for(int i = 0; i < 360; i+=8)
                 {
-                    float dX = (float)Math.Cos(Math.PI / 180f * (i+RotationOffset)) * ProjectileAttractorRange;
-                    float dY = (float)Math.Sin(Math.PI / 180f * (i+RotationOffset)) * ProjectileAttractorRange;
-                    int dustIndex = Dust.NewDust(this.player.position + new Vector2(dX, dY), 8, 8, 55, 0, 0,0,default, 0.5f);
+                    float dX = (float)Math.Cos(Math.PI / 180f * (i+ProjectileAttractorDrawingRotationOffset)) * ProjectileAttractorRange;
+                    float dY = (float)Math.Sin(Math.PI / 180f * (i+ProjectileAttractorDrawingRotationOffset)) * ProjectileAttractorRange;
+                    Vector2 toPlayer = player.position - new Vector2(dX,dY);
+                    toPlayer.Normalize();
+                    Dust.NewDustPerfect(this.player.position + new Vector2(dX, dY), 55, toPlayer, 1, default, 0.5f);
 
                 }
             }
-            RotationOffset = (byte)((RotationOffset + 1) & 0xff);
+            ProjectileAttractorDrawingRotationOffset = (byte)((ProjectileAttractorDrawingRotationOffset + 1) & 0xff);
         }
 
-        // Bullet attractor
+        // Lunar Drone Projectile Creation & Destruction, as required
+        public override void PostUpdateEquips()
+        {
+            int existingDrones = player.ownedProjectileCounts[ModContent.ProjectileType<LunarArmorDrone>()];
+            // Do we have enough drones created ?
+            if (existingDrones < LunarDroneCount)
+            {
+                //Nope, do we also need to add the buff ?
+                if(existingDrones == 0)
+                {
+                    //Yes we do
+                    player.AddBuff(ModContent.BuffType<BuffLunarArmorDrone>(), 18000, true);
+                }
+
+                // We create a new drone
+                LunarArmorDrone proj = (LunarArmorDrone)Projectile.NewProjectileDirect(player.position, new Vector2(0, 0), ModContent.ProjectileType<LunarArmorDrone>(), 0, 0f, player.whoAmI).modProjectile;
+                // We set its index
+                proj.LunarDroneIndex = (sbyte)existingDrones;
+            }
+            //else// Cleaned in the drone AI
+            //{
+            //    // We have too much drones
+            //
+            //}
+        }
+
+
         public override void PostUpdate()
         {
             if(ProjectileAttractor)
@@ -281,8 +365,63 @@ namespace MechArmor
                     }
                 }
             }
-        }
 
+            // If we have a Lunar projectile shield
+            if(LunarDroneMode == LunarDroneModes.ProjectileShield)
+            {
+                // We check for hostile projectile in range
+                foreach(Projectile proj in Main.projectile)
+                {
+                    if (proj.hostile)
+                    {
+
+                        if(Vector2.DistanceSquared(proj.Center, player.Center) < LunarArmorDrone.DroneDistance * LunarArmorDrone.DroneDistance)
+                        {
+                            // If we have one, we teleport it to the player
+                            proj.Center = player.Center;
+                            // We force damage calcultation
+                            proj.Damage();
+                            // And we kill it to clear it
+                            proj.Kill();//TODO: verify if it need a whitelist/blacklist, same as the projectile attractor
+                        }
+                    }
+                }
+            }
+
+            // If we need to charge a drone
+            if(LunarDroneMode == LunarDroneModes.ManaShield)
+            {
+                if(MagicDamageAbsorbed > 100)
+                {
+                    // We remove some damage stored
+                    MagicDamageAbsorbed -= 100;
+                    int foundDrone = 0;
+                    // And we sarch the player's drones
+                    foreach(Projectile proj in Main.projectile)
+                    {
+                        if(proj.owner == player.whoAmI && proj.type == ModContent.ProjectileType<LunarArmorDrone>())
+                        {
+                            // We found one
+                            LunarArmorDrone drone = (LunarArmorDrone)proj.modProjectile;
+                            foundDrone++;
+
+                            // If this the 1st found, we have a 1/n-drone chance to choose this one
+                            // The second will have a 2/n-drone chance to be choosen
+                            // until the n-th that will be garanteed to be choosed
+                            // it's not equal, but it works
+                            if(foundDrone > Main.rand.Next(LunarDroneCount) && !drone.ManaCharged)
+                            {
+                                drone.ManaCharged = true;
+                                break;
+                            }
+
+                        }
+                    }
+
+                    // If no available drones was found, the chargeis simply lost
+                }
+            }
+        }
 
         // Key trigger
 
@@ -291,6 +430,7 @@ namespace MechArmor
             // When pressing the key, change the state of the armor
             byte stateChange = 0;
 
+            //TODO: change stateChange for a sbyte and values to -1 & 1
             if(MechArmor.MechArmorStateChangeKey.JustPressed)
             {
                 stateChange = 1;//Forward

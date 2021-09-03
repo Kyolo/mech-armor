@@ -31,7 +31,7 @@ namespace MechArmor
             MechArmorPacketHandler.mod = this;
 
 
-            // Code only started on server
+            // Code only started on client
             if (!Main.dedServ)
             {
                 ArmorStateIndicatorState = new UI.ArmorStateIndicator();
