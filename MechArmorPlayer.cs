@@ -383,6 +383,8 @@ namespace MechArmor
                             proj.Damage();
                             // And we kill it to clear it
                             proj.Kill();//TODO: verify if it need a whitelist/blacklist, same as the projectile attractor
+
+                            proj.netUpdate = true;
                         }
                     }
                 }

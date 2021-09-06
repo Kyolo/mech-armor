@@ -72,7 +72,7 @@ namespace MechArmor.Projectiles
 
         public sealed override void SetDefaults()
         {
-            projectile.width = 52;//TODO: choose correct graphics
+            projectile.width = 52;
             projectile.height = 32;
             // Makes the minion go through tiles freely
             projectile.tileCollide = false;
@@ -162,7 +162,7 @@ namespace MechArmor.Projectiles
             #region General behavior
 
             // The drones can have a lot of very different behavior
-            // But they never stray far from their player
+            // But they (almost) never stray far from their player
             Vector2 offset = new Vector2(0, 0);
 
             float positionLoopProgression = projectile.ai[0] / AnimationLoopDuration;
@@ -192,7 +192,7 @@ namespace MechArmor.Projectiles
 
                         projectile.rotation = (player.itemRotation + (float)Math.PI / 4.0f);
 
-                        projectile.damage = player.HeldItem.damage;//TODO: find out why this doesn't deal damage
+                        projectile.damage = player.HeldItem.damage;
                         projectile.melee = true;
                     }
                     else
@@ -292,32 +292,34 @@ namespace MechArmor.Projectiles
                     break;
                 case LunarDroneModes.SummonBoost:
                     // Boost one summon per drone
-                    int drone = -1; // Counter for the number of drone found
+                    int minionCount = -1; // Counter for the number of minion found
+                    bool minionFound = false;
                     for(int i = 0; i < Main.projectile.Length; i++)
                     {
                         Projectile otherProj = Main.projectile[i];
                         if(otherProj.owner == projectile.owner && otherProj.minion)
                         {
-                            drone++;
-                            if(drone == LunarDroneIndex)
+                            minionCount++;
+                            if(minionCount == LunarDroneIndex)
                             {
-                                // We found the correct drone
+                                // We found the correct minion
                                 // Because for once we don't follow the player, we need to compensate
                                 offset = -player.Center;
-                                offset += otherProj.Center;//TODO: maybe add a bit of jitter ?
+                                offset += otherProj.Center;
                                 projectile.rotation = otherProj.rotation;
 
-                                // We boost the damage of the minion, if we haven't already
+                                // We boost the damage of the minion
                                 otherProj.GetGlobalProjectile<ProjectileExtension>().LunarBoostedMinion = true;
-                                
+
+                                minionFound = true;
                                 break;
                             }
                         }
                     }
 
-                    if (drone == -1)
+                    // If we didn't find any minion
+                    if (!minionFound)
                     {
-                        // We didn't find a minion
                         // We'll hover in circle over our player
                         offset = new Vector2(0, player.height * -2.0f)
                             + new Vector2(
@@ -366,6 +368,7 @@ namespace MechArmor.Projectiles
                     // The magic happens in MechArmorPlayer::PostUpdate
                     offset.X = (float)Math.Cos(Math.PI * animationVar * ((LunarDroneIndex & 1) == 1 ? -2.0f : 2.0f)) * DroneDistance * player.direction;
                     offset.Y = (float)Math.Sin(Math.PI * animationVar * ((LunarDroneIndex & 1) == 1 ? -2.0f : 2.0f)) * DroneDistance * player.direction;
+                    projectile.rotation = (player.Center - projectile.Center).ToRotation() + (float)Math.PI / 4.0f;
                     break;
                 case LunarDroneModes.ManaShield:
                     // Ellipsis
@@ -374,10 +377,7 @@ namespace MechArmor.Projectiles
                     // Behind the player
                     offset.X += player.direction * DroneDistance * 0.75f;
 
-                    Vector2 toPlayer = player.Center - projectile.Center;
-                    //toPlayer.Normalize();
-
-                    projectile.rotation = toPlayer.ToRotation() + (float)Math.PI / 4.0f;
+                    projectile.rotation = (player.Center - projectile.Center).ToRotation() + (float)Math.PI / 4.0f;
 
                     // We may need to fire a bolt
                     if (ManaCharged)
@@ -433,8 +433,6 @@ namespace MechArmor.Projectiles
             #endregion
 
             #region Animation and visuals
-            // So it will lean slightly towards the direction it's moving
-            //projectile.rotation = projectile.velocity.X * 0.05f;
 
             // This is a simple "loop through all frames from top to bottom" animation
             //int frameSpeed = 5;
@@ -448,8 +446,10 @@ namespace MechArmor.Projectiles
             //        projectile.frame = 0;
             //    }
             //}
-            //TODO: add things between drones on projectile barrier and shield
-            //TODO: add pink particles to mana shield when a drone is charged
+
+            if (ManaCharged)
+                Dust.NewDust(projectile.Center, 8, 8, 255);
+
             Lighting.AddLight(projectile.Center, Color.White.ToVector3() * 0.78f);
             #endregion
         }

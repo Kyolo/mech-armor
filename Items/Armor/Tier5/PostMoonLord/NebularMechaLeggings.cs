@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MechArmor.Items.Armor.Tier5.PreMoonLord
+namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 {
     [AutoloadEquip(EquipType.Legs)]
     class NebularMechaLeggings : ModItem
@@ -44,7 +44,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
 
             ModRecipe regularRecipe = new ModRecipe(mod);
             regularRecipe.AddTile(TileID.LunarCraftingStation);
-            regularRecipe.AddIngredient(ModContent.ItemType<ProtoNebularMechaLeggings>());
+            regularRecipe.AddIngredient(ModContent.ItemType<NebularMechaLeggings>());
             regularRecipe.AddIngredient(ItemID.LunarBar, 10);
             regularRecipe.SetResult(this);
             regularRecipe.AddRecipe();
