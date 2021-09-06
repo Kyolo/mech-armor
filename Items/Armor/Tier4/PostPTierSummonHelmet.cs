@@ -10,14 +10,15 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A fragile helmet with advanced targeting systems");
+            DisplayName.SetDefault("Strange Wood Helmet");
+            Tooltip.SetDefault("10% increased minion damage\nIncrease minion slots by 1");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 8, 0, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 7;
         }
@@ -35,7 +36,7 @@ namespace MechArmor.Items.Armor.Tier4
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "WIP";
+            player.setBonus = "";
 
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
@@ -43,14 +44,12 @@ namespace MechArmor.Items.Armor.Tier4
             armorPlayer.SetMaxArmorStates(2);
             armorPlayer.ArmorCooldownDuration = 10;
 
-            // And then we allow the use of heavy guns
-
 
             switch(armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
-                        player.setBonus += "\nDefense Mode :\n +2 Armor per minion slot filed\n +5% Movement Speed per minion slot filed";
+                        player.setBonus += "Defense Mode :\n Increase armor by 2 per minion slot filed\n 5% increased movement speed per minion slot filed";
                         player.statDefense += 2 * player.numMinions;
                         player.moveSpeed += 0.05f * player.numMinions;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
@@ -58,7 +57,7 @@ namespace MechArmor.Items.Armor.Tier4
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nOffense Mode :\n +20% Minion Damage\n +2 Minion Slot";
+                        player.setBonus += "Offense Mode :\n 20% increased minion Damage\n Increase minion slots by 2";
 
                         player.minionDamage += 0.20f;
                         player.maxMinions += 2;

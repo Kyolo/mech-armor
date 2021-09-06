@@ -59,7 +59,6 @@ namespace MechArmor.UI
             overlay.Height.Set(148, 0f);
 
             // And the differents state that will be displayed as required
-            //offense = new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_offense_active"));
             offense = new UIToggle();
             offense.Append(new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_offense_active")));
             offense.Width.Set(148, 0f);
@@ -175,7 +174,7 @@ namespace MechArmor.UI
             utility.Visible = (mAP.ArmorStateType & (byte)EnumArmorStateType.Utility) != 0;
 
             // And we don't forget to set the correct indicator
-            stateIndicator.SetText((mAP.ArmorState+1) + "/" + (mAP.MaxArmorStates+1));
+            stateIndicator.SetText((mAP.ArmorState+1) + "/" + (mAP.MaxArmorStates));
         }
     }
 }

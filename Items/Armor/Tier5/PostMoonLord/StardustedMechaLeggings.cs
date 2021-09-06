@@ -10,15 +10,14 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("10% Movement Speed\n+2 Max Minions");
+            Tooltip.SetDefault("10% increased movement speed\nIncrease minion slots by 2");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 11, 75, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 8;
 

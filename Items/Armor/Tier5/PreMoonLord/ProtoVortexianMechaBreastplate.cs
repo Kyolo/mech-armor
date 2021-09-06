@@ -9,15 +9,14 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("10% Increased Melee Damage\n10% Increased Melee Critical Chance\n-25% Ammo Consumption Chance");
+            Tooltip.SetDefault("10% increased melee damage\n10% increased melee critical chance\n25% chance not to consume ammo");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 15, 0, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 20;
         }

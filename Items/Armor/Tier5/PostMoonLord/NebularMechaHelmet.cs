@@ -11,14 +11,14 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+200 Maximum Mana\n10% Decreased Mana Cost\n5% Increased Magical Critical Chance");
+            Tooltip.SetDefault("Increase maximum mana by 200\n10% reduced mana cost\n5% increased magical critical chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 8, 75, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 17;
         }
@@ -52,9 +52,9 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
             {
                 case 0:
                     {
-                        player.setBonus += "\nMana Amplifier :\n100% Magical Damage\n100% Increased Mana Cost";
+                        player.setBonus += "\nMana Amplifier :\n100% increased magical damage\n200% increased mana cost";
                         player.magicDamage += 1.0f;
-                        player.manaCost += 1.0f;
+                        player.manaCost += 2.0f;
                         // Because we use lunar drones, we need to tell them how to behave
                         armorPlayer.LunarDroneMode = LunarDroneModes.ManaAmplifier;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
@@ -71,7 +71,7 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
                     break;
                 case 2:
                     {
-                        player.setBonus += "\nMana Shield :\n10% Damage Reduction\n10% Damage Absorbed into mana";
+                        player.setBonus += "\nMana Shield :\n10% increased damage reduction\n10% Magical Damage Absorption";
                         player.endurance += 0.10f;
                         armorPlayer.MagicDamageAbsorption = true;
                         armorPlayer.MagicDamageAbsorptionAmount += 0.10f;

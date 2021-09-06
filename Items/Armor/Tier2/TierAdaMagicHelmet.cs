@@ -10,14 +10,14 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+100 maximum mana\nA fragile helmet that help channeling mana");
+            Tooltip.SetDefault("+100 maximum mana");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 3, 50, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 4;
         }
@@ -34,7 +34,7 @@ namespace MechArmor.Items.Armor.Tier2
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "This mana conductive armor can help you channel magic in different ways";
+            player.setBonus = "";
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
             // We need to indicate the maximum number of states for this armor
@@ -43,19 +43,19 @@ namespace MechArmor.Items.Armor.Tier2
 
             switch (armorPlayer.ArmorState)
             {
-                case 0:// Efficient mode : a bit less damage, better efficiency
+                case 0:
                     {
-                        player.setBonus += "\nUtility Mode :\n -20% Mana Cost\n Increased mana regeneration";
+                        player.setBonus += "\nUtility Mode :\n 20% Reduced Mana Cost\n Increased Mana Regeneration";
                         player.manaCost -= 0.20f;
                         player.manaRegenBonus += 50;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Utility;
                     }
                     break;
-                case 1:// Damage mode : more damage, less efficiency
+                case 1:
                     {
-                        player.setBonus += "\nOffense Mode :\n +30% Magic Damage\n +10% Mana Cost";
+                        player.setBonus += "\nOffense Mode :\n 30% Increased Magic Damage\n 60% Increased Mana Cost";
                         player.magicDamage += 0.30f;
-                        player.manaCost += 0.10f;
+                        player.manaCost += 0.60f;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;

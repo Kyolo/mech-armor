@@ -8,7 +8,7 @@ namespace MechArmor.Items.Armor.Tier1
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A leggings with retracting armor plates");
+
         }
 
         public override void SetDefaults()

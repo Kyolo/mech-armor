@@ -16,8 +16,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 14, 25, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 22;
         }

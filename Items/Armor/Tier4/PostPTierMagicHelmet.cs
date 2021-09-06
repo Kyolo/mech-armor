@@ -10,14 +10,15 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Mana +100\n+10% Magic Damage\n+10% Magical Critical Strike Chance");
+            DisplayName.SetDefault("Shifting Spectral Hood");
+            Tooltip.SetDefault("Increase maximum mana by 100\n10% increased magical damage\n10% increased magical critical chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 8, 50, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 15;
         }
@@ -36,21 +37,19 @@ namespace MechArmor.Items.Armor.Tier4
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "WIP";
+            player.setBonus = "";
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
             // We need to indicate the maximum number of states for this armor
             armorPlayer.SetMaxArmorStates(2);
             armorPlayer.ArmorCooldownDuration = 10;
 
-            // And then we allow the use of heavy guns
-
 
             switch(armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
-                        player.setBonus += "\nDefense Mode :\n +15% Magic Damage Absorption\n -10% Magic UseTime";
+                        player.setBonus += "Defense Mode :\n 15% Magic Damage Absorption\n 10% reduced magic UseTime";
                         armorPlayer.MagicDamageAbsorption = true;
                         armorPlayer.MagicDamageAbsorptionAmount += 0.15f;
                         armorPlayer.MagicUseTimeModifier -= 0.10f;
@@ -59,7 +58,7 @@ namespace MechArmor.Items.Armor.Tier4
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nOffense Mode :\n Killing an enemy release a Healing orb (WIP)\n +50% Mana Cost\n -10% Movement Speed";
+                        player.setBonus += "Offense Mode :\n Killing an enemy release a Healing orb (WIP)\n 50% increased mana cost\n 10% reduced movement speed";
                         player.ghostHeal = true;
                         player.manaCost += 0.50f;
                         player.moveSpeed -= 0.10f;

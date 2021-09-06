@@ -9,7 +9,7 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+5% Movement Speed");
+            Tooltip.SetDefault("5% Increased Movement Speed");
         }
 
         public override void SetDefaults()
@@ -17,7 +17,7 @@ namespace MechArmor.Items.Armor.Tier2
             item.width = 18;
             item.height = 18;
             //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 2, 0, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 11;
             

@@ -9,15 +9,15 @@ namespace MechArmor.Items.Armor.Tier3
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+10% Movement Speed");
+            DisplayName.SetDefault("Holy Mechanized Leggings");
+            Tooltip.SetDefault("10% increased movement speed");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 3, 0, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 11;
             

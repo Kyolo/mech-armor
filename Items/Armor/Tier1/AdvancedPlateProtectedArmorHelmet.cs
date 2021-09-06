@@ -10,7 +10,7 @@ namespace MechArmor.Items.Armor.Tier1
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A helmet with alloyed hellstone and evilmetal armor plates");
+            
         }
 
         public override void SetDefaults()
@@ -29,7 +29,7 @@ namespace MechArmor.Items.Armor.Tier1
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Like the basic plate protected Armor, but heavier and the Hellstone allow you to light enemies on fire";
+            player.setBonus = "Melee attacks light enemies on fire";
             player.magmaStone = true;
 
             // When health is high, we give a better defense

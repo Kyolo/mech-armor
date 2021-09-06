@@ -10,14 +10,15 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A fragile helmet with advanced targeting systems");
+            DisplayName.SetDefault("Glowing Ranger Helmet");
+            Tooltip.SetDefault("15% increased ranged damage\n5% increased ranged critical chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 8, 50, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 10;
         }
@@ -35,7 +36,7 @@ namespace MechArmor.Items.Armor.Tier4
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "WIP";
+            player.setBonus = "20% Chance not to consume ammo";
             player.ammoCost80 = true;
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
@@ -43,14 +44,12 @@ namespace MechArmor.Items.Armor.Tier4
             armorPlayer.SetMaxArmorStates(2);
             armorPlayer.ArmorCooldownDuration = 2;
 
-            // And then we allow the use of heavy guns
-
 
             switch(armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
-                        player.setBonus += "\nOffense Mode :\n -25% UseTime\n Scope Effect";
+                        player.setBonus += "\nOffense Mode :\n 25% reduced ranged UseTime\n Scope Effect";
                         armorPlayer.RangedUseTimeModifier -= 0.25f;
                         player.scope = true;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
@@ -58,7 +57,7 @@ namespace MechArmor.Items.Armor.Tier4
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nDefensive Utility Mode :\n +25% Movement Speed\n Invisibility and reduced aggro\n -50% Ranged Damage";
+                        player.setBonus += "\nDefensive Utility Mode :\n 25% increased movement speed\n Invisibility and reduced enemy aggression\n 50% reduced ranged damage";
 
                         player.moveSpeed += 0.25f;
                         player.rangedDamage -= 0.5f;

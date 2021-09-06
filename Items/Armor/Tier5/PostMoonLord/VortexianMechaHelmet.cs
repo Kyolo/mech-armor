@@ -11,14 +11,14 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("7% Increased Ranged Critical Chance");
+            Tooltip.SetDefault("7% increased ranged critical chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 8, 75, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 13;
         }
@@ -47,9 +47,9 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
             switch (armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
-                        player.setBonus += "\nMultishot :\nDrones shoots additional projectiles at 25% Damage";
+                        player.setBonus += "\nMultishot :\nDrones shoots additional projectiles at 25% damage";
                         armorPlayer.LunarDroneMode = LunarDroneModes.Multishot;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }

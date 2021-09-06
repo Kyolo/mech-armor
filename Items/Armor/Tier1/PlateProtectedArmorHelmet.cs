@@ -10,7 +10,7 @@ namespace MechArmor.Items.Armor.Tier1
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A helmet with retracting armor plates");
+
         }
 
         public override void SetDefaults()
@@ -29,7 +29,7 @@ namespace MechArmor.Items.Armor.Tier1
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Gives additionnal armor and reduced speed when healthy.\nAdd move speed to flee when heavily damaged.";
+            player.setBonus = "Gives additionnal armor and reduce speed when healthy.\nAdd move speed to flee when heavily damaged.";
 
             // When health is high, we give a better defense
             if(player.statLife > player.statLifeMax2 * .15f)

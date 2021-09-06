@@ -9,15 +9,15 @@ namespace MechArmor.Items.Armor.Tier3
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+10% Critical Strike Chance");
+            DisplayName.SetDefault("Holy Mechanized Breastplate");
+            Tooltip.SetDefault("10% increased critical strike chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 4, 50, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 15;
         }

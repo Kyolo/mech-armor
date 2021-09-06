@@ -10,7 +10,7 @@ namespace MechArmor.Items.Armor.Tier1
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A helmet with light armor plates");
+
         }
 
         public override void SetDefaults()
@@ -29,7 +29,7 @@ namespace MechArmor.Items.Armor.Tier1
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Functionnally identical to the basic Plate Protected Armor but the new plates allow for easier movement.";
+            player.setBonus = "";
 
             // When health is high, we give a better defense
             if(player.statLife > player.statLifeMax2 *.20)

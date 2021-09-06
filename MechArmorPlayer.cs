@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 
@@ -14,6 +14,7 @@ using Terraria.ModLoader.IO;
 using Terraria.DataStructures;
 
 using MechArmor.Buffs;
+using MechArmor.Config;
 using MechArmor.Projectiles;
 using MechArmor.Items.Armor.Tier5;
 
@@ -21,12 +22,14 @@ namespace MechArmor
 {
     class MechArmorPlayer : ModPlayer
     {
+
+        #region Fields
+
         /// <summary>
         /// The state of the current armor.
-		/// State effect depend on armor;
+        /// State effect depend on armor;
         /// </summary>
         public byte ArmorState;
-
 
         /// <summary>
         /// The type of the current armor state
@@ -104,17 +107,6 @@ namespace MechArmor
         public float ProjectileAttractorRange;
 
         /// <summary>
-        /// If the player can use the heaviest guns of the mod.
-        /// Only possible with mecha and heavy armors
-        /// </summary>
-        public bool CanUseHeavyGuns {
-			get { return ArmorHeavyGun; }
-		}
-
-		public bool ArmorHeavyGun;
-
-
-        /// <summary>
         /// The amount of lunar drones following this player.
         /// Used by the lunar and proto-lunar armors
         /// </summary>
@@ -124,6 +116,10 @@ namespace MechArmor
         /// The mode of the lunar 
         /// </summary>
         public LunarDroneModes LunarDroneMode;
+
+        #endregion
+
+        #region Fields accesors
 
         /// <summary>
         /// Sets the current maximum number of the armor states
@@ -137,10 +133,9 @@ namespace MechArmor
                 ArmorState = 0;
         }
 
+        #endregion
 
-
-        // Effects use
-
+        #region Effects reset
 
         public override void ResetEffects()
         {
@@ -156,8 +151,6 @@ namespace MechArmor
             ArmorWarmupDuration = 0;
             ArmorWarmupDurationModifier = 1;
             IsArmorOnWarmup = false;
-            //If armor can yield heavy weapons
-            ArmorHeavyGun = false;
             // Part of damage inflicted on mana instead of health
             MagicDamageAbsorptionAmount = 0;
             // A modifier for the UseTime of magical weapons
@@ -188,8 +181,6 @@ namespace MechArmor
             ArmorWarmupDurationModifier = 1;
             IsArmorOnWarmup = false;
 
-            ArmorHeavyGun = false;
-
             MagicDamageAbsorptionAmount = 0;
             MagicDamageAbsorption = false;
 
@@ -206,6 +197,10 @@ namespace MechArmor
             LunarDroneMode = LunarDroneModes.Idle;
 
         }
+
+        #endregion
+
+        #region Equipement effects
 
         // Damage Modification
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -259,7 +254,7 @@ namespace MechArmor
         public override bool Shoot(Item item, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             // Lunar drone multishoot
-            // TODO: doesn't works on some weapons, because the hook is not called for those
+            // XXX: doesn't works on some weapons, because the hook is not called for those
             // Will strangely works better on mooded weapons
             if (item.ranged && LunarDroneMode == LunarDroneModes.Multishot)
             {
@@ -274,6 +269,7 @@ namespace MechArmor
                     {
                         // we shoot a new projectile
                         int newProj = Projectile.NewProjectile(proj.Center, new Vector2(speedX, speedY), type, (int)(damage * 0.25f), knockBack, player.whoAmI);
+                        Main.projectile[newProj].netUpdate = true;
                     }
                 }
             }
@@ -281,28 +277,6 @@ namespace MechArmor
             return true;
         }
 
-
-        private static byte ProjectileAttractorDrawingRotationOffset = 0;
-        // (More or less) Fancy particles effects
-        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
-        {
-
-            // If we have a projectile attractor and at the first shadow pass (I think, I'll have to check).
-            if(ProjectileAttractor)
-            {
-                // We make a full circle of dust arround the player
-                for(int i = 0; i < 360; i+=8)
-                {
-                    float dX = (float)Math.Cos(Math.PI / 180f * (i+ProjectileAttractorDrawingRotationOffset)) * ProjectileAttractorRange;
-                    float dY = (float)Math.Sin(Math.PI / 180f * (i+ProjectileAttractorDrawingRotationOffset)) * ProjectileAttractorRange;
-                    Vector2 toPlayer = player.position - new Vector2(dX,dY);
-                    toPlayer.Normalize();
-                    Dust.NewDustPerfect(this.player.position + new Vector2(dX, dY), 55, toPlayer, 1, default, 0.5f);
-
-                }
-            }
-            ProjectileAttractorDrawingRotationOffset = (byte)((ProjectileAttractorDrawingRotationOffset + 1) & 0xff);
-        }
 
         // Lunar Drone Projectile Creation & Destruction, as required
         public override void PostUpdateEquips()
@@ -323,16 +297,13 @@ namespace MechArmor
                 // We set its index
                 proj.LunarDroneIndex = (sbyte)existingDrones;
             }
-            //else// Cleaned in the drone AI
-            //{
-            //    // We have too much drones
-            //
-            //}
+            
         }
 
 
         public override void PostUpdate()
         {
+            // NOTE : for now, we don't need to unify the loops into one
             if(ProjectileAttractor)
             {
                 foreach(Projectile proj in Main.projectile)
@@ -377,12 +348,14 @@ namespace MechArmor
 
                         if(Vector2.DistanceSquared(proj.Center, player.Center) < LunarArmorDrone.DroneDistance * LunarArmorDrone.DroneDistance)
                         {
+                            //TODO: verify if it need a whitelist/blacklist, same as the projectile attractor
+
                             // If we have one, we teleport it to the player
                             proj.Center = player.Center;
                             // We force damage calcultation
                             proj.Damage();
                             // And we kill it to clear it
-                            proj.Kill();//TODO: verify if it need a whitelist/blacklist, same as the projectile attractor
+                            proj.Kill();//TODO: check if it actually works
 
                             proj.netUpdate = true;
                         }
@@ -425,12 +398,42 @@ namespace MechArmor
             }
         }
 
-        // Key trigger
+        #endregion
+
+        #region Visual Effects
+
+        private static byte ProjectileAttractorDrawingRotationOffset = 0;
+        // (More or less) Fancy particles effects
+        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        {
+            if (ModContent.GetInstance<MechArmorDisplayConfig>().BulletAttractorGenerateDust)
+            {
+                // If we have a projectile attractor and at the first shadow pass (I think, I'll have to check).
+                if (ProjectileAttractor)
+                {
+                    // We make a full circle of dust arround the player
+                    for (int i = 0; i < 360; i += 8)
+                    {
+                        float dX = (float)Math.Cos(Math.PI / 180f * (i + ProjectileAttractorDrawingRotationOffset)) * ProjectileAttractorRange;
+                        float dY = (float)Math.Sin(Math.PI / 180f * (i + ProjectileAttractorDrawingRotationOffset)) * ProjectileAttractorRange;
+                        Vector2 toPlayer = player.position - new Vector2(dX, dY);
+                        toPlayer.Normalize();
+                        Dust.NewDustPerfect(this.player.position + new Vector2(dX, dY), 55, toPlayer, 1, default, 0.5f);
+
+                    }
+                }
+                ProjectileAttractorDrawingRotationOffset++;// As we are using a byte, we'll wrap around to 0 when reaching 255
+            }
+        }
+
+        #endregion
+
+        #region Input processing
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             // When pressing the key, change the state of the armor
-            byte stateChange = 0;
+            sbyte stateChange = 0;
 
             //TODO: change stateChange for a sbyte and values to -1 & 1
             if(MechArmor.MechArmorStateChangeKey.JustPressed)
@@ -440,7 +443,7 @@ namespace MechArmor
 
             if(MechArmor.MechArmorStateChangeReverseKey.JustPressed)
             {
-                stateChange = 2;//Backward
+                stateChange = -1;//Backward
             }
 
             if (stateChange != 0 && !IsArmorOnCooldown)
@@ -453,33 +456,26 @@ namespace MechArmor
                 }
 				else
                 {
-					//Otherwise we increase or decrease the state by one
-					switch(stateChange)
-                    {
-                        case 1:
-                            ArmorState++;
-                            break;
-                        case 2:
-                            ArmorState--;
-                            break;
-                        default:
-                            break;
-                    }
+                    //Otherwise we increase or decrease the state by one
+                    ArmorState = (byte)(((short)ArmorState) + stateChange);
                     // If we end up on 255, it means we need the last position
                     if (ArmorState == 255)
                         ArmorState = (byte)(MaxArmorStates - 1);
                     else
                         ArmorState %= MaxArmorStates;
 
+                    // We also add the buffs, as required
                     if(ArmorCooldownDuration > 0)
-                        player.AddBuff(ModContent.BuffType<BuffStateCooldown>(), (int)(ArmorCooldownDuration*ArmorCooldownDurationModifier* 60));
+                        player.AddBuff(ModContent.BuffType<BuffStateCooldown>(), (int)(ArmorCooldownDuration * ArmorCooldownDurationModifier * 60));
                     if (ArmorWarmupDuration > 0)
                         player.AddBuff(ModContent.BuffType<BuffStateWarmup>(), (int)(ArmorWarmupDuration * ArmorWarmupDurationModifier * 60));
                 }
 			}
         }
 
-		// Save
+        #endregion
+
+        #region Saving and loading
 
         public override void Load(TagCompound tag)
         {
@@ -505,7 +501,9 @@ namespace MechArmor
 			return tag;
         }
 
-		// Sync
+        #endregion
+
+        #region Multiplayer synchronisation
 
         // In MP, other clients need accurate information about your player or else bugs happen.
         // clientClone, SyncPlayer, and SendClientChanges, ensure that information is correct.
@@ -558,6 +556,6 @@ namespace MechArmor
 			}
 		}
 
-
+        #endregion
     }
 }

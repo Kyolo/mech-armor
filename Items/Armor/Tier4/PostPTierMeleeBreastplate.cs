@@ -9,15 +9,15 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+10% Critical Strike Chance");
+            DisplayName.SetDefault("Configurable Paladin Breastplate");
+            Tooltip.SetDefault("5% increased melee critical chance\n5% increased melee damage");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 7, 25, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 25;
         }

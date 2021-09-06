@@ -46,6 +46,12 @@ namespace MechArmor
         {
             // We need to unload all static instance of our stuff
             MechArmorPacketHandler.mod = null;
+
+            if (!Main.dedServ)
+            {
+                ArmorStateIndicatorState = null;
+                MechArmorUI = null;
+            }
         }
 
         public override void HandlePacket(BinaryReader reader, int sender)

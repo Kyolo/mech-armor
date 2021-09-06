@@ -10,14 +10,15 @@ namespace MechArmor.Items.Armor.Tier3
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+100 maximum mana\nA fragile helmet that help channeling mana");
+            DisplayName.SetDefault("Holy Mage Helmet");
+            Tooltip.SetDefault("Increased maximum mana by 100\n10% increased magical damage");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 5, 0, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 5;
         }
@@ -35,7 +36,7 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "WIP";
+            player.setBonus = "";
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
             // We need to indicate the maximum number of states for this armor
@@ -46,14 +47,14 @@ namespace MechArmor.Items.Armor.Tier3
             {
                 case 0:
                     {
-                        player.setBonus += "\nOffense Mode :\n +20% Magic Damage\n -10% Mana Cost";
+                        player.setBonus += "Offense Mode :\n 20% increased magic damage\n 10% reduced mana cost";
                         player.manaCost -= 0.20f;
                         player.manaRegenBonus += 50;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
                 case 1:
-                    player.setBonus += "\nDefense Mode :\n +20% Armor\n +10% Magical Damage Absorption";
+                    player.setBonus += "Defense Mode :\n 20% additional armor\n 10% magical damage absorption";
                     player.statDefense += 6; // (5 + 15 +11) * 0.2 = 6
                     armorPlayer.MagicDamageAbsorption = true;
                     armorPlayer.MagicDamageAbsorptionAmount = 0.10f;
@@ -61,7 +62,7 @@ namespace MechArmor.Items.Armor.Tier3
                     
                     break;
                 case 2:
-                    player.setBonus += "\nMovement Mode :\n +20% Movement Speed\n +25% Wing Time";
+                    player.setBonus += "Movement Mode :\n 20% increased movement speed\n 25% increased wing time";
                     player.moveSpeed += 0.20f;
                     player.wingTimeMax = (int)((float)player.wingTimeMax * 1.25f);
                     armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Movement;

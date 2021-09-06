@@ -10,14 +10,14 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("7% Increased Ranged Critical Chance");
+            Tooltip.SetDefault("7% increased ranged critical chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 7, 75, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 15;
         }
@@ -46,7 +46,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
 
             switch (armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
                         player.setBonus += "\nMultishot :\nDrones shoots additional projectiles at 25% Damage";
                         armorPlayer.LunarDroneMode = LunarDroneModes.Multishot;
@@ -55,7 +55,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nProjectile Barrier :\nDrones form a barrier behind you, stopping enemy projectiles";
+                        player.setBonus += "\nProjectile Barrier :\nDrones forms a barrier behind you, stopping enemy projectiles";
                         armorPlayer.LunarDroneMode = LunarDroneModes.ProjectileBarrier;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
                     }

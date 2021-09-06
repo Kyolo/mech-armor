@@ -10,14 +10,15 @@ namespace MechArmor.Items.Armor.Tier3
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A fragile helmet with advanced targeting systems");
+            DisplayName.SetDefault("Holy Invocator Helmet");
+            Tooltip.SetDefault("Increase your maximum minion count by 1");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 5, 0, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 2;
         }
@@ -35,7 +36,7 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "This armor systems allow you to either hit hard or flee fast";
+            player.setBonus = "Increase your minion count by an additional 1";
             player.maxMinions += 1;
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
@@ -43,14 +44,11 @@ namespace MechArmor.Items.Armor.Tier3
             armorPlayer.SetMaxArmorStates(3);
             armorPlayer.ArmorCooldownDuration = 3;
 
-            // And then we allow the use of heavy guns
-            //armorPlayer.ArmorHeavyGun = true; //removed for the moment
-
             switch(armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
-                        player.setBonus += "\nOffensive Mode :\n +10% Minion Damage\n +1 Minion Slot";
+                        player.setBonus += "\nOffensive Mode :\n 10% increased minion damage\n 1 additional minion slot";
                         player.minionDamage += 0.10f;
                         player.maxMinions += 1;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
@@ -58,7 +56,7 @@ namespace MechArmor.Items.Armor.Tier3
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nDefense Mode :\n +2 Armor per minion";//\n +5% Damage Resistance per sentry";
+                        player.setBonus += "\nDefense Mode :\n Armor increased by 2 per minion";//\n +5% Damage Resistance per sentry";
                         player.statDefense += 2 * player.numMinions;
                         //player.endurance += 0.5f * player.
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
@@ -66,7 +64,7 @@ namespace MechArmor.Items.Armor.Tier3
                     }
                     break;
                 case 2:
-                    player.setBonus += "\nMovement Mode :\n +20% Movement Speed\n +25% Wing Time";
+                    player.setBonus += "\nMovement Mode :\n 20% increased movement speed\n 25% increased wing time";
                     player.moveSpeed += 0.20f;
                     player.wingTimeMax = (int)(player.wingTimeMax * 1.25f);
                     armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Movement;

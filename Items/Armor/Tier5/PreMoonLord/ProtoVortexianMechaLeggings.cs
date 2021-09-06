@@ -9,15 +9,14 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("10% Increased Movement SPeed\n5% Increased Ranged Critical Chance");
+            Tooltip.SetDefault("10% increased movement speed\n5% increased ranged critical chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 11, 25, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 13;
 

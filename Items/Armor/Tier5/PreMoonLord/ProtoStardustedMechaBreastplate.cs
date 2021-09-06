@@ -9,15 +9,14 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("20% Increased Minion Damage\n+2 Max Minions");
+            Tooltip.SetDefault("20% increased minion damage\nIncrease minion slots by 2");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 15, 50, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 13;
         }

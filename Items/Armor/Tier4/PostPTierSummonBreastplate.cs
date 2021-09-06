@@ -9,24 +9,22 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+10% Critical Strike Chance");
+            DisplayName.SetDefault("Strange Wood Breastplate");
+            Tooltip.SetDefault("10% increased minon damage");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 6, 75, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 15;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.meleeCrit += 10;
-            player.rangedCrit += 10;
-            player.magicCrit += 10;
+            player.minionDamage += 0.10f;
         }
 
         // Set bonus in helmet(s)

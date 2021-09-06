@@ -8,7 +8,7 @@ namespace MechArmor.Items.Armor.Tier1
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A legging with alloyed hellstone and evilmetal armor plates");
+            
         }
 
         public override void SetDefaults()
@@ -21,9 +21,6 @@ namespace MechArmor.Items.Armor.Tier1
             
         }
 
-
-
-        // Set bonus in PlateProtectedArmorHelmet.cs
 
         public override void AddRecipes()
         {

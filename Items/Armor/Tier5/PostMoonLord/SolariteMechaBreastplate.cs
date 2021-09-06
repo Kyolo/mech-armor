@@ -10,15 +10,14 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Increased Life Regeneration");
+            Tooltip.SetDefault("Increased life regeneration");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 15, 75, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 30;
         }

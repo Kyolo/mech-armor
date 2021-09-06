@@ -11,14 +11,14 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("20% Increased Minion Damage\n+1 Max Minions");
+            Tooltip.SetDefault("20% increased minion damage\nIncrease minion slots by 1");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice();
             item.rare = ItemRarityID.Orange;
             item.defense = 10;
         }
@@ -36,11 +36,11 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "WIP";
+            player.setBonus = "";
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
             // We need to indicate the maximum number of states for this armor
-            armorPlayer.SetMaxArmorStates(2);
+            armorPlayer.SetMaxArmorStates(3);
             armorPlayer.ArmorCooldownDuration = 10;
 
             armorPlayer.LunarDroneCount = 8;
@@ -48,16 +48,16 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
             switch (armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
-                        player.setBonus += "\nSummon Empowering :\n" + armorPlayer.LunarDroneCount + " summons are empowered";
+                        player.setBonus += "Summons Empowering :\n" + armorPlayer.LunarDroneCount + " summons are empowered";
                         armorPlayer.LunarDroneMode = LunarDroneModes.SummonBoost;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nNano Shield :\n15% Damage Reduction\nNearby enemies are shot by nano bullets";
+                        player.setBonus += "Nano Shield :\n15% Damage Reduction\nNearby enemies are periodicaly shot by nano bullets";
                         player.endurance += 0.15f;
                         armorPlayer.LunarDroneMode = LunarDroneModes.Confusion;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Utility;
@@ -65,7 +65,7 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
                     break;
                 case 2:
                     {
-                        player.setBonus += "\nJetpack Platform :\n50% Increased flight time\n30% Increased Movement Speed";
+                        player.setBonus += "Jetpack Platform :\n50% Increased flight time\n30% Increased movement speed";
                         player.moveSpeed += 0.30f;
                         player.wingTimeMax = (int) (player.wingTimeMax * 0.50f);
                         armorPlayer.LunarDroneMode = LunarDroneModes.JetpackPlatform;

@@ -9,15 +9,15 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+5% Magical Critical Strike Chance\n+5% Magic Damage");
+            DisplayName.SetDefault("Shifting Spectral Breastplate");
+            Tooltip.SetDefault("5% increased magical critical chance\n5% increased magical damage");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 7, 25, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 13;
         }

@@ -13,5 +13,8 @@ namespace MechArmor.Config
         public int DefaultArmorStatusPositionX;
         [Label("Default Y position of the state indicator for multi-states armors."), Tooltip("From top to bottom and in pixels, starting at 0."), DefaultValue(0)]
         public int DefaultArmorStatusPositionY;
+
+        [Label("If the Bullet Attractor Effect should generate dust to display the range arround the player"), DefaultValue(false)]
+        public bool BulletAttractorGenerateDust;
     }
 }

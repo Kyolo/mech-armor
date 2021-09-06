@@ -9,15 +9,15 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+10% Critical Strike Chance");
+            DisplayName.SetDefault("Glowing Ranger Breastplate");
+            Tooltip.SetDefault("10% increased ranged critical chance\n10% increased ranged damage");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 6, 25, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 22;
         }

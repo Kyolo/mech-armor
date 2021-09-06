@@ -10,14 +10,15 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("WIP");
+            DisplayName.SetDefault("Configurable Paladin Helmet");
+            Tooltip.SetDefault("5% increased melee damage");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 8, 50, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 20;
         }
@@ -34,7 +35,7 @@ namespace MechArmor.Items.Armor.Tier4
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "WIP";
+            player.setBonus = "Increased enemy aggression";
             player.aggro += 350;
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
@@ -42,14 +43,12 @@ namespace MechArmor.Items.Armor.Tier4
             armorPlayer.SetMaxArmorStates(2);
             armorPlayer.ArmorCooldownDuration = 5;
 
-            // And then we allow the use of heavy guns
-
 
             switch(armorPlayer.ArmorState)
             {
                 case 0:
                     {
-                        player.setBonus += "\nOffense Mode :\n +40% Melee Swing Speed\n +25% Movement Speed";
+                        player.setBonus += "\nOffense Mode :\n 40% increased melee swing speed\n 25% increased movement speed";
                         player.meleeSpeed += 0.40f;
                         player.moveSpeed += 0.25f;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
@@ -57,7 +56,7 @@ namespace MechArmor.Items.Armor.Tier4
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nDefensive Utility Mode :\n -50% Movement Speed\n +50% Armor";
+                        player.setBonus += "\nDefensive Utility Mode :\n 50% reduced movement speed\n 50% additional armor\n You attract nearby projectiles to you (WIP)";
                         armorPlayer.ProjectileAttractor = true;
                         armorPlayer.ProjectileAttractorRange = 10*16;//10 blocks times 16pixel per block
                         player.moveSpeed -= 0.50f;

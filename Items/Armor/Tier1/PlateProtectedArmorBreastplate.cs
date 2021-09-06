@@ -8,7 +8,7 @@ namespace MechArmor.Items.Armor.Tier1
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A breastplate with retracting armor plates");
+            
         }
 
         public override void SetDefaults()

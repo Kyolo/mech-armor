@@ -8,7 +8,7 @@ namespace MechArmor.Items.Armor.Tier1
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A breastplate with light armor plates");
+
         }
 
         public override void SetDefaults()
@@ -20,7 +20,6 @@ namespace MechArmor.Items.Armor.Tier1
             item.defense = 6;
         }
 
-        // Set bonus in PlateProtectedArmorHelmet.cs
 
         public override void AddRecipes()
         {

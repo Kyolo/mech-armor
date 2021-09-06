@@ -9,15 +9,15 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+10% Movement Speed");
+            DisplayName.SetDefault("Strange Wood Leggings");
+            Tooltip.SetDefault("10% increased movement speed");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 5, 50, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 11;
             

@@ -10,14 +10,15 @@ namespace MechArmor.Items.Armor.Tier3
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A fragile helmet with advanced targeting systems");
+            DisplayName.SetDefault("Holy Ranger Helmet");
+            Tooltip.SetDefault("10% Increased ranged critical chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 5, 0, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 9;
         }
@@ -34,7 +35,7 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "WIP";
+            player.setBonus = "20% Reduced Ammo Consumption chance";
             player.ammoCost80 = true;
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
@@ -42,14 +43,12 @@ namespace MechArmor.Items.Armor.Tier3
             armorPlayer.SetMaxArmorStates(3);
             armorPlayer.ArmorCooldownDuration = 3;
 
-            // And then we allow the use of heavy guns
-
 
             switch(armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
-                        player.setBonus += "\nOffense Mode :\n +20% Ranged Damage\n -20% Movement Speed";
+                        player.setBonus += "\nOffense Mode :\n 20% increased ranged damage\n 20% reduced movement speed";
                         player.rangedDamage += 0.20f;
                         player.moveSpeed -= 0.2f;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
@@ -57,7 +56,7 @@ namespace MechArmor.Items.Armor.Tier3
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nDefense Mode :\n +20% Movement Speed\n +20% Armor";
+                        player.setBonus += "\nDefense Mode :\n 20% increased movement speed\n 20% additional armor";
 
                         player.moveSpeed += 0.20f;
                         player.statDefense += 7; // (9 + 15 +11) * 0.2 = 17
@@ -65,7 +64,7 @@ namespace MechArmor.Items.Armor.Tier3
                     }
                     break;
                 case 2:
-                    player.setBonus += "\nMovement Mode :\n +20% Movement Speed\n +25% Wing Time";
+                    player.setBonus += "\nMovement Mode :\n 20% increased movement speed\n 25% increased wing time";
                     player.moveSpeed += 0.20f;
                     player.wingTimeMax = (int)((float)player.wingTimeMax * 1.25f);
                     armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Movement;

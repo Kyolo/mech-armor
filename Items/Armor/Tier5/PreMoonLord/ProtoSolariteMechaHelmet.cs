@@ -10,14 +10,14 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Increased Life Regen\n20% Increased Melee Critical Chance");
+            Tooltip.SetDefault("Increased life regeneration\n20% rncreased melee critical chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 7, 50, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 17;
         }
@@ -44,14 +44,12 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
 
             armorPlayer.LunarDroneCount = 4;
 
-            // And then we allow the use of heavy guns
-
 
             switch (armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
-                        player.setBonus += "\nMelee Extender :\nIncreased Melee Range\n50% Melee Damage";
+                        player.setBonus += "\nMelee Extender :\nIncreased melee range\n50% increased melee damage";
                         player.meleeDamage += 0.50f;
                         armorPlayer.LunarDroneMode = LunarDroneModes.FollowSwing;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
@@ -59,7 +57,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nJetpack :\n50% Flight Time Increase\n20% Move Speed";
+                        player.setBonus += "\nJetpack :\n50% increased wing time tncrease\n20% increased movement speed";
                         player.moveSpeed += 0.20f;
                         player.wingTimeMax = (int) (player.wingTimeMax * 1.5f);
                         armorPlayer.LunarDroneMode = LunarDroneModes.JetpackWings;

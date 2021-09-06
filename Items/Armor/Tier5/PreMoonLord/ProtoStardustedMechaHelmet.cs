@@ -10,14 +10,14 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("20% Increased Minion Damage\n+1 Max Minions");
+            Tooltip.SetDefault("20% increased minion damage\nIncrease minion slot by 1");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 7, 75, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 6;
         }
@@ -47,7 +47,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
 
             switch (armorPlayer.ArmorState)
             {
-                case 0:// Setup mode : allow movement to prepare for aiming
+                case 0:
                     {
                         player.setBonus += "\nSummon Empowering :\n"+armorPlayer.LunarDroneCount+" summons are empowered";
                         armorPlayer.LunarDroneMode = LunarDroneModes.SummonBoost;
@@ -56,7 +56,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nNano Shield :\n15% Damage Reduction\nNearby enemies are shot by nano bullets";
+                        player.setBonus += "\nNano Shield :\n15% increased damage reduction\nNearby enemies are periodicaly shot by nano bullets";
                         player.endurance += 0.15f;
                         armorPlayer.LunarDroneMode = LunarDroneModes.Confusion;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Utility;

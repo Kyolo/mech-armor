@@ -10,15 +10,14 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+5% Melee Critical Strike Chance\n+10% Damage\nA helmet with basic control systems");
+            Tooltip.SetDefault("5% Increased Melee Critical Chance\n10% Melee Damage");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 90;
+            item.value = Item.buyPrice(0, 3, 50, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 22;
         }
@@ -37,7 +36,7 @@ namespace MechArmor.Items.Armor.Tier2
         public override void UpdateArmorSet(Player player)
         {
 
-            player.setBonus = "This armor can either make you faster or protect you.";
+            player.setBonus = "";
 
             MechArmorPlayer mAP = player.GetModPlayer<MechArmorPlayer>();
             mAP.SetMaxArmorStates(2);
@@ -47,13 +46,13 @@ namespace MechArmor.Items.Armor.Tier2
             switch(mAP.ArmorState)
             {
                 case 0:
-                    player.setBonus += "\nOffensive Movement Mode :\n +20% Movement Speed\n +20% Melee Swing Speed";
+                    player.setBonus += "Offensive Movement Mode :\n 20% Increased Movement Speed\n 20% Increased Melee Swing Speed";
                     player.moveSpeed += 0.20f;
                     player.meleeSpeed += 0.20f;
                     mAP.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     break;
                 case 1:
-                    player.setBonus += "\nDefense Mode :\n +50% Armor\n -10% Movement Speed";
+                    player.setBonus += "Defense Mode :\n 50% Increased Armor\n 10% Reduced Movement Speed";
                     player.statDefense += 24; // (22 + 15 +11) * 0.5 = 24
                     player.moveSpeed -= 0.10f;
                     mAP.ArmorStateType = (byte)EnumArmorStateType.Defense;

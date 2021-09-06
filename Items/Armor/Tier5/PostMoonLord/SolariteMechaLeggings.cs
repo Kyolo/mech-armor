@@ -10,15 +10,14 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("15% Increased Melee Speed\n15% Increased Movement Speed");
+            Tooltip.SetDefault("15% increased melee speed\n15% increased movement speed");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 11, 75, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 20;
 

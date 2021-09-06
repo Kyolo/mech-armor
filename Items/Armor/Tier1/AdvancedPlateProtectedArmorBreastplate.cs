@@ -8,7 +8,7 @@ namespace MechArmor.Items.Armor.Tier1
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A breastplate with alloyed hellstone and evil metal armor plates");
+            
         }
 
         public override void SetDefaults()

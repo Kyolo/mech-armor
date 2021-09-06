@@ -11,15 +11,14 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("10% Increased Melee Damage\n10% Increased Melee Critical Chance\n-25% Ammo Consumption Chance");
+            Tooltip.SetDefault("10% increased ranged damage\n10% increased ranged critical chance\n-25% Ammo Consumption Chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            //TODO: find best values
-            item.value = 70;
+            item.value = Item.buyPrice(0, 16, 25, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 26;
         }

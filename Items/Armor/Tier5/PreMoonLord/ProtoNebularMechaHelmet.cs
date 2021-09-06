@@ -10,14 +10,14 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("+200 Maximum Mana\n10% Decreased Mana Cost\n5% Increased Magical Critical Chance");
+            Tooltip.SetDefault("Increase maximum mana by 200\n10% reduced mana cost\n5% increased magical critical chance");
         }
 
         public override void SetDefaults()
         {
             item.width = 18;
             item.height = 18;
-            item.value = 90;
+            item.value = Item.buyPrice(0, 5, 50, 0);
             item.rare = ItemRarityID.Orange;
             item.defense = 11;
         }
@@ -51,8 +51,8 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
             {
                 case 0:
                     {
-                        player.setBonus += "\nMana Amplifier :\n100% Magical Damage\n100% Increased Mana Cost";
-                        player.magicDamage += 1.0f;
+                        player.setBonus += "\nMana Amplifier :\n50% increased magical damage\n100% increased mana cost";
+                        player.magicDamage += 0.5f;
                         player.manaCost += 1.0f;
                         // Because we use lunar drones, we need to tell them how to behave
                         armorPlayer.LunarDroneMode = LunarDroneModes.ManaAmplifier;
