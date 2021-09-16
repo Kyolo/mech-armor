@@ -19,7 +19,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
             item.height = 18;
             item.value = Item.buyPrice(0, 7, 75, 0);
             item.rare = ItemRarityID.Orange;
-            item.defense = 15;
+            item.defense = 8;
         }
 
         public override void UpdateEquip(Player player)
