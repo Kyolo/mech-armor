@@ -19,7 +19,7 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
             item.height = 18;
             item.value = Item.buyPrice(0, 11, 75, 0);
             item.rare = ItemRarityID.Orange;
-            item.defense = 8;
+            item.defense = 11;
 
         }
 
