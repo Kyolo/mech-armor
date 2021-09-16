@@ -1,3 +1,4 @@
 displayName = Mechanical Armors
 author = Kyolo
 version = 0.2
+includePDB = false
