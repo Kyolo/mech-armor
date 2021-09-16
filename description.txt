@@ -1,1 +1,3 @@
-Mechanical Armors is a mod about armors with multiple states, giving bonus and malus in certains situations and not in others.
+Mechanical Armors is a mod about armors with multiple states, each giving different malus and bonus.
+
+It currently contains armors that can be used from before defeating any boss, to a powerful post Moon Lord set.
