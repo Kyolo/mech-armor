@@ -15,6 +15,11 @@ namespace MechArmor.Projectiles
     public class LunarArmorDrone : ModProjectile
     {
 
+        public const int NEBULAR_FRAME = 1;
+        public const int VORTEXIAN_FRAME = 2;
+        public const int STARDUSTED_FRAME = 3;
+        public const int SOLARITE_FRAME = 4;
+
         /// <summary>
         /// Tells which lunar drone it is (the 0th, 1st, 2nd, etc.)
         /// </summary>
@@ -190,7 +195,10 @@ namespace MechArmor.Projectiles
                         offset.Y = (float)Math.Sin(player.itemRotation + (Math.PI / 4.0f) * -player.direction) * DroneDistance * 2.0f * droneIndexInc * player.direction;
 
 
-                        projectile.rotation = (player.itemRotation + (float)Math.PI / 4.0f);
+                        projectile.rotation = player.itemRotation + (float)Math.PI / 4.0f;
+
+                        if (player.direction > 0)
+                            projectile.rotation += (float)Math.PI / 2.0f;
 
                         projectile.damage = player.HeldItem.damage;
                         projectile.melee = true;
@@ -198,9 +206,13 @@ namespace MechArmor.Projectiles
                     else
                     {
                         // Otherwise we stand behind the player
-                        offset.X = player.direction * 32f * - player.direction;
-                        offset.Y = player.height / 2;
+                        offset.X = player.direction * 32f;
+                        offset.Y = player.height - droneIndexFloat * player.height;
+
+                        projectile.rotation = 0;
                     }
+
+                    projectile.frame = SOLARITE_FRAME;
                     break;
                 case LunarDroneModes.JetpackWings:
                     // They simply stand behind the player in the rough shape of a jetpack
@@ -216,6 +228,8 @@ namespace MechArmor.Projectiles
                     }
 
                     offset.X *= - player.direction;
+
+                    projectile.frame = SOLARITE_FRAME;
                     break;
                 case LunarDroneModes.Multishot:
                     //Drone float behind the player in an ellipsis, pointed in the direction of their next target
@@ -223,6 +237,8 @@ namespace MechArmor.Projectiles
                     offset.Y = -17 + (float)Math.Sin(Math.PI * 2.0f * animationVar) * DroneDistance / 2.0f;
 
                     offset.X *= player.direction;
+
+                    projectile.frame = VORTEXIAN_FRAME;
 
                     if(player.HeldItem.ranged && player.itemAnimation > 0)
                         projectile.rotation = player.itemRotation + (float)Math.PI / 2.0f;// We point in the same direction than the player's gun
@@ -248,6 +264,7 @@ namespace MechArmor.Projectiles
 
                         projectile.rotation = dir.ToRotation();
                     }
+                    projectile.frame = VORTEXIAN_FRAME;
                     break;
                 case LunarDroneModes.ManaAmplifier:
                     // A triangle in front of the player
@@ -257,38 +274,33 @@ namespace MechArmor.Projectiles
                         Vector2 dir = TargetPosition - player.Center;
                         dir.Normalize();
 
-                        float droneRelativePosition = DroneDistance * (LunarDroneIndex >> 1) / (mAPlayer.LunarDroneCount >> 1);
+                        float droneRelativePosition = DroneDistance * ((LunarDroneIndex >> 1) + 1) / ((mAPlayer.LunarDroneCount >> 1) + 1);
 
                         // The "forward" position
-                        Vector2 advance = dir * droneRelativePosition;
+                        Vector2 advance = dir * droneRelativePosition * 2.0f;
                         // The "height" of the drone under/over the mid point;
-                        Vector2 height = dir.RotatedBy(Math.PI / 2.0f * ((LunarDroneIndex & 1) == 1 ? -1 : 1)) * droneRelativePosition / 2.0f;
+                        Vector2 height = dir.RotatedBy(Math.PI / 2.0f * ((LunarDroneIndex & 1) == 1 ? -1 : 1)) * (DroneDistance - droneRelativePosition);
 
                         offset = advance + height;
 
+                        projectile.rotation = dir.ToRotation() + ((LunarDroneIndex & 1) == 1 ? 3.0f : 1.0f) * (float)Math.PI / 4.0f;
+
                     }
+                    projectile.frame = NEBULAR_FRAME;
                     break;
                 case LunarDroneModes.ManaLifeSteal:
                     Vector2 c = (new Vector2(0, -1) * player.height * 1.5f) + //height
                         new Vector2(-player.direction, 0) * DroneDistance / 3.0f;// lateral offset
 
                     // The new drone index
-                    sbyte droneIndexAdj = (sbyte)(LunarDroneIndex >> 1);
-                    if((LunarDroneIndex & 1) == 1)
-                    {
-                        // Vertical bar
-                        Vector2 c2 = c + player.height * new Vector2(0, 1);
+                    //sbyte droneIndexAdj = (sbyte)(LunarDroneIndex >> 1);
 
-                        offset = c2 + projectile.width * (1 + droneIndexAdj >> 1) * // vertical offset
-                            new Vector2(0,(droneIndexAdj & 1) == 1 ? 1 : -1); // Direction adjustment
-                    }
-                    else
-                    {
-                        // Horizontal bar
-                        offset = c + (projectile.width + projectile.height * (droneIndexAdj >> 1)) * // horizontal offset
-                         new Vector2((droneIndexAdj & 1) == 1 ? 1 : -1, 0); // Direction adjustment
-                    }
+                    offset = c + new Vector2(
+                        (float)Math.Cos(Math.PI * 2.0f * animationVar) * DroneDistance / ((LunarDroneIndex & 0b100) != 0 ? 2 : 4),
+                        (float)Math.Sin(Math.PI * 2.0f * animationVar) * DroneDistance / ((LunarDroneIndex & 0b100) != 0 ? 2 : 4)
+                        );
 
+                    projectile.frame = NEBULAR_FRAME;
                     break;
                 case LunarDroneModes.SummonBoost:
                     // Boost one summon per drone
@@ -327,6 +339,8 @@ namespace MechArmor.Projectiles
                                 (float)Math.Sin(2.0f * Math.PI * animationVar) * DroneDistance / 2.0f// The circle is wider that it is tall (aka an ellipsis).
                             );
                     }
+
+                    projectile.frame = STARDUSTED_FRAME;
                     break;
                 case LunarDroneModes.Confusion:
                     // Fly arround the player (like in idle) and shoot nearby enemy for a bit of damage
@@ -362,6 +376,8 @@ namespace MechArmor.Projectiles
 
                         }
                     }
+
+                    projectile.frame = STARDUSTED_FRAME;
                     break;
                 case LunarDroneModes.ProjectileShield:
                     // Nothing fancy here
@@ -369,6 +385,8 @@ namespace MechArmor.Projectiles
                     offset.X = (float)Math.Cos(Math.PI * animationVar * ((LunarDroneIndex & 1) == 1 ? -2.0f : 2.0f)) * DroneDistance * player.direction;
                     offset.Y = (float)Math.Sin(Math.PI * animationVar * ((LunarDroneIndex & 1) == 1 ? -2.0f : 2.0f)) * DroneDistance * player.direction;
                     projectile.rotation = (player.Center - projectile.Center).ToRotation() + (float)Math.PI / 4.0f;
+                    
+                    projectile.frame = SOLARITE_FRAME;
                     break;
                 case LunarDroneModes.ManaShield:
                     // Ellipsis
@@ -401,7 +419,7 @@ namespace MechArmor.Projectiles
                             }
                         }
                     }
-
+                    projectile.frame = NEBULAR_FRAME;
                     break;
                 case LunarDroneModes.JetpackPlatform:
                     // Two drones under, the rest like regular jetpack
@@ -423,6 +441,7 @@ namespace MechArmor.Projectiles
                             offset.Y = -23.5f + (float)Math.Sin(Math.PI / 3) * DroneDistance / 2.0f * (LunarDroneIndex >> 2);
                         }
                     }
+                    projectile.frame = STARDUSTED_FRAME;
                     break;
 
                 
@@ -450,7 +469,24 @@ namespace MechArmor.Projectiles
             if (ManaCharged)
                 Dust.NewDust(projectile.Center, 8, 8, 255);
 
-            Lighting.AddLight(projectile.Center, Color.White.ToVector3() * 0.78f);
+            switch (projectile.frame)
+            {
+                case SOLARITE_FRAME:
+                    Lighting.AddLight(projectile.Center, Color.DarkOrange.ToVector3());
+                    break;
+                case STARDUSTED_FRAME:
+                    Lighting.AddLight(projectile.Center, Color.Cyan.ToVector3());
+                    break;
+                case VORTEXIAN_FRAME:
+                    Lighting.AddLight(projectile.Center, Color.LightSeaGreen.ToVector3());
+                    break;
+                case NEBULAR_FRAME:
+                    Lighting.AddLight(projectile.Center, Color.Pink.ToVector3());
+                    break;
+                default:
+                    Lighting.AddLight(projectile.Center, Color.White.ToVector3() * 0.78f);
+                    break;
+            }
             #endregion
         }
 
