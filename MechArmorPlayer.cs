@@ -41,6 +41,8 @@ namespace MechArmor
 		/// </summary>
 		public byte MaxArmorStates;
 
+
+
         /// <summary>
         /// Is on cooldown between changes ?
         /// </summary>
@@ -55,6 +57,8 @@ namespace MechArmor
         /// The armor cooldown modifier.
         /// </summary>
         public float ArmorCooldownDurationModifier;
+
+
 
         /// <summary>
         /// Is on warmup after a change ?
@@ -71,6 +75,8 @@ namespace MechArmor
         /// </summary>
         public float ArmorWarmupDurationModifier;
 
+
+
         /// <summary>
         /// Percent of damage that should be inflicted on the user's mana instead of their health
         /// </summary>
@@ -86,6 +92,20 @@ namespace MechArmor
         /// </summary>
         public int MagicDamageAbsorbed;
 
+
+
+        /// <summary>
+        /// If we are lifestealing with magical attacks
+        /// </summary>
+        public bool MagicalLifeSteal;
+
+        /// <summary>
+        /// The percent of damage healed by lifesteal
+        /// </summary>
+        public float MagicalLifeStealAmount;
+
+
+
         /// <summary>
         /// Modify the UseTime of a Magic Weapon
         /// </summary>
@@ -96,6 +116,8 @@ namespace MechArmor
         /// </summary>
         public float RangedUseTimeModifier;
 
+
+
         /// <summary>
         /// If we need to attract nearby enemy projectiles
         /// </summary>
@@ -105,6 +127,8 @@ namespace MechArmor
         /// The range of the projectile attractor;
         /// </summary>
         public float ProjectileAttractorRange;
+
+
 
         /// <summary>
         /// The amount of lunar drones following this player.
@@ -153,6 +177,11 @@ namespace MechArmor
             IsArmorOnWarmup = false;
             // Part of damage inflicted on mana instead of health
             MagicDamageAbsorptionAmount = 0;
+
+            // Magical Life Steal
+            MagicalLifeSteal = false;
+            MagicalLifeStealAmount = 0.0f;
+
             // A modifier for the UseTime of magical weapons
             MagicUseTimeModifier = 1.0f;
             RangedUseTimeModifier = 1.0f;
@@ -183,6 +212,9 @@ namespace MechArmor
 
             MagicDamageAbsorptionAmount = 0;
             MagicDamageAbsorption = false;
+
+            MagicalLifeSteal = false;
+            MagicalLifeStealAmount = 0.0f;
 
             MagicUseTimeModifier = 1.0f;
             RangedUseTimeModifier = 1.0f;
@@ -397,6 +429,12 @@ namespace MechArmor
                 }
             }
         }
+
+        #endregion
+
+        #region Attack effects
+
+
 
         #endregion
 

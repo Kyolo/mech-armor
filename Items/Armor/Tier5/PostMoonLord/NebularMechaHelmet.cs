@@ -62,8 +62,9 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
                     break;
                 case 1:
                     {
-                        player.setBonus += "\nMana Lifesteal:\nSpecter Armor Healing (WIP)";
-                        player.ghostHeal = true;// TODO: implement proper lifesteal
+                        player.setBonus += "\n15% Lifesteal with magical weapon";
+                        armorPlayer.MagicalLifeSteal = true;
+                        armorPlayer.MagicalLifeStealAmount = 0.15f;
                         //TODO: healing pulse on drinking mana potion
                         armorPlayer.LunarDroneMode = LunarDroneModes.ManaLifeSteal;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
@@ -76,7 +77,6 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
                         armorPlayer.MagicDamageAbsorption = true;
                         armorPlayer.MagicDamageAbsorptionAmount += 0.10f;
 
-                        // Because we use lunar drones, we need to tell them how to behave
                         armorPlayer.LunarDroneMode = LunarDroneModes.ManaShield;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Defense;
                     }

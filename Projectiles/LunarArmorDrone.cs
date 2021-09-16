@@ -292,13 +292,16 @@ namespace MechArmor.Projectiles
                     Vector2 c = (new Vector2(0, -1) * player.height * 1.5f) + //height
                         new Vector2(-player.direction, 0) * DroneDistance / 3.0f;// lateral offset
 
-                    // The new drone index
-                    //sbyte droneIndexAdj = (sbyte)(LunarDroneIndex >> 1);
+                    float animationVarAdj = ((float)(LunarDroneIndex % 4)) / 4 + positionLoopProgression;
+                    float distance = .25f * ((LunarDroneIndex >> 2) + 1) * DroneDistance;
 
-                    offset = c + new Vector2(
-                        (float)Math.Cos(Math.PI * 2.0f * animationVar) * DroneDistance / ((LunarDroneIndex & 0b100) != 0 ? 2 : 4),
-                        (float)Math.Sin(Math.PI * 2.0f * animationVar) * DroneDistance / ((LunarDroneIndex & 0b100) != 0 ? 2 : 4)
-                        );
+                    Vector2 crossPosition = new Vector2(
+                        (float)Math.Cos(Math.PI * 2.0f * animationVarAdj) * distance,
+                        (float)Math.Sin(Math.PI * 2.0f * animationVarAdj) * distance
+                    );
+                    offset = c + crossPosition;
+                    
+                    projectile.rotation = crossPosition.ToRotation() + (float)Math.PI / 2.0f;
 
                     projectile.frame = NEBULAR_FRAME;
                     break;
@@ -390,12 +393,12 @@ namespace MechArmor.Projectiles
                     break;
                 case LunarDroneModes.ManaShield:
                     // Ellipsis
-                    offset.X = (float)Math.Cos(2.0f * Math.PI * animationVar ) * DroneDistance * player.direction;
-                    offset.Y = (float)Math.Sin(2.0f * Math.PI * animationVar ) * DroneDistance * player.direction  * 0.5f;
+                    offset.X = (float)Math.Cos(2.0f * Math.PI * animationVar ) * DroneDistance * player.direction * 0.5f;
+                    offset.Y = (float)Math.Sin(2.0f * Math.PI * animationVar ) * DroneDistance * player.direction;
                     // Behind the player
-                    offset.X += player.direction * DroneDistance * 0.75f;
+                    offset.X += -player.direction * DroneDistance * 0.75f;
 
-                    projectile.rotation = (player.Center - projectile.Center).ToRotation() + (float)Math.PI / 4.0f;
+                    projectile.rotation = ((projectile.Center + offset) - player.Center).ToRotation() + (float)Math.PI / 4.0f;
 
                     // We may need to fire a bolt
                     if (ManaCharged)
