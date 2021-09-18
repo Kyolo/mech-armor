@@ -10,6 +10,7 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Hard Metal Hood");
             Tooltip.SetDefault("+100 maximum mana");
         }
 

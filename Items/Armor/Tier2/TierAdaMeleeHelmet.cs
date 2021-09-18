@@ -10,6 +10,7 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Hard Metal Power Helmet");
             Tooltip.SetDefault("5% Increased Melee Critical Chance\n10% Melee Damage");
         }
 

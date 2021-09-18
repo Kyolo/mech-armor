@@ -128,9 +128,9 @@ namespace MechArmor.UI
             container.Recalculate();
 
             // Change configuration
-            MechArmorDisplayConfig conf = ModContent.GetInstance<MechArmorDisplayConfig>();
-            conf.DefaultArmorStatusPositionX = (int)container.Left.Pixels;
-            conf.DefaultArmorStatusPositionX = (int)container.Top.Pixels;
+            //MechArmorDisplayConfig conf = ModContent.GetInstance<MechArmorDisplayConfig>();
+            //conf.DefaultArmorStatusPositionX = (int)container.Left.Pixels;
+            //conf.DefaultArmorStatusPositionX = (int)container.Top.Pixels;
         }
 
 

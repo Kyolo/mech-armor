@@ -10,6 +10,7 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Hard Metal Artillery Helmet");
             Tooltip.SetDefault("5% Ranged Critical Chance");
         }
 

@@ -206,7 +206,7 @@ namespace MechArmor.Projectiles
                     else
                     {
                         // Otherwise we stand behind the player
-                        offset.X = player.direction * 32f;
+                        offset.X = -player.direction * 32f;
                         offset.Y = player.height - droneIndexFloat * player.height;
 
                         projectile.rotation = 0;
@@ -229,6 +229,7 @@ namespace MechArmor.Projectiles
 
                     offset.X *= - player.direction;
 
+                    projectile.rotation = -player.direction;
                     projectile.frame = SOLARITE_FRAME;
                     break;
                 case LunarDroneModes.Multishot:
@@ -263,6 +264,21 @@ namespace MechArmor.Projectiles
                         offset = back + droneOffset;
 
                         projectile.rotation = dir.ToRotation();
+
+                        // We also make all projectile arround us disappear
+                        for(int i = 0; i < Main.projectile.Length; i++)
+                        {
+                            Projectile proj = Main.projectile[i];
+                            if (proj.hostile)
+                            {
+                                if((projectile.Center - proj.Center).LengthSquared() < projectile.width * projectile.width)
+                                {
+                                    // TODO : insert whitelist/blacklist if required
+                                    proj.Kill();
+                                }
+                            }
+                        }
+
                     }
                     projectile.frame = VORTEXIAN_FRAME;
                     break;
@@ -341,6 +357,8 @@ namespace MechArmor.Projectiles
                                 (float)Math.Cos(2.0f * Math.PI * animationVar) * DroneDistance,
                                 (float)Math.Sin(2.0f * Math.PI * animationVar) * DroneDistance / 2.0f// The circle is wider that it is tall (aka an ellipsis).
                             );
+
+                        projectile.rotation = 0;
                     }
 
                     projectile.frame = STARDUSTED_FRAME;
@@ -348,8 +366,8 @@ namespace MechArmor.Projectiles
                 case LunarDroneModes.Confusion:
                     // Fly arround the player (like in idle) and shoot nearby enemy for a bit of damage
                     // also inflict confusion
-                    offset.X = (float)Math.Cos(2.0f * Math.PI * animationVar) * DroneDistance * player.direction;
-                    offset.Y = (float)Math.Sin(2.0f * Math.PI * animationVar) * DroneDistance * player.direction;
+                    offset.X = (float)Math.Cos(2.0f * Math.PI * animationVar) * DroneDistance;
+                    offset.Y = (float)Math.Sin(2.0f * Math.PI * animationVar) * DroneDistance;
 
                     // 
 
@@ -385,11 +403,16 @@ namespace MechArmor.Projectiles
                 case LunarDroneModes.ProjectileShield:
                     // Nothing fancy here
                     // The magic happens in MechArmorPlayer::PostUpdate
-                    offset.X = (float)Math.Cos(Math.PI * animationVar * ((LunarDroneIndex & 1) == 1 ? -2.0f : 2.0f)) * DroneDistance * player.direction;
-                    offset.Y = (float)Math.Sin(Math.PI * animationVar * ((LunarDroneIndex & 1) == 1 ? -2.0f : 2.0f)) * DroneDistance * player.direction;
-                    projectile.rotation = (player.Center - projectile.Center).ToRotation() + (float)Math.PI / 4.0f;
-                    
-                    projectile.frame = SOLARITE_FRAME;
+                    {
+                        offset.X = (float)Math.Cos(Math.PI * animationVar * ((LunarDroneIndex & 1) == 1 ? -2.0f : 2.0f)) * DroneDistance;
+                        offset.Y = (float)Math.Sin(Math.PI * animationVar * ((LunarDroneIndex & 1) == 1 ? -2.0f : 2.0f)) * DroneDistance;
+
+                        Vector2 dir = player.Center - (player.Center + offset);
+                        dir.Normalize();
+                        projectile.rotation = dir.ToRotation() + (float)Math.PI / 2.0f;
+
+                        projectile.frame = SOLARITE_FRAME;
+                    }
                     break;
                 case LunarDroneModes.ManaShield:
                     // Ellipsis
@@ -398,7 +421,7 @@ namespace MechArmor.Projectiles
                     // Behind the player
                     offset.X += -player.direction * DroneDistance * 0.75f;
 
-                    projectile.rotation = ((projectile.Center + offset) - player.Center).ToRotation() + (float)Math.PI / 4.0f;
+                    projectile.rotation = (projectile.Center - offset - player.Center).ToRotation();// + (float)Math.PI / 4.0f;
 
                     // We may need to fire a bolt
                     if (ManaCharged)
@@ -429,21 +452,25 @@ namespace MechArmor.Projectiles
                     if(LunarDroneIndex < 2)
                     {
                         offset.Y = player.height;
-                        offset.X = player.direction * projectile.width * 1.5f;
+                        offset.X = ((LunarDroneIndex & 1) == 0 ? .5f : -.5f) * projectile.width;
                     }
                     else
                     {
-                        if ((LunarDroneIndex >> 1 & 1) == 0)
+                        int adjustedDroneIndex = LunarDroneIndex - 2;
+                        if ((adjustedDroneIndex & 1) == 0)
                         {
-                            offset.X = 22.0f + (float)Math.Cos(Math.PI / 3) * DroneDistance / 2.0f * (LunarDroneIndex >> 2);
-                            offset.Y = -24.0f + (float)Math.Sin(Math.PI / 3) * DroneDistance / 2.0f * (LunarDroneIndex >> 2);
+                            offset.X = 22.0f + (float)Math.Cos(Math.PI / 3) * DroneDistance / 2.0f * (adjustedDroneIndex >> 1);
+                            offset.Y = -24.0f + (float)Math.Sin(Math.PI / 3) * DroneDistance / 2.0f * (adjustedDroneIndex >> 1);
                         }
                         else
                         {
-                            offset.X = 42.0f + (float)Math.Cos(Math.PI / 3) * DroneDistance / 2.0f * (LunarDroneIndex >> 2);
-                            offset.Y = -23.5f + (float)Math.Sin(Math.PI / 3) * DroneDistance / 2.0f * (LunarDroneIndex >> 2);
+                            offset.X = 42.0f + (float)Math.Cos(Math.PI / 3) * DroneDistance / 2.0f * (adjustedDroneIndex >> 1);
+                            offset.Y = -23.5f + (float)Math.Sin(Math.PI / 3) * DroneDistance / 2.0f * (adjustedDroneIndex >> 1);
                         }
+                        offset.X *= -player.direction;
                     }
+
+                    projectile.rotation = 0;
                     projectile.frame = STARDUSTED_FRAME;
                     break;
 
@@ -470,7 +497,7 @@ namespace MechArmor.Projectiles
             //}
 
             if (ManaCharged)
-                Dust.NewDust(projectile.Center, 8, 8, 255);
+                Dust.NewDust(projectile.Center, 8, 8, 255, 0, 0, 0, Color.Pink);
 
             switch (projectile.frame)
             {

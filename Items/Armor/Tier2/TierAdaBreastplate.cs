@@ -9,6 +9,7 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Hard Metal Breastplate");
             Tooltip.SetDefault("5% Critical Strike Chance");
         }
 
