@@ -2,3 +2,4 @@ displayName = Mechanical Armors
 author = Kyolo
 version = 0.2.1
 includePDB = false
+homepage = https://forums.terraria.org/index.php?threads/mechanical-armors.107435/
