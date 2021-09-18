@@ -61,8 +61,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
                     break;
                 case 1:
                     {
-                        player.setBonus += "\n10% Lifesteal with magical weapon";
-                        //player.ghostHeal = true;// TODO: implement proper lifesteal
+                        player.setBonus += "\n10% Lifesteal with magical weapon\n50% decreased magical damage";
                         armorPlayer.MagicalLifeSteal = true;
                         armorPlayer.MagicalLifeStealAmount = 0.10f;
                         //TODO: healing pulse on drinking mana potion

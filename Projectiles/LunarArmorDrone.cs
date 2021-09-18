@@ -100,7 +100,7 @@ namespace MechArmor.Projectiles
             LunarDroneIndex = -1;
             TargetPosition = new Vector2(0, 0);
             MouseUpdateTick = 0;
-            ShootCooldown = 120;// Default shooting time of 2s
+            ShootCooldown = 60;// Default shooting time of 2s
             ManaCharged = false;
         }
 
@@ -431,7 +431,7 @@ namespace MechArmor.Projectiles
                     {
                         // We discharge it
                         ManaCharged = false;
-
+                        //TODO : change this for a better thing
                         // The owner also need to send the projectile
                         if (Main.myPlayer == player.whoAmI)
                         {

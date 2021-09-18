@@ -22,6 +22,9 @@ namespace MechArmor
         [Label("Whitelisted Projectile AIs"), Tooltip("Projectile AI that should be affected by projectile-affecting effects"), ReloadRequired]
         public Dictionary<int, bool> AiWhitelist;
 
+        [Label("Boost Lunar Drone Multishot"), Tooltip("Increase Lunar Multishot damage. Please only use this if no high level weapons are compatible with it."), DefaultValue(false)]
+        public bool BoostLunarMultishot;
+
 
         public bool CanAffectProjectile(Projectile p)
         {

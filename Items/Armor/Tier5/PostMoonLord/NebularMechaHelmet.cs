@@ -62,7 +62,8 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
                     break;
                 case 1:
                     {
-                        player.setBonus += "\n15% Lifesteal with magical weapon";
+                        player.setBonus += "\n15% Lifesteal with magical weapon\n50% decreased magical damage";
+                        player.magicDamage -= .5f;
                         armorPlayer.MagicalLifeSteal = true;
                         armorPlayer.MagicalLifeStealAmount = 0.15f;
                         //TODO: healing pulse on drinking mana potion

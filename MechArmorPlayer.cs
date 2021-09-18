@@ -290,6 +290,7 @@ namespace MechArmor
             // Will strangely works better on mooded weapons
             if (item.ranged && LunarDroneMode == LunarDroneModes.Multishot)
             {
+                MechArmorServerConfig conf = ModContent.GetInstance<MechArmorServerConfig>();
                 // We need to find our lunar drones
                 for (int i = 0; i < Main.maxProjectiles; i++)
                 {
@@ -300,8 +301,9 @@ namespace MechArmor
                     if(proj.owner == player.whoAmI && proj.type == ModContent.ProjectileType<LunarArmorDrone>())
                     {
                         // we shoot a new projectile
-                        int newProj = Projectile.NewProjectile(proj.Center, new Vector2(speedX, speedY), type, (int)(damage * 0.25f), knockBack, player.whoAmI);
+                        int newProj = Projectile.NewProjectile(proj.Center, new Vector2(speedX, speedY), type, (int)(damage * (conf.BoostLunarMultishot ? 0.75f : 0.15f)), knockBack, player.whoAmI);
                         Main.projectile[newProj].netUpdate = true;
+
                     }
                 }
             }
