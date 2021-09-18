@@ -4,6 +4,7 @@ using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 
 using MechArmor.Buffs;
 using MechArmor.Items.Armor.Tier5;
@@ -271,10 +272,12 @@ namespace MechArmor.Projectiles
                             Projectile proj = Main.projectile[i];
                             if (proj.hostile)
                             {
-                                if((projectile.Center - proj.Center).LengthSquared() < projectile.width * projectile.width)
-                                {
-                                    // TODO : insert whitelist/blacklist if required
-                                    proj.Kill();
+                                MechArmorServerConfig conf = ModContent.GetInstance<MechArmorServerConfig>();
+                                if (conf.CanAffectProjectile(proj)) {
+                                    if ((projectile.Center - proj.Center).LengthSquared() < projectile.width * projectile.width)
+                                    {
+                                        proj.Kill();
+                                    }
                                 }
                             }
                         }

@@ -16,5 +16,6 @@ namespace MechArmor.Config
 
         [Label("Bullet attractor particle effect"),Tooltip("If the Bullet Attractor Effect should generate dust to display the range arround the player"), DefaultValue(false)]
         public bool BulletAttractorGenerateDust;
+
     }
 }

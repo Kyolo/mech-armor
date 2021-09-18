@@ -340,7 +340,7 @@ namespace MechArmor
             {
                 foreach(Projectile proj in Main.projectile)
                 {
-                    if (proj.hostile)
+                    if (proj.hostile && ModContent.GetInstance<MechArmorServerConfig>().CanAffectProjectile(proj))
                     {
                         // Are we are in range ?
                         Vector2 projToPlayer = player.position - proj.position;
@@ -353,8 +353,6 @@ namespace MechArmor
                                 //1 tile = 16 pixel
                                 //16² = 256
                                 proj.Kill();
-                                //TODO: check if this don't make complexe projectile break
-                                //TODO: add a whitelist/blacklist as required
                             }
                             else
                             {
@@ -375,19 +373,17 @@ namespace MechArmor
                 // We check for hostile projectile in range
                 foreach(Projectile proj in Main.projectile)
                 {
-                    if (proj.hostile)
+                    if (proj.hostile && ModContent.GetInstance<MechArmorServerConfig>().CanAffectProjectile(proj))
                     {
 
                         if(Vector2.DistanceSquared(proj.Center, player.Center) < LunarArmorDrone.DroneDistance * LunarArmorDrone.DroneDistance)
                         {
-                            //TODO: verify if it need a whitelist/blacklist, same as the projectile attractor
-
                             // If we have one, we teleport it to the player
                             proj.Center = player.Center;
                             // We force damage calcultation
                             proj.Damage();
                             // And we kill it to clear it
-                            proj.Kill();//TODO: check if it actually works
+                            proj.Kill();
 
                             proj.netUpdate = true;
                         }
@@ -473,7 +469,7 @@ namespace MechArmor
             // When pressing the key, change the state of the armor
             sbyte stateChange = 0;
 
-            //TODO: change stateChange for a sbyte and values to -1 & 1
+
             if(MechArmor.MechArmorStateChangeKey.JustPressed)
             {
                 stateChange = 1;//Forward
