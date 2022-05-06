@@ -26,6 +26,15 @@ namespace MechArmor
                         int otherPlayer = reader.ReadByte();
                         MechArmorPlayer modPlr = Main.player[otherPlayer].GetModPlayer<MechArmorPlayer>();
                         modPlr.ArmorState = reader.ReadByte();
+
+                        if(Main.netMode == Terraria.ID.NetmodeID.Server)
+                        {
+                            ModPacket p = mod.GetPacket();
+                            p.Write((byte)MechArmorMessageType.MechArmorPlayerSync);
+                            p.Write(otherPlayer);
+                            p.Write(modPlr.ArmorState);
+                            p.Send(-1, otherPlayer);
+                        }
                         break;
                     }
                 case MechArmorMessageType.MechArmorPlayerArmorStateChanged:
