@@ -16,11 +16,11 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice(0, 5, 0, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 24;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 5, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 24;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -30,7 +30,7 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void UpdateEquip(Player player)
         {
-            player.meleeDamage += 0.05f;
+            player.GetDamage(DamageClass.Melee) += 0.05f;
         }
 
         public override void UpdateArmorSet(Player player)
@@ -48,7 +48,7 @@ namespace MechArmor.Items.Armor.Tier3
                 case 0:
                     player.setBonus += "Offensive Movement Mode :\n 20% Increased movement speed\n +30% Melee Swing Speed";
                     player.moveSpeed += 0.20f;
-                    player.meleeSpeed += 0.30f;
+                    player.GetAttackSpeed(DamageClass.Melee) += 0.30f;
                     mAP.ArmorStateType = (byte)EnumArmorStateType.Offense | (byte)EnumArmorStateType.Movement;
                     break;
                 case 1:
@@ -68,22 +68,12 @@ namespace MechArmor.Items.Armor.Tier3
         }
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.MythrilAnvil);
-            regularRecipe.AddIngredient(ItemID.HallowedBar, 10);
-            regularRecipe.AddIngredient(ItemID.SoulofSight, 5);
-            regularRecipe.AddIngredient(ItemID.UnicornHorn, 5);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.MythrilAnvil)
+            .AddIngredient(ItemID.HallowedBar, 10)
+            .AddIngredient(ItemID.SoulofSight, 5)
+            .AddIngredient(ItemID.UnicornHorn, 5)
+            .Register();
         }
     }
 }

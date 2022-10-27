@@ -15,38 +15,28 @@ namespace MechArmor.Items.Armor.Tier4
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice(0, 7, 25, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 13;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 7, 25, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 13;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.magicCrit += 5;
-            player.magicDamage += 0.05f;
+            player.GetCritChance(DamageClass.Magic) += 5;
+            player.GetDamage(DamageClass.Magic) += 0.05f;
         }
 
         // Set bonus in helmet(s)
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.MythrilAnvil);
-            regularRecipe.AddIngredient(ItemID.SpectreBar, 20);
-            regularRecipe.AddIngredient(ItemID.CobaltShield, 1);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.MythrilAnvil)
+            .AddIngredient(ItemID.SpectreBar, 20)
+            .AddIngredient(ItemID.CobaltShield, 1)
+            .Register();
         }
     }
 }

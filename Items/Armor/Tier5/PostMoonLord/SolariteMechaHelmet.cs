@@ -16,16 +16,16 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = 90;
-            item.rare = ItemRarityID.Orange;
-            item.defense = 22;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = 90;
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 22;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.meleeCrit += 20;
+            player.GetCritChance(DamageClass.Melee) += 20;
             player.lifeRegen += 2;
         }
 
@@ -52,7 +52,7 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
                 case 0:
                     {
                         player.setBonus += "\nMelee Extender :\nIncreased melee range\n50% increased melee damage";
-                        player.meleeDamage += 0.50f;
+                        player.GetDamage(DamageClass.Melee) += 0.50f;
                         armorPlayer.LunarDroneMode = LunarDroneModes.FollowSwing;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
@@ -80,21 +80,11 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.LunarCraftingStation);
-            regularRecipe.AddIngredient(ModContent.ItemType<ProtoSolariteMechaHelmet>());
-            regularRecipe.AddIngredient(ItemID.LunarBar, 12);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.LunarCraftingStation)
+            .AddIngredient(ModContent.ItemType<ProtoSolariteMechaHelmet>())
+            .AddIngredient(ItemID.LunarBar, 12)
+            .Register();
         }
     }
 }

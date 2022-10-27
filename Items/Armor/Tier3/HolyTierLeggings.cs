@@ -15,11 +15,11 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice(0, 3, 0, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 11;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 3, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 11;
             
         }
 
@@ -32,21 +32,11 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.MythrilAnvil);
-            regularRecipe.AddIngredient(ItemID.HallowedBar, 15);
-            regularRecipe.AddIngredient(ItemID.SoulofFright, 10);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.MythrilAnvil)
+            .AddIngredient(ItemID.HallowedBar, 15)
+            .AddIngredient(ItemID.SoulofFright, 10)
+            .Register();
         }
     }
 }

@@ -15,11 +15,11 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice(0, 11, 75, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 11;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 11, 75, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 11;
 
         }
 
@@ -33,21 +33,11 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.LunarCraftingStation);
-            regularRecipe.AddIngredient(ModContent.ItemType<ProtoStardustedMechaLeggings>());
-            regularRecipe.AddIngredient(ItemID.LunarBar, 10);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.LunarCraftingStation)
+            .AddIngredient(ModContent.ItemType<ProtoStardustedMechaLeggings>())
+            .AddIngredient(ItemID.LunarBar, 10)
+            .Register();
         }
     }
 }

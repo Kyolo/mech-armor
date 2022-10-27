@@ -16,16 +16,16 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice();
-            item.rare = ItemRarityID.Orange;
-            item.defense = 10;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice();
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 10;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.minionDamage += 0.20f;
+            player.GetDamage(DamageClass.Summon) += 0.20f;
             player.maxMinions += 1;
         }
 
@@ -79,21 +79,11 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.LunarCraftingStation);
-            regularRecipe.AddIngredient(ModContent.ItemType<ProtoStardustedMechaHelmet>());
-            regularRecipe.AddIngredient(ItemID.LunarBar, 12);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.LunarCraftingStation)
+            .AddIngredient(ModContent.ItemType<ProtoStardustedMechaHelmet>())
+            .AddIngredient(ItemID.LunarBar, 12)
+            .Register();
         }
     }
 }

@@ -16,18 +16,18 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice(0, 8, 75, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 14;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 8, 75, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 14;
         }
 
         public override void UpdateEquip(Player player)
         {
             player.statManaMax2 += 200;
             player.manaCost -= 0.10f;
-            player.magicCrit += 5;
+            player.GetCritChance(DamageClass.Magic) += 5;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -53,7 +53,7 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
                 case 0:
                     {
                         player.setBonus += "\nMana Amplifier :\n100% increased magical damage\n200% increased mana cost";
-                        player.magicDamage += 1.0f;
+                        player.GetDamage(DamageClass.Magic) += 1.0f;
                         player.manaCost += 2.0f;
                         // Because we use lunar drones, we need to tell them how to behave
                         armorPlayer.LunarDroneMode = LunarDroneModes.ManaAmplifier;
@@ -63,7 +63,7 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
                 case 1:
                     {
                         player.setBonus += "\n15% Lifesteal with magical weapon\n50% decreased magical damage";
-                        player.magicDamage -= .5f;
+                        player.GetDamage(DamageClass.Magic) -= .5f;
                         armorPlayer.MagicalLifeSteal = true;
                         armorPlayer.MagicalLifeStealAmount = 0.15f;
                         //TODO: healing pulse on drinking mana potion
@@ -89,21 +89,11 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.LunarCraftingStation);
-            regularRecipe.AddIngredient(ModContent.ItemType<ProtoNebularMechaHelmet>());
-            regularRecipe.AddIngredient(ItemID.LunarBar, 12);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.LunarCraftingStation)
+            .AddIngredient(ModContent.ItemType<ProtoNebularMechaHelmet>())
+            .AddIngredient(ItemID.LunarBar, 12)
+            .Register();
         }
     }
 }

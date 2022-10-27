@@ -15,38 +15,28 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice(0, 15, 75, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 17;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 15, 75, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 17;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.magicDamage += 0.10f;
-            player.magicCrit += 10;
+            player.GetDamage(DamageClass.Magic) += 0.10f;
+            player.GetCritChance(DamageClass.Magic) += 10;
         }
 
         // Set bonus in helmet(s)
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.LunarCraftingStation);
-            regularRecipe.AddIngredient(ModContent.ItemType<ProtoNebularMechaBreastplate>());
-            regularRecipe.AddIngredient(ItemID.LunarBar, 16);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.LunarCraftingStation)
+            .AddIngredient(ModContent.ItemType<ProtoNebularMechaBreastplate>())
+            .AddIngredient(ItemID.LunarBar, 16)
+            .Register();
         }
     }
 }

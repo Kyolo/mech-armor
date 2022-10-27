@@ -67,33 +67,33 @@ namespace MechArmor.Projectiles
         {
             DisplayName.SetDefault("Lunar Drone");
             // Sets the amount of frames this minion has on its spritesheet
-            Main.projFrames[projectile.type] = 5;
+            Main.projFrames[Projectile.type] = 5;
 
 
             // These below are needed for a minion
-            // Denotes that this projectile is a pet or minion
-            Main.projPet[projectile.type] = true;
+            // Denotes that this Projectile is a pet or minion
+            Main.projPet[Projectile.type] = true;
 
         }
 
         public sealed override void SetDefaults()
         {
-            projectile.width = 52;
-            projectile.height = 32;
+            Projectile.width = 52;
+            Projectile.height = 32;
             // Makes the minion go through tiles freely
-            projectile.tileCollide = false;
+            Projectile.tileCollide = false;
 
             // Needed so the minion doesn't despawn on collision with enemies or tiles
-            projectile.penetrate = -1;
+            Projectile.penetrate = -1;
 
             // By default they don't do any damage
-            projectile.damage = 0;
+            Projectile.damage = 0;
             // They can deal damage to enemies, just not always
-            projectile.friendly = true;
+            Projectile.friendly = true;
             // Position timer
-            projectile.ai[0] = 0;
+            Projectile.ai[0] = 0;
             // Shooting timer
-            projectile.ai[1] = 0;
+            Projectile.ai[1] = 0;
 
             // We don't start knowing which drone it is
             // we default to -1
@@ -113,13 +113,13 @@ namespace MechArmor.Projectiles
         // This is mandatory if your minion deals contact damage (further related stuff in AI() in the Movement region)
         public override bool MinionContactDamage()
         {
-            return projectile.damage > 0;
+            return Projectile.damage > 0;
         }
 
         public override void AI()
         {
 
-            Player player = Main.player[projectile.owner];
+            Player player = Main.player[Projectile.owner];
             MechArmorPlayer mAPlayer = player.GetModPlayer<MechArmorPlayer>();
 
             #region Active check
@@ -133,16 +133,16 @@ namespace MechArmor.Projectiles
             if(mAPlayer.LunarDroneCount > LunarDroneIndex)
             {
                 // We need this drone, refresh timer
-                projectile.timeLeft = 2;
+                Projectile.timeLeft = 2;
                 // We also increase the value used to handle moving placement
-                projectile.ai[0]++;
-                if ((int)projectile.ai[0] == AnimationLoopDuration)
-                    projectile.ai[0] = 0;
+                Projectile.ai[0]++;
+                if ((int)Projectile.ai[0] == AnimationLoopDuration)
+                    Projectile.ai[0] = 0;
 
                 // And the shooting counter
-                projectile.ai[1]++;
-                if ((int)projectile.ai[1] == ShootCooldown)
-                    projectile.ai[1] = 0;
+                Projectile.ai[1]++;
+                if ((int)Projectile.ai[1] == ShootCooldown)
+                    Projectile.ai[1] = 0;
 
             }
 
@@ -158,7 +158,7 @@ namespace MechArmor.Projectiles
                 MouseUpdateTick++;
                 if(MouseUpdateTick >= MouseUpdateTime)
                 {
-                    projectile.netUpdate = true;
+                    Projectile.netUpdate = true;
                     MouseUpdateTick = 0;
                 }
             }
@@ -171,14 +171,14 @@ namespace MechArmor.Projectiles
             // But they (almost) never stray far from their player
             Vector2 offset = new Vector2(0, 0);
 
-            float positionLoopProgression = projectile.ai[0] / AnimationLoopDuration;
+            float positionLoopProgression = Projectile.ai[0] / AnimationLoopDuration;
             float droneIndexFloat = ((float)LunarDroneIndex) / mAPlayer.LunarDroneCount;
 
             float animationVar = droneIndexFloat + positionLoopProgression;
 
             // Reset damage
-            projectile.damage = 0;
-            projectile.melee = false;
+            Projectile.damage = 0;
+            Projectile.DamageType = DamageClass.Default;
 
             switch (mAPlayer.LunarDroneMode)
             {
@@ -189,20 +189,20 @@ namespace MechArmor.Projectiles
                 case LunarDroneModes.FollowSwing:
                     //player.itemRotation
                     // We only extend the range for melee weapons
-                    if (player.HeldItem.melee && player.HeldItem.useStyle == 1 && player.itemAnimation > 0)
+                    if (player.HeldItem.DamageType == DamageClass.Melee && player.HeldItem.useStyle == 1 && player.itemAnimation > 0)
                     {
                         float droneIndexInc = ((float)LunarDroneIndex + 1) / (mAPlayer.LunarDroneCount + 1);
                         offset.X = (float)Math.Cos(player.itemRotation + (Math.PI / 4.0f) * -player.direction) * DroneDistance * 2.0f * droneIndexInc * player.direction;
                         offset.Y = (float)Math.Sin(player.itemRotation + (Math.PI / 4.0f) * -player.direction) * DroneDistance * 2.0f * droneIndexInc * player.direction;
 
 
-                        projectile.rotation = player.itemRotation + (float)Math.PI / 4.0f;
+                        Projectile.rotation = player.itemRotation + (float)Math.PI / 4.0f;
 
                         if (player.direction > 0)
-                            projectile.rotation += (float)Math.PI / 2.0f;
+                            Projectile.rotation += (float)Math.PI / 2.0f;
 
-                        projectile.damage = player.HeldItem.damage;
-                        projectile.melee = true;
+                        Projectile.damage = player.HeldItem.damage;
+                        Projectile.DamageType = DamageClass.Melee;
                     }
                     else
                     {
@@ -210,10 +210,10 @@ namespace MechArmor.Projectiles
                         offset.X = -player.direction * 32f;
                         offset.Y = player.height - droneIndexFloat * player.height;
 
-                        projectile.rotation = 0;
+                        Projectile.rotation = 0;
                     }
 
-                    projectile.frame = SOLARITE_FRAME;
+                    Projectile.frame = SOLARITE_FRAME;
                     break;
                 case LunarDroneModes.JetpackWings:
                     // They simply stand behind the player in the rough shape of a jetpack
@@ -230,8 +230,8 @@ namespace MechArmor.Projectiles
 
                     offset.X *= - player.direction;
 
-                    projectile.rotation = -player.direction;
-                    projectile.frame = SOLARITE_FRAME;
+                    Projectile.rotation = -player.direction;
+                    Projectile.frame = SOLARITE_FRAME;
                     break;
                 case LunarDroneModes.Multishot:
                     //Drone float behind the player in an ellipsis, pointed in the direction of their next target
@@ -240,10 +240,10 @@ namespace MechArmor.Projectiles
 
                     offset.X *= player.direction;
 
-                    projectile.frame = VORTEXIAN_FRAME;
+                    Projectile.frame = VORTEXIAN_FRAME;
 
-                    if(player.HeldItem.ranged && player.itemAnimation > 0)
-                        projectile.rotation = player.itemRotation + (float)Math.PI / 2.0f;// We point in the same direction than the player's gun
+                    if(player.HeldItem.DamageType == DamageClass.Ranged && player.itemAnimation > 0)
+                        Projectile.rotation = player.itemRotation + (float)Math.PI / 2.0f;// We point in the same direction than the player's gun
                     break;
                 case LunarDroneModes.ProjectileBarrier:
                     // A simple bar behind the player
@@ -264,9 +264,9 @@ namespace MechArmor.Projectiles
 
                         offset = back + droneOffset;
 
-                        projectile.rotation = dir.ToRotation();
+                        Projectile.rotation = dir.ToRotation();
 
-                        // We also make all projectile arround us disappear
+                        // We also make all Projectile arround us disappear
                         for(int i = 0; i < Main.projectile.Length; i++)
                         {
                             Projectile proj = Main.projectile[i];
@@ -274,7 +274,7 @@ namespace MechArmor.Projectiles
                             {
                                 MechArmorServerConfig conf = ModContent.GetInstance<MechArmorServerConfig>();
                                 if (conf.CanAffectProjectile(proj)) {
-                                    if ((projectile.Center - proj.Center).LengthSquared() < projectile.width * projectile.width)
+                                    if ((Projectile.Center - proj.Center).LengthSquared() < Projectile.width * Projectile.width)
                                     {
                                         proj.Kill();
                                     }
@@ -283,7 +283,7 @@ namespace MechArmor.Projectiles
                         }
 
                     }
-                    projectile.frame = VORTEXIAN_FRAME;
+                    Projectile.frame = VORTEXIAN_FRAME;
                     break;
                 case LunarDroneModes.ManaAmplifier:
                     // A triangle in front of the player
@@ -302,10 +302,10 @@ namespace MechArmor.Projectiles
 
                         offset = advance + height;
 
-                        projectile.rotation = dir.ToRotation() + ((LunarDroneIndex & 1) == 1 ? 3.0f : 1.0f) * (float)Math.PI / 4.0f;
+                        Projectile.rotation = dir.ToRotation() + ((LunarDroneIndex & 1) == 1 ? 3.0f : 1.0f) * (float)Math.PI / 4.0f;
 
                     }
-                    projectile.frame = NEBULAR_FRAME;
+                    Projectile.frame = NEBULAR_FRAME;
                     break;
                 case LunarDroneModes.ManaLifeSteal:
                     Vector2 c = (new Vector2(0, -1) * player.height * 1.5f) + //height
@@ -320,9 +320,9 @@ namespace MechArmor.Projectiles
                     );
                     offset = c + crossPosition;
                     
-                    projectile.rotation = crossPosition.ToRotation() + (float)Math.PI / 2.0f;
+                    Projectile.rotation = crossPosition.ToRotation() + (float)Math.PI / 2.0f;
 
-                    projectile.frame = NEBULAR_FRAME;
+                    Projectile.frame = NEBULAR_FRAME;
                     break;
                 case LunarDroneModes.SummonBoost:
                     // Boost one summon per drone
@@ -331,7 +331,7 @@ namespace MechArmor.Projectiles
                     for(int i = 0; i < Main.projectile.Length; i++)
                     {
                         Projectile otherProj = Main.projectile[i];
-                        if(otherProj.owner == projectile.owner && otherProj.minion)
+                        if(otherProj.owner == Projectile.owner && otherProj.minion)
                         {
                             minionCount++;
                             if(minionCount == LunarDroneIndex)
@@ -340,7 +340,7 @@ namespace MechArmor.Projectiles
                                 // Because for once we don't follow the player, we need to compensate
                                 offset = -player.Center;
                                 offset += otherProj.Center;
-                                projectile.rotation = otherProj.rotation;
+                                Projectile.rotation = otherProj.rotation;
 
                                 // We boost the damage of the minion
                                 otherProj.GetGlobalProjectile<ProjectileExtension>().LunarBoostedMinion = true;
@@ -361,10 +361,10 @@ namespace MechArmor.Projectiles
                                 (float)Math.Sin(2.0f * Math.PI * animationVar) * DroneDistance / 2.0f// The circle is wider that it is tall (aka an ellipsis).
                             );
 
-                        projectile.rotation = 0;
+                        Projectile.rotation = 0;
                     }
 
-                    projectile.frame = STARDUSTED_FRAME;
+                    Projectile.frame = STARDUSTED_FRAME;
                     break;
                 case LunarDroneModes.Confusion:
                     // Fly arround the player (like in idle) and shoot nearby enemy for a bit of damage
@@ -375,7 +375,7 @@ namespace MechArmor.Projectiles
                     // 
 
                     // If this drone is ready to shoot
-                    if ((int)projectile.ai[1] == 0)
+                    if ((int)Projectile.ai[1] == 0)
                     {
 
                         int target = AcquireTarget(DroneDistance * 2);
@@ -383,25 +383,25 @@ namespace MechArmor.Projectiles
                         if (target >= 0)
                         {
                             // We found a target
-                            Vector2 direction = Main.npc[target].Center - projectile.Center;
+                            Vector2 direction = Main.npc[target].Center - Projectile.Center;
                             direction.Normalize();
                             // We only shoot on the owner's game
                             if (Main.myPlayer == player.whoAmI)
                             {
-                                int proj = Projectile.NewProjectile(projectile.Center, direction * player.maxMinions, ProjectileID.NanoBullet, 5 * player.maxMinions, 10, projectile.owner);
+                                int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, direction * player.maxMinions, ProjectileID.NanoBullet, 5 * player.maxMinions, 10, Projectile.owner);
 
-                                // And then we sync the new projectile
-                                //projectile.netUpdate = true;// no need for us, we don't change anything
+                                // And then we sync the new Projectile
+                                //Projectile.netUpdate = true;// no need for us, we don't change anything
                                 Main.projectile[proj].netUpdate = true;
                                 Main.projectile[proj].timeLeft = 300;// 5s lifetime
                             }
                             // We also change our orientation toward our target
-                            projectile.rotation = direction.ToRotation() + (float)Math.PI / 4.0f;
+                            Projectile.rotation = direction.ToRotation() + (float)Math.PI / 4.0f;
 
                         }
                     }
 
-                    projectile.frame = STARDUSTED_FRAME;
+                    Projectile.frame = STARDUSTED_FRAME;
                     break;
                 case LunarDroneModes.ProjectileShield:
                     // Nothing fancy here
@@ -412,9 +412,9 @@ namespace MechArmor.Projectiles
 
                         Vector2 dir = player.Center - (player.Center + offset);
                         dir.Normalize();
-                        projectile.rotation = dir.ToRotation() + (float)Math.PI / 2.0f;
+                        Projectile.rotation = dir.ToRotation() + (float)Math.PI / 2.0f;
 
-                        projectile.frame = SOLARITE_FRAME;
+                        Projectile.frame = SOLARITE_FRAME;
                     }
                     break;
                 case LunarDroneModes.ManaShield:
@@ -424,7 +424,7 @@ namespace MechArmor.Projectiles
                     // Behind the player
                     offset.X += -player.direction * DroneDistance * 0.75f;
 
-                    projectile.rotation = (projectile.Center - offset - player.Center).ToRotation();// + (float)Math.PI / 4.0f;
+                    Projectile.rotation = (Projectile.Center - offset - player.Center).ToRotation();// + (float)Math.PI / 4.0f;
 
                     // We may need to fire a bolt
                     if (ManaCharged)
@@ -432,30 +432,30 @@ namespace MechArmor.Projectiles
                         // We discharge it
                         ManaCharged = false;
                         //TODO : change this for a better thing
-                        // The owner also need to send the projectile
+                        // The owner also need to send the Projectile
                         if (Main.myPlayer == player.whoAmI)
                         {
                             int target = AcquireTarget(DroneDistance * 4);
                             if (target != -1)
                             {
                                 // We found a target
-                                Vector2 direction = Main.npc[target].Center - projectile.Center;
+                                Vector2 direction = Main.npc[target].Center - Projectile.Center;
                                 direction.Normalize();
                                 // We have a target
-                                int proj = Projectile.NewProjectile(projectile.Center, direction * 64.0f, ProjectileID.DiamondBolt, 100, 0, player.whoAmI, 1);
+                                int proj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, direction * 64.0f, ProjectileID.DiamondBolt, 100, 0, player.whoAmI, 1);
                                 Main.projectile[proj].netUpdate = true;
                                 Main.projectile[proj].timeLeft = 300;// 5s lifetime
                             }
                         }
                     }
-                    projectile.frame = NEBULAR_FRAME;
+                    Projectile.frame = NEBULAR_FRAME;
                     break;
                 case LunarDroneModes.JetpackPlatform:
                     // Two drones under, the rest like regular jetpack
                     if(LunarDroneIndex < 2)
                     {
                         offset.Y = player.height;
-                        offset.X = ((LunarDroneIndex & 1) == 0 ? .5f : -.5f) * projectile.width;
+                        offset.X = ((LunarDroneIndex & 1) == 0 ? .5f : -.5f) * Projectile.width;
                     }
                     else
                     {
@@ -473,51 +473,51 @@ namespace MechArmor.Projectiles
                         offset.X *= -player.direction;
                     }
 
-                    projectile.rotation = 0;
-                    projectile.frame = STARDUSTED_FRAME;
+                    Projectile.rotation = 0;
+                    Projectile.frame = STARDUSTED_FRAME;
                     break;
 
                 
             }
-            // We move the projectile to the correct position
+            // We move the Projectile to the correct position
             // we also center the coordinates
-            projectile.Center = player.Center + offset;
+            Projectile.Center = player.Center + offset;
             #endregion
 
             #region Animation and visuals
 
             // This is a simple "loop through all frames from top to bottom" animation
             //int frameSpeed = 5;
-            //projectile.frameCounter++;
-            //if (projectile.frameCounter >= frameSpeed)
+            //Projectile.frameCounter++;
+            //if (Projectile.frameCounter >= frameSpeed)
             //{
-            //    projectile.frameCounter = 0;
-            //    projectile.frame++;
-            //    if (projectile.frame >= Main.projFrames[projectile.type])
+            //    Projectile.frameCounter = 0;
+            //    Projectile.frame++;
+            //    if (Projectile.frame >= Main.projFrames[Projectile.type])
             //    {
-            //        projectile.frame = 0;
+            //        Projectile.frame = 0;
             //    }
             //}
 
             if (ManaCharged)
-                Dust.NewDust(projectile.Center, 8, 8, 255, 0, 0, 0, Color.Pink);
+                Dust.NewDust(Projectile.Center, 8, 8, 255, 0, 0, 0, Color.Pink);
 
-            switch (projectile.frame)
+            switch (Projectile.frame)
             {
                 case SOLARITE_FRAME:
-                    Lighting.AddLight(projectile.Center, Color.DarkOrange.ToVector3());
+                    Lighting.AddLight(Projectile.Center, Color.DarkOrange.ToVector3());
                     break;
                 case STARDUSTED_FRAME:
-                    Lighting.AddLight(projectile.Center, Color.Cyan.ToVector3());
+                    Lighting.AddLight(Projectile.Center, Color.Cyan.ToVector3());
                     break;
                 case VORTEXIAN_FRAME:
-                    Lighting.AddLight(projectile.Center, Color.LightSeaGreen.ToVector3());
+                    Lighting.AddLight(Projectile.Center, Color.LightSeaGreen.ToVector3());
                     break;
                 case NEBULAR_FRAME:
-                    Lighting.AddLight(projectile.Center, Color.Pink.ToVector3());
+                    Lighting.AddLight(Projectile.Center, Color.Pink.ToVector3());
                     break;
                 default:
-                    Lighting.AddLight(projectile.Center, Color.White.ToVector3() * 0.78f);
+                    Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
                     break;
             }
             #endregion
@@ -538,7 +538,7 @@ namespace MechArmor.Projectiles
                 if (npc.CanBeChasedBy())
                 {
                     // If the NPC is relatively near
-                    float newDistance = Vector2.DistanceSquared(npc.Center, projectile.Center);
+                    float newDistance = Vector2.DistanceSquared(npc.Center, Projectile.Center);
                     if (newDistance < oldDistance && newDistance < maximumDistanceSq)
                     {
                         target = i;

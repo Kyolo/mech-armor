@@ -14,27 +14,25 @@ namespace MechArmor.Items
 
         public override void SetDefaults()
         {
-            item.width = 19;
-            item.height = 22;
+            Item.width = 19;
+            Item.height = 22;
 
-            item.maxStack = 999;
-            item.value = 400;//4 silver a piece
-            item.rare = ItemRarityID.Lime;
+            Item.maxStack = 999;
+            Item.value = 400;//4 silver a piece
+            Item.rare = ItemRarityID.Lime;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddTile(TileID.AdamantiteForge);
-            recipe.AddIngredient(ItemID.PaladinsShield, 1);
-            recipe.SetResult(this, 12);
-            recipe.AddRecipe();
+            CreateRecipe(12)
+            .AddTile(TileID.AdamantiteForge)
+            .AddIngredient(ItemID.PaladinsShield, 1)
+            .Register();
 
-            recipe = new ModRecipe(mod);
-            recipe.AddTile(TileID.AdamantiteForge);
-            recipe.AddIngredient(ItemID.PaladinsHammer, 1);
-            recipe.SetResult(this, 6);
-            recipe.AddRecipe();
+            CreateRecipe(6)
+            .AddTile(TileID.AdamantiteForge)
+            .AddIngredient(ItemID.PaladinsHammer, 1)
+            .Register();
         }
     }
 }

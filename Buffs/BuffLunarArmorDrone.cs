@@ -12,7 +12,7 @@ namespace MechArmor.Buffs
         // This buff is only a visual indicator for now
         // Maybe change it later or even remove it
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Lunar Drones");
             Description.SetDefault("You are assisted by lunar drones.");

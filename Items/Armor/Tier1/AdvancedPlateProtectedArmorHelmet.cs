@@ -15,11 +15,11 @@ namespace MechArmor.Items.Armor.Tier1
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = 90;
-            item.rare = ItemRarityID.Orange;
-            item.defense = 6;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = 90;
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 6;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -46,52 +46,36 @@ namespace MechArmor.Items.Armor.Tier1
                 player.statDefense -= 10;
                 player.moveSpeed += 0.6f;
 
-                player.allDamage -= 0.1f;
+                player.GetDamage(DamageClass.Generic) -= 0.1f;
                 player.GetModPlayer<MechArmorPlayer>().ArmorStateType = (byte)EnumArmorStateType.Movement;
             }
         }
         public override void AddRecipes()
         {
-            // Check if we need to use the testing recipes
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe wRecipe = new ModRecipe(mod);
-                wRecipe.AddRecipeGroup("Wood", 10);
-                wRecipe.AddTile(TileID.WorkBenches);
-                wRecipe.SetResult(this);
-                wRecipe.AddRecipe();
-            }
-
             //Upgrade from heavy
-            ModRecipe recipeUpgradeHeavy = new ModRecipe(mod);
-            recipeUpgradeHeavy.AddTile(TileID.Anvils);
-            recipeUpgradeHeavy.AddIngredient(ModContent.ItemType<HeavyPlateProtectedArmorHelmet>());
-            recipeUpgradeHeavy.AddRecipeGroup("MechArmor:Bars:Evil", 10);
-            recipeUpgradeHeavy.AddIngredient(ItemID.Wire, 10);
-
-            recipeUpgradeHeavy.SetResult(this);
-            recipeUpgradeHeavy.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.Anvils)
+            .AddIngredient(ModContent.ItemType<HeavyPlateProtectedArmorHelmet>())
+            .AddRecipeGroup("MechArmor:Bars:Evil", 10)
+            .AddIngredient(ItemID.Wire, 10)
+            .Register();
 
             //Upgrade from light
-            ModRecipe recipeUpgradeLight = new ModRecipe(mod);
-            recipeUpgradeLight.AddTile(TileID.Anvils);
-            recipeUpgradeLight.AddIngredient(ModContent.ItemType<LightPlateProtectedArmorHelmet>());
-            recipeUpgradeLight.AddIngredient(ItemID.HellstoneBar, 10);
-            recipeUpgradeLight.AddIngredient(ItemID.Wire, 10);
-
-            recipeUpgradeLight.SetResult(this);
-            recipeUpgradeLight.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.Anvils)
+            .AddIngredient(ModContent.ItemType<LightPlateProtectedArmorHelmet>())
+            .AddIngredient(ItemID.HellstoneBar, 10)
+            .AddIngredient(ItemID.Wire, 10)
+            .Register();
 
             //Upgrade from basic
-            ModRecipe recipeUpgradeBasic = new ModRecipe(mod);
-            recipeUpgradeBasic.AddTile(TileID.Anvils);
-            recipeUpgradeBasic.AddIngredient(ModContent.ItemType<PlateProtectedArmorHelmet>());
-            recipeUpgradeBasic.AddIngredient(ItemID.HellstoneBar, 10);
-            recipeUpgradeBasic.AddRecipeGroup("MechArmor:Bars:Evil", 10);
-            recipeUpgradeBasic.AddIngredient(ItemID.Wire, 10);
-
-            recipeUpgradeBasic.SetResult(this);
-            recipeUpgradeBasic.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.Anvils)
+            .AddIngredient(ModContent.ItemType<PlateProtectedArmorHelmet>())
+            .AddIngredient(ItemID.HellstoneBar, 10)
+            .AddRecipeGroup("MechArmor:Bars:Evil", 10)
+            .AddIngredient(ItemID.Wire, 10)
+            .Register();
 
         }
     }

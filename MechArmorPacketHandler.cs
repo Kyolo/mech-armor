@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -26,6 +21,17 @@ namespace MechArmor
                         int otherPlayer = reader.ReadByte();
                         MechArmorPlayer modPlr = Main.player[otherPlayer].GetModPlayer<MechArmorPlayer>();
                         modPlr.ArmorState = reader.ReadByte();
+                        
+                        // We also need to send it back to all connected clients from the server
+                        if(Main.netMode == Terraria.ID.NetmodeID.Server)
+                        {
+                            ModPacket p = mod.GetPacket();
+                            p.Write((byte)MechArmorMessageType.MechArmorPlayerSync);
+                            p.Write(otherPlayer);
+                            p.Write(modPlr.ArmorState);
+                            // We send the data to all players except the original one
+                            p.Send(-1, otherPlayer);
+                        }
                         break;
                     }
                 case MechArmorMessageType.MechArmorPlayerArmorStateChanged:

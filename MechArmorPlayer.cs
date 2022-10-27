@@ -247,7 +247,7 @@ namespace MechArmor
                 if (removedDamage > 0)
                 {
                     // We don't remove more damage than we have mana
-                    int manaRemoved = Math.Min(removedDamage, player.statMana);
+                    int manaRemoved = Math.Min(removedDamage, Player.statMana);
 
                     // If we can remove damage
                     if (manaRemoved > 0)
@@ -255,9 +255,9 @@ namespace MechArmor
                         // we remove it from the total
                         damage -= manaRemoved;
                         // Then we remove the mana
-                        player.statMana -= manaRemoved;
+                        Player.statMana -= manaRemoved;
                         // And lastly we restart the mana regeneration delay
-                        player.manaRegenDelay = (int)player.maxRegenDelay;
+                        Player.manaRegenDelay = (int)Player.maxRegenDelay;
 
                         MagicDamageAbsorbed += damage;
                     }
@@ -271,24 +271,24 @@ namespace MechArmor
         public override float UseTimeMultiplier(Item item)
         {
             // If this is a magic weapon
-            if (item.magic)
+            if (item.DamageType == DamageClass.Magic)
             {
                 return MagicUseTimeModifier;
             }
-            if (item.ranged)
+            if (item.DamageType == DamageClass.Ranged)
             {
                 return RangedUseTimeModifier;
             }
+            
             return 1.0f;
         }
 
-
-        public override bool Shoot(Item item, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             // Lunar drone multishoot
             // XXX: doesn't works on some weapons, because the hook is not called for those
             // Will strangely works better on mooded weapons
-            if (item.ranged && LunarDroneMode == LunarDroneModes.Multishot)
+            if (item.DamageType == DamageClass.Ranged && LunarDroneMode == LunarDroneModes.Multishot)
             {
                 MechArmorServerConfig conf = ModContent.GetInstance<MechArmorServerConfig>();
                 // We need to find our lunar drones
@@ -298,10 +298,10 @@ namespace MechArmor
 
                     // When we find one of our drone
                     Dust.NewDust(proj.Center, 8, 8, 55);
-                    if(proj.owner == player.whoAmI && proj.type == ModContent.ProjectileType<LunarArmorDrone>())
+                    if(proj.owner == Player.whoAmI && proj.type == ModContent.ProjectileType<LunarArmorDrone>())
                     {
                         // we shoot a new projectile
-                        int newProj = Projectile.NewProjectile(proj.Center, new Vector2(speedX, speedY), type, (int)(damage * (conf.BoostLunarMultishot ? 0.75f : 0.15f)), knockBack, player.whoAmI);
+                        int newProj = Projectile.NewProjectile(source, proj.Center, velocity, type, (int)(damage * (conf.BoostLunarMultishot ? 0.75f : 0.15f)), knockback, Player.whoAmI);
                         Main.projectile[newProj].netUpdate = true;
 
                     }
@@ -315,7 +315,7 @@ namespace MechArmor
         // Lunar Drone Projectile Creation & Destruction, as required
         public override void PostUpdateEquips()
         {
-            int existingDrones = player.ownedProjectileCounts[ModContent.ProjectileType<LunarArmorDrone>()];
+            int existingDrones = Player.ownedProjectileCounts[ModContent.ProjectileType<LunarArmorDrone>()];
             // Do we have enough drones created ?
             if (existingDrones < LunarDroneCount)
             {
@@ -323,11 +323,11 @@ namespace MechArmor
                 if(existingDrones == 0)
                 {
                     //Yes we do
-                    player.AddBuff(ModContent.BuffType<BuffLunarArmorDrone>(), 18000, true);
+                    Player.AddBuff(ModContent.BuffType<BuffLunarArmorDrone>(), 18000, true);
                 }
 
                 // We create a new drone
-                LunarArmorDrone proj = (LunarArmorDrone)Projectile.NewProjectileDirect(player.position, new Vector2(0, 0), ModContent.ProjectileType<LunarArmorDrone>(), 0, 0f, player.whoAmI).modProjectile;
+                LunarArmorDrone proj = (LunarArmorDrone)Projectile.NewProjectileDirect(Player.GetSource_Misc("SetBonus_LunarDroneSet"), Player.position, new Vector2(0, 0), ModContent.ProjectileType<LunarArmorDrone>(), 0, 0f, Player.whoAmI).ModProjectile;
                 // We set its index
                 proj.LunarDroneIndex = (sbyte)existingDrones;
             }
@@ -345,7 +345,7 @@ namespace MechArmor
                     if (proj.hostile && ModContent.GetInstance<MechArmorServerConfig>().CanAffectProjectile(proj))
                     {
                         // Are we are in range ?
-                        Vector2 projToPlayer = player.position - proj.position;
+                        Vector2 projToPlayer = Player.position - proj.position;
                         if (ProjectileAttractorRange * ProjectileAttractorRange > projToPlayer.LengthSquared())
                         {
                             //Yes, attract the projectile
@@ -378,10 +378,10 @@ namespace MechArmor
                     if (proj.hostile && ModContent.GetInstance<MechArmorServerConfig>().CanAffectProjectile(proj))
                     {
 
-                        if(Vector2.DistanceSquared(proj.Center, player.Center) < LunarArmorDrone.DroneDistance * LunarArmorDrone.DroneDistance)
+                        if(Vector2.DistanceSquared(proj.Center, Player.Center) < LunarArmorDrone.DroneDistance * LunarArmorDrone.DroneDistance)
                         {
                             // If we have one, we teleport it to the player
-                            proj.Center = player.Center;
+                            proj.Center = Player.Center;
                             // We force damage calcultation
                             proj.Damage();
                             // And we kill it to clear it
@@ -404,10 +404,10 @@ namespace MechArmor
                     // And we sarch the player's drones
                     foreach(Projectile proj in Main.projectile)
                     {
-                        if(proj.owner == player.whoAmI && proj.type == ModContent.ProjectileType<LunarArmorDrone>())
+                        if(proj.owner == Player.whoAmI && proj.type == ModContent.ProjectileType<LunarArmorDrone>())
                         {
                             // We found one
-                            LunarArmorDrone drone = (LunarArmorDrone)proj.modProjectile;
+                            LunarArmorDrone drone = (LunarArmorDrone)proj.ModProjectile;
                             foundDrone++;
 
                             // If this the 1st found, we have a 1/n-drone chance to choose this one
@@ -440,7 +440,7 @@ namespace MechArmor
 
         private static byte ProjectileAttractorDrawingRotationOffset = 0;
         // (More or less) Fancy particles effects
-        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
             if (ModContent.GetInstance<MechArmorDisplayConfig>().BulletAttractorGenerateDust)
             {
@@ -452,9 +452,9 @@ namespace MechArmor
                     {
                         float dX = (float)Math.Cos(Math.PI / 180f * (i + ProjectileAttractorDrawingRotationOffset)) * ProjectileAttractorRange;
                         float dY = (float)Math.Sin(Math.PI / 180f * (i + ProjectileAttractorDrawingRotationOffset)) * ProjectileAttractorRange;
-                        Vector2 toPlayer = player.position - new Vector2(dX, dY);
+                        Vector2 toPlayer = Player.position - new Vector2(dX, dY);
                         toPlayer.Normalize();
-                        Dust.NewDustPerfect(this.player.position + new Vector2(dX, dY), 55, toPlayer, 1, default, 0.5f);
+                        Dust.NewDustPerfect(this.Player.position + new Vector2(dX, dY), 55, toPlayer, 1, default, 0.5f);
 
                     }
                 }
@@ -502,9 +502,9 @@ namespace MechArmor
 
                     // We also add the buffs, as required
                     if(ArmorCooldownDuration > 0)
-                        player.AddBuff(ModContent.BuffType<BuffStateCooldown>(), (int)(ArmorCooldownDuration * ArmorCooldownDurationModifier * 60));
+                        Player.AddBuff(ModContent.BuffType<BuffStateCooldown>(), (int)(ArmorCooldownDuration * ArmorCooldownDurationModifier * 60));
                     if (ArmorWarmupDuration > 0)
-                        player.AddBuff(ModContent.BuffType<BuffStateWarmup>(), (int)(ArmorWarmupDuration * ArmorWarmupDurationModifier * 60));
+                        Player.AddBuff(ModContent.BuffType<BuffStateWarmup>(), (int)(ArmorWarmupDuration * ArmorWarmupDurationModifier * 60));
                 }
 			}
         }
@@ -513,7 +513,7 @@ namespace MechArmor
 
         #region Saving and loading
 
-        public override void Load(TagCompound tag)
+        public override void LoadData(TagCompound tag)
         {
             //We load the armor state
 			//The MaxArmorState is useless because it is set from the armor itself
@@ -527,14 +527,9 @@ namespace MechArmor
             }
         }
 
-        public override TagCompound Save()
+        public override void SaveData(TagCompound tag)
         {
-			TagCompound tag = new TagCompound
-			{
-				{ "ArmorState", ArmorState }
-			};
-
-			return tag;
+            tag.Add("ArmorState", ArmorState);
         }
 
         #endregion
@@ -561,12 +556,12 @@ namespace MechArmor
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
 			//Create a packet
-			ModPacket packet = mod.GetPacket();
+			ModPacket packet = Mod.GetPacket();
 			//Packet type
 			packet.Write((byte)MechArmorMessageType.MechArmorPlayerSync);
 			
 			// 0-th field : whose player is updated
-			packet.Write((byte)player.whoAmI);
+			packet.Write((byte)Player.whoAmI);
 			
 			// MechArmorPlayer fields updated
 			packet.Write(ArmorState);
@@ -584,9 +579,9 @@ namespace MechArmor
 			if (clone.ArmorState != ArmorState)
 			{
 				// Send a Mod Packet with the changes.
-				ModPacket packet = mod.GetPacket();
+				ModPacket packet = Mod.GetPacket();
 				packet.Write((byte)MechArmorMessageType.MechArmorPlayerArmorStateChanged);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(ArmorState);
 				packet.Send();
 			}

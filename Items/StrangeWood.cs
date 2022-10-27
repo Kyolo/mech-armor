@@ -14,12 +14,12 @@ namespace MechArmor.Items
 
         public override void SetDefaults()
         {
-            item.width = 24;
-            item.height = 22;
+            Item.width = 24;
+            Item.height = 22;
 
-            item.maxStack = 999;
-            item.value = 400;//4 silver a piece
-            item.rare = ItemRarityID.Lime;
+            Item.maxStack = 999;
+            Item.value = 400;//4 silver a piece
+            Item.rare = ItemRarityID.Lime;
         }
     }
 }

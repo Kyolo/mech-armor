@@ -15,18 +15,18 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice(0, 5, 50, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 11;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 5, 50, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 11;
         }
 
         public override void UpdateEquip(Player player)
         {
             player.statManaMax2 += 200;
             player.manaCost -= 0.10f;
-            player.magicCrit += 5;
+            player.GetCritChance(DamageClass.Magic) += 5;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -52,7 +52,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
                 case 0:
                     {
                         player.setBonus += "\nMana Amplifier :\n50% increased magical damage\n100% increased mana cost";
-                        player.magicDamage += 0.5f;
+                        player.GetDamage(DamageClass.Magic) += 0.5f;
                         player.manaCost += 1.0f;
                         // Because we use lunar drones, we need to tell them how to behave
                         armorPlayer.LunarDroneMode = LunarDroneModes.ManaAmplifier;
@@ -76,22 +76,12 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.LunarCraftingStation);
-            regularRecipe.AddIngredient(ItemID.FragmentNebula, 10);
-            regularRecipe.AddIngredient(ItemID.Cog, 10);
-            regularRecipe.AddIngredient(ItemID.Wire, 10);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.LunarCraftingStation)
+            .AddIngredient(ItemID.FragmentNebula, 10)
+            .AddIngredient(ItemID.Cog, 10)
+            .AddIngredient(ItemID.Wire, 10)
+            .Register();
         }
     }
 }

@@ -16,17 +16,17 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice(0, 5, 0, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 5;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 5, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 5;
         }
 
         public override void UpdateEquip(Player player)
         {
             player.statManaMax2 += 100;
-            player.magicDamage += 0.10f;
+            player.GetDamage(DamageClass.Magic) += 0.10f;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -74,24 +74,14 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
 
-            // Corrupted world recipe
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.MythrilAnvil);
-            regularRecipe.AddIngredient(ItemID.HallowedBar, 10);
-            regularRecipe.AddIngredient(ItemID.SoulofSight, 5);
-            regularRecipe.AddIngredient(ItemID.PixieDust, 20);
-            regularRecipe.AddIngredient(ItemID.LightShard, 2);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.MythrilAnvil)
+            .AddIngredient(ItemID.HallowedBar, 10)
+            .AddIngredient(ItemID.SoulofSight, 5)
+            .AddIngredient(ItemID.PixieDust, 20)
+            .AddIngredient(ItemID.LightShard, 2)
+            .Register();
 
         }
     }

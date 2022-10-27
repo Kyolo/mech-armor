@@ -1,8 +1,9 @@
 ﻿using System;
 
-using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.GameContent.ItemDropRules;
 
 using MechArmor.Items;
 
@@ -10,14 +11,11 @@ namespace MechArmor.NPCs
 {
     public class LootModifications : GlobalNPC
     {
-        public override void NPCLoot(NPC npc)
+
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if(!Main.expertMode && npc.type == NPCID.Plantera)
-            {
-                if(Main.rand.Next(10) < 5)
-                {
-                    Item.NewItem(npc.Center, ModContent.ItemType<StrangeWood>(), Main.rand.Next(5, 11));
-                }
+            if(npc.type == NPCID.Plantera && !Main.expertMode && !Main.masterMode) {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StrangeWood>(), 3, 3, 8));
             }
         }
     }

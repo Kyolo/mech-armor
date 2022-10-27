@@ -15,12 +15,11 @@ namespace MechArmor.Items.Armor.Tier2
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            //TODO: find best values
-            item.value = Item.buyPrice(0, 2, 0, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 11;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 2, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 11;
             
         }
 
@@ -33,22 +32,12 @@ namespace MechArmor.Items.Armor.Tier2
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.MythrilAnvil);
-            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT1", 15);
-            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT2", 15);
-            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT3", 15);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.MythrilAnvil)
+            .AddRecipeGroup("MechArmor:Bars:HMT1", 15)
+            .AddRecipeGroup("MechArmor:Bars:HMT2", 15)
+            .AddRecipeGroup("MechArmor:Bars:HMT3", 15)
+            .Register();
         }
     }
 }

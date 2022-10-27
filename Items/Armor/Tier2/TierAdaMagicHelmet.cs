@@ -16,11 +16,11 @@ namespace MechArmor.Items.Armor.Tier2
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice(0, 3, 50, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 4;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 3, 50, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 4;
         }
 
         public override void UpdateEquip(Player player)
@@ -55,7 +55,7 @@ namespace MechArmor.Items.Armor.Tier2
                 case 1:
                     {
                         player.setBonus += "\nOffense Mode :\n 30% Increased Magic Damage\n 60% Increased Mana Cost";
-                        player.magicDamage += 0.30f;
+                        player.GetDamage(DamageClass.Magic) += 0.30f;
                         player.manaCost += 0.60f;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
@@ -67,34 +67,22 @@ namespace MechArmor.Items.Armor.Tier2
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            // Corrupted world recipe
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.MythrilAnvil);
-            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT1", 10);
-            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT2", 10);
-            regularRecipe.AddRecipeGroup("MechArmor:Bars:HMT3", 10);
-            regularRecipe.AddIngredient(ItemID.CursedFlame, 20);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.MythrilAnvil)
+            .AddRecipeGroup("MechArmor:Bars:HMT1", 10)
+            .AddRecipeGroup("MechArmor:Bars:HMT2", 10)
+            .AddRecipeGroup("MechArmor:Bars:HMT3", 10)
+            .AddIngredient(ItemID.CursedFlame, 20)
+            .Register();
 
             // Crimson world recipe
-            ModRecipe otherRecipe = new ModRecipe(mod);
-            otherRecipe.AddTile(TileID.MythrilAnvil);
-            otherRecipe.AddRecipeGroup("MechArmor:Bars:HMT1", 10);
-            otherRecipe.AddRecipeGroup("MechArmor:Bars:HMT2", 10);
-            otherRecipe.AddRecipeGroup("MechArmor:Bars:HMT3", 10);
-            otherRecipe.AddIngredient(ItemID.Ichor, 20);
-            otherRecipe.SetResult(this);
-            otherRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.MythrilAnvil)
+            .AddRecipeGroup("MechArmor:Bars:HMT1", 10)
+            .AddRecipeGroup("MechArmor:Bars:HMT2", 10)
+            .AddRecipeGroup("MechArmor:Bars:HMT3", 10)
+            .AddIngredient(ItemID.Ichor, 20)
+            .Register();
         }
     }
 }

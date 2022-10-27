@@ -16,16 +16,16 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = Item.buyPrice(0, 5, 0, 0);
-            item.rare = ItemRarityID.Orange;
-            item.defense = 2;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = Item.buyPrice(0, 5, 0, 0);
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 2;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.minionDamage += 0.10f;
+            player.GetDamage(DamageClass.Summon) += 0.10f;
             player.maxMinions += 1;
         }
 
@@ -49,7 +49,7 @@ namespace MechArmor.Items.Armor.Tier3
                 case 0:
                     {
                         player.setBonus += "\nOffensive Mode :\n 10% increased minion damage\n 1 additional minion slot";
-                        player.minionDamage += 0.10f;
+                        player.GetDamage(DamageClass.Summon) += 0.10f;
                         player.maxMinions += 1;
                         armorPlayer.ArmorStateType = (byte)EnumArmorStateType.Offense;
                     }
@@ -76,24 +76,14 @@ namespace MechArmor.Items.Armor.Tier3
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe r = new ModRecipe(mod);
-                r.AddTile(TileID.WorkBenches);
-                r.AddRecipeGroup("Wood");
-                r.SetResult(this);
-                r.AddRecipe();
-            }
-
-            ModRecipe regularRecipe = new ModRecipe(mod);
-            regularRecipe.AddTile(TileID.MythrilAnvil);
-            regularRecipe.AddIngredient(ItemID.HallowedBar, 10);
-            regularRecipe.AddIngredient(ItemID.SoulofSight, 5);
-            regularRecipe.AddIngredient(ItemID.AncientBattleArmorMaterial, 4);
-            regularRecipe.AddIngredient(ItemID.DarkShard, 1);
-            regularRecipe.AddIngredient(ItemID.LightShard, 1);
-            regularRecipe.SetResult(this);
-            regularRecipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.MythrilAnvil)
+            .AddIngredient(ItemID.HallowedBar, 10)
+            .AddIngredient(ItemID.SoulofSight, 5)
+            .AddIngredient(ItemID.AncientBattleArmorMaterial, 4)
+            .AddIngredient(ItemID.DarkShard, 1)
+            .AddIngredient(ItemID.LightShard, 1)
+            .Register();
         }
     }
 }

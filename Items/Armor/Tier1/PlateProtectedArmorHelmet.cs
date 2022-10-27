@@ -15,11 +15,11 @@ namespace MechArmor.Items.Armor.Tier1
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = 90;
-            item.rare = ItemRarityID.Orange;
-            item.defense = 4;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = 90;
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 4;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -45,27 +45,17 @@ namespace MechArmor.Items.Armor.Tier1
                 player.statDefense -= 8;
                 player.moveSpeed += 0.5f;
 
-                player.allDamage -= 0.1f;
+                player.GetDamage(DamageClass.Generic) -= 0.1f;
                 player.GetModPlayer<MechArmorPlayer>().ArmorStateType = (byte)EnumArmorStateType.Movement;
             }
         }
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            // Check if we need to use the testing recipes
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                recipe.AddRecipeGroup("Wood", 20);
-                recipe.AddTile(TileID.WorkBenches);
-            }
-            else
-            {
-                recipe.AddTile(TileID.Anvils);
-                recipe.AddIngredient(ItemID.DartTrap, 2);
-                recipe.AddRecipeGroup("MechArmor:Armor:Head:T2");
-            }
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.Anvils)
+            .AddIngredient(ItemID.DartTrap, 2)
+            .AddRecipeGroup("MechArmor:Armor:Head:T2")
+            .Register();
         }
     }
 }

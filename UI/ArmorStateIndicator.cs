@@ -49,36 +49,36 @@ namespace MechArmor.UI
             container.OnMouseDown += OnContainerMouseDown;
 
             // setting up the background wheel
-            background = new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_base"));
+            background = new UIImage(ModContent.Request<Texture2D>("MechArmor/UI/status_indicator_base"));
             background.Width.Set(148, 0f);
             background.Height.Set(148, 0f);
 
             // The icons overlay
-            overlay = new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_overlay"));
+            overlay = new UIImage(ModContent.Request<Texture2D>("MechArmor/UI/status_indicator_overlay"));
             overlay.Width.Set(148, 0f);
             overlay.Height.Set(148, 0f);
 
             // And the differents state that will be displayed as required
             offense = new UIToggle();
-            offense.Append(new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_offense_active")));
+            offense.Append(new UIImage(ModContent.Request<Texture2D>("MechArmor/UI/status_indicator_offense_active")));
             offense.Width.Set(148, 0f);
             offense.Height.Set(148, 0f);
 
-            //defense = new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_defense_active"));
+            //defense = new UIImage(ModContent.Request<Texture2D>("MechArmor/UI/status_indicator_defense_active"));
             defense = new UIToggle();
-            defense.Append(new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_defense_active")));
+            defense.Append(new UIImage(ModContent.Request<Texture2D>("MechArmor/UI/status_indicator_defense_active")));
             defense.Width.Set(148, 0f);
             defense.Height.Set(148, 0f);
 
-            //utility = new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_utility_active"));
+            //utility = new UIImage(ModContent.Request<Texture2D>("MechArmor/UI/status_indicator_utility_active"));
             utility = new UIToggle();
-            utility.Append(new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_utility_active")));
+            utility.Append(new UIImage(ModContent.Request<Texture2D>("MechArmor/UI/status_indicator_utility_active")));
             utility.Width.Set(148, 0f);
             utility.Height.Set(148, 0f);
 
-            //mobility = new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_mobility_active"));
+            //mobility = new UIImage(ModContent.Request<Texture2D>("MechArmor/UI/status_indicator_mobility_active"));
             mobility = new UIToggle();
-            mobility.Append(new UIImage(ModContent.GetTexture("MechArmor/UI/status_indicator_mobility_active")));
+            mobility.Append(new UIImage(ModContent.Request<Texture2D>("MechArmor/UI/status_indicator_mobility_active")));
             mobility.Width.Set(148, 0f);
             mobility.Height.Set(148, 0f);
 

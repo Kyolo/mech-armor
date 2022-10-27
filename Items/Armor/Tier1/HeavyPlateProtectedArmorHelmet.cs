@@ -15,11 +15,11 @@ namespace MechArmor.Items.Armor.Tier1
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 18;
-            item.value = 90;
-            item.rare = ItemRarityID.Orange;
-            item.defense = 6;
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = 90;
+            Item.rare = ItemRarityID.Orange;
+            Item.defense = 6;
         }
 
         public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -46,29 +46,18 @@ namespace MechArmor.Items.Armor.Tier1
                 player.statDefense -= 10;
                 player.moveSpeed += 0.5f;
 
-                player.allDamage -= 0.1f;
+                player.GetDamage(DamageClass.Generic) -= 0.1f;
                 player.GetModPlayer<MechArmorPlayer>().ArmorStateType = (byte)EnumArmorStateType.Movement;
             }
         }
         public override void AddRecipes()
         {
-            // Check if we need to use the testing recipes
-            if (ModContent.GetInstance<MechArmorServerConfig>().UseTestingRecipes)
-            {
-                ModRecipe recipeW = new ModRecipe(mod);
-                recipeW.AddRecipeGroup("Wood", 20);
-                recipeW.AddTile(TileID.WorkBenches);
-                recipeW.SetResult(this);
-                recipeW.AddRecipe();
-            }
 
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddTile(TileID.Anvils);
-            recipe.AddIngredient(ModContent.ItemType<PlateProtectedArmorHelmet>());
-            recipe.AddIngredient(ItemID.HellstoneBar, 10);
-
-            recipe.SetResult(this);
-            recipe.AddRecipe();
+            CreateRecipe()
+            .AddTile(TileID.Anvils)
+            .AddIngredient(ModContent.ItemType<PlateProtectedArmorHelmet>())
+            .AddIngredient(ItemID.HellstoneBar, 10)
+            .Register();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace MechArmor.Projectiles
         public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
         {
             // We check if this projectile is magic or if it has an owner
-            if (projectile.magic && projectile.owner == Main.myPlayer)
+            if (projectile.DamageType == DamageClass.Magic && projectile.owner == Main.myPlayer)
             {
                 Player player = Main.player[projectile.owner];
                 MechArmorPlayer mAPlayer = player.GetModPlayer<MechArmorPlayer>();
@@ -37,7 +37,7 @@ namespace MechArmor.Projectiles
                 if (mAPlayer.MagicalLifeSteal)
                 {
                     // NOTE: as I'm using the lifesteal from the vampire knives, I need to compensate for the vanilla behavior
-                    projectile.vampireHeal((int)(((float)damage) * mAPlayer.MagicalLifeStealAmount * (1.0f / 0.075f)), projectile.Center);
+                    projectile.vampireHeal((int)(((float)damage) * mAPlayer.MagicalLifeStealAmount * (1.0f / 0.075f)), projectile.Center, target);
                 }
             }
         }
