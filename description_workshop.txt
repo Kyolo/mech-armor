@@ -1,0 +1,6 @@
+Mechanical Armors is a mod about armors with multiple states, each giving different malus and bonus.
+
+It currently contains armors that can be used from before defeating any boss, to a powerful post Moon Lord set.
+
+More information on the Terraria Forum page :
+https://forums.terraria.org/index.php?threads/mechanical-armors.107435/
