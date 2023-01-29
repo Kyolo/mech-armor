@@ -358,7 +358,7 @@ namespace MechArmor.Projectiles
                     for(int i = 0; i < Main.projectile.Length; i++)
                     {
                         Projectile otherProj = Main.projectile[i];
-                        if(otherProj.owner == Projectile.owner && otherProj.minion)
+                        if(otherProj.owner == Projectile.owner && otherProj.minion && otherProj.active)
                         {
                             minionCount++;
                             if(minionCount == LunarDroneIndex)
