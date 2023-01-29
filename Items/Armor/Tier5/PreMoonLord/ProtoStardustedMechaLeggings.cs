@@ -37,7 +37,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
             .AddIngredient(ItemID.FragmentStardust, 15)
             .AddIngredient(ItemID.Wire, 15)
             .AddIngredient(ItemID.Cog, 15)
-            .Create();
+            .Register();
         }
     }
 }
