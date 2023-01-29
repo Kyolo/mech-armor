@@ -1,5 +1,5 @@
 displayName = Mechanical Armors
 author = Kyolo
-version = 0.3.0
+version = 0.3.2
 includePDB = false
 homepage = https://forums.terraria.org/index.php?threads/mechanical-armors.107435/
