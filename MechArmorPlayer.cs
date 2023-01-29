@@ -36,6 +36,11 @@ namespace MechArmor
         /// </summary>
         public byte ArmorStateType;
 
+        /// <summary>
+        /// The type of the previous current armor state
+        /// </summary>
+        public byte PreviousArmorStateType;
+
 		/// <summary>
 		/// The number of states from the currently equiped armor
 		/// </summary>
@@ -166,6 +171,7 @@ namespace MechArmor
 			// The number of states this armor has
             MaxArmorStates = 0;
             // The type of the current armor
+            PreviousArmorStateType = ArmorStateType;// The previous state, because UpdateInventory is called before the armor set update is called
             ArmorStateType = 0;
             // Cooldown stuff
             ArmorCooldownDuration = 0;
@@ -201,6 +207,7 @@ namespace MechArmor
 			MaxArmorStates = 0;
 
             ArmorStateType = 0;
+            PreviousArmorStateType = 0;
 
             ArmorCooldownDuration = 0;
             ArmorCooldownDurationModifier = 1;
@@ -460,6 +467,7 @@ namespace MechArmor
                 }
                 ProjectileAttractorDrawingRotationOffset++;// As we are using a byte, we'll wrap around to 0 when reaching 255
             }
+            
         }
 
         #endregion
@@ -550,6 +558,8 @@ namespace MechArmor
 			// Here we would make a backup clone of values that are only correct on the local players Player instance.
 			// Some examples would be RPG stats from a GUI, Hotkey states, and Extra Item Slots
 			clone.ArmorState = ArmorState;
+            clone.ArmorStateType = ArmorStateType;
+            clone.PreviousArmorStateType = PreviousArmorStateType;
 		}
 
         // I think this is used to sync players when a player first come into the world

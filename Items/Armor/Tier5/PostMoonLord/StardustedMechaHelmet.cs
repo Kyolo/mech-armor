@@ -36,7 +36,7 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "";
+            player.setBonus = "Lunar drones assits you";
 
             MechArmorPlayer armorPlayer = player.GetModPlayer<MechArmorPlayer>();
             // We need to indicate the maximum number of states for this armor

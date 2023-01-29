@@ -1,5 +1,6 @@
 ﻿using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 using MechArmor.Projectiles;
@@ -16,6 +17,10 @@ namespace MechArmor.Buffs
         {
             DisplayName.SetDefault("Lunar Drones");
             Description.SetDefault("You are assisted by lunar drones.");
+
+            // Prevent manual & nurse cancelation of this buff
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            Main.debuff[Type] = true;
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
