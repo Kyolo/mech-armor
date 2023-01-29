@@ -187,22 +187,49 @@ namespace MechArmor.Projectiles
                     offset.Y = (float)Math.Sin(2.0f * Math.PI * animationVar) * DroneDistance * player.direction;
                     break;
                 case LunarDroneModes.FollowSwing:
-                    //player.itemRotation
                     // We only extend the range for melee weapons
-                    if (player.HeldItem.DamageType == DamageClass.Melee && player.HeldItem.useStyle == 1 && player.itemAnimation > 0)
+                    if (player.HeldItem.DamageType == DamageClass.Melee && player.itemAnimation > 0)
                     {
-                        float droneIndexInc = ((float)LunarDroneIndex + 1) / (mAPlayer.LunarDroneCount + 1);
-                        offset.X = (float)Math.Cos(player.itemRotation + (Math.PI / 4.0f) * -player.direction) * DroneDistance * 2.0f * droneIndexInc * player.direction;
-                        offset.Y = (float)Math.Sin(player.itemRotation + (Math.PI / 4.0f) * -player.direction) * DroneDistance * 2.0f * droneIndexInc * player.direction;
+                        // Swords
+                        if (player.HeldItem.useStyle == ItemUseStyleID.Swing)
+                        {
+                            float droneIndexInc = ((float)LunarDroneIndex + 1) / (mAPlayer.LunarDroneCount + 1);
+                            offset.X = (float)Math.Cos(player.itemRotation + (Math.PI / 4.0f) * -player.direction) * DroneDistance * 2.0f * droneIndexInc * player.direction;
+                            offset.Y = (float)Math.Sin(player.itemRotation + (Math.PI / 4.0f) * -player.direction) * DroneDistance * 2.0f * droneIndexInc * player.direction;
 
 
-                        Projectile.rotation = player.itemRotation + (float)Math.PI / 4.0f;
+                            Projectile.rotation = player.itemRotation + (float)Math.PI / 4.0f;
 
-                        if (player.direction > 0)
-                            Projectile.rotation += (float)Math.PI / 2.0f;
+                            if (player.direction > 0)
+                                Projectile.rotation += (float)Math.PI / 2.0f;
 
-                        Projectile.damage = player.HeldItem.damage;
-                        Projectile.DamageType = DamageClass.Melee;
+                            Projectile.damage = player.HeldItem.damage;
+                            Projectile.DamageType = DamageClass.Melee;
+                        }
+                        else if(ItemID.Sets.Spears[player.HeldItem.type])
+                        {
+                            // Somehow the spear animation is reversed ?
+                            float animationProgresion = (float)player.itemAnimation/ (float)player.itemAnimationMax;
+                            float distanceProgression = DroneDistance * 2 - animationProgresion * DroneDistance;
+                            
+                            float correctedRotation = player.itemRotation ;
+                            float droneIndexInc = ((float)LunarDroneIndex + 1) / (mAPlayer.LunarDroneCount + 1);
+
+                            offset.X = (float)Math.Cos(correctedRotation * -player.direction) * distanceProgression * 2.0f * droneIndexInc * player.direction;
+                            offset.Y = (float)Math.Sin(correctedRotation * -player.direction) * distanceProgression * 2.0f * droneIndexInc * player.direction;
+
+
+                            //Projectile.rotation = player.itemRotation + (float)Math.PI / 4.0f;
+                            Projectile.rotation = correctedRotation;
+
+                            if (player.direction > 0)
+                                offset.Y *= -1.0f;
+                            //    Projectile.rotation += (float)Math.PI / 2.0f;
+
+                            Projectile.damage = player.HeldItem.damage;
+                            Projectile.DamageType = DamageClass.Melee;
+                        }
+                        
                     }
                     else
                     {
