@@ -217,5 +217,16 @@ namespace MechArmor.Items.Weapons
         }
 
         #endregion
+
+
+        public override void AddRecipes()
+        {
+            CreateRecipe(1)
+            .AddTile(TileID.Autohammer)
+            .AddIngredient(ItemID.SniperRifle)
+            .AddIngredient(ItemID.TacticalShotgun)
+            .AddIngredient(ItemID.ShroomiteBar, 10)
+            .Register();
+        }
     }
 }
