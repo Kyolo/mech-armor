@@ -244,7 +244,6 @@ namespace MechArmor
         // Damage Modification
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-
             if (MagicDamageAbsorption)
             {
                 // First we compute the amount of damage avoided
