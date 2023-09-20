@@ -12,11 +12,15 @@ namespace MechArmor.Items.Armor.Tier2
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             DisplayName.SetDefault("Hard Metal Hood");
+*/
 */
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("+100 maximum mana");
+*/
 */
         }
 

@@ -11,11 +11,15 @@ namespace MechArmor.Items.Armor.Tier4
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             DisplayName.SetDefault("Shifting Spectral Leggings");
+*/
 */
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("5% increased magical damage\n10% increased movement speed");
+*/
 */
         }
 

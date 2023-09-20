@@ -11,11 +11,15 @@ namespace MechArmor.Items.Armor.Tier4
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             DisplayName.SetDefault("Glowing Ranger Leggings");
+*/
 */
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("10% increased movement speed");
+*/
 */
         }
 

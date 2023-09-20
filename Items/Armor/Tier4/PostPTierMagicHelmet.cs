@@ -12,11 +12,15 @@ namespace MechArmor.Items.Armor.Tier4
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             DisplayName.SetDefault("Shifting Spectral Hood");
+*/
 */
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("Increase maximum mana by 100\n10% increased magical damage\n10% increased magical critical chance");
+*/
 */
         }
 

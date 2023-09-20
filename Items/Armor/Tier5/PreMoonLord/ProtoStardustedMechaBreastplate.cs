@@ -11,7 +11,9 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("20% increased minion damage\nIncrease minion slots by 2");
+*/
 */
         }
 

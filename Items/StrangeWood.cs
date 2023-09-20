@@ -11,7 +11,9 @@ namespace MechArmor.Items
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("A strange wood taken from the corpse of Plantera.\nUseless as a building material.");
+*/
 */
         }
 

@@ -12,11 +12,15 @@ namespace MechArmor.Items.Armor.Tier2
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             DisplayName.SetDefault("Hard Metal Artillery Helmet");
+*/
 */
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("5% Ranged Critical Chance");
+*/
 */
         }
 

@@ -12,11 +12,15 @@ namespace MechArmor.Items.Armor.Tier4
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             DisplayName.SetDefault("Configurable Paladin Helmet");
+*/
 */
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("5% increased melee damage");
+*/
 */
         }
 

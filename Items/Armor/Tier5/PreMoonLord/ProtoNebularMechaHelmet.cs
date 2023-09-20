@@ -12,7 +12,9 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("Increase maximum mana by 200\n10% reduced mana cost\n5% increased magical critical chance");
+*/
 */
         }
 

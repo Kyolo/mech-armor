@@ -11,7 +11,9 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("10% increased move Speed\n10% increased magic Damage");
+*/
 */
         }
 

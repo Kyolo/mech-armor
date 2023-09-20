@@ -11,11 +11,15 @@ namespace MechArmor.Buffs
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             DisplayName.SetDefault("State change warmup");
+*/
 */
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Description.SetDefault("Your armor need to finish changing state");
+*/
 */
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

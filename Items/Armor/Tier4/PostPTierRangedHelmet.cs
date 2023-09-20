@@ -12,11 +12,15 @@ namespace MechArmor.Items.Armor.Tier4
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             DisplayName.SetDefault("Glowing Ranger Helmet");
+*/
 */
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("15% increased ranged damage\n5% increased ranged critical chance");
+*/
 */
         }
 

@@ -11,7 +11,9 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("10% increased movement speed\n10% increased magical damage");
+*/
 */
         }
 

@@ -12,11 +12,15 @@ namespace MechArmor.Items.Armor.Tier4
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             DisplayName.SetDefault("Strange Wood Helmet");
+*/
 */
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("10% increased minion damage\nIncrease minion slots by 1");
+*/
 */
         }
 

@@ -11,11 +11,15 @@ namespace MechArmor.Items.Armor.Tier2
         {
 /* 
 Removed because of localization update
+/* Removed because of localization change
             DisplayName.SetDefault("Hard Metal Leggings");
+*/
 */
 /* 
 Removed because of localization update
+/* Removed because of localization change
             Tooltip.SetDefault("5% Increased Movement Speed");
+*/
 */
         }
 
