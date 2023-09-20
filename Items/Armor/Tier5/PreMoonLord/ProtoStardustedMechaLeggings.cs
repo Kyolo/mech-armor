@@ -9,12 +9,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
     {
         public override void SetStaticDefaults()
         {
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            Tooltip.SetDefault("10% increased movement speed\nIncrease minion slots by 2");
-*/
-*/
+
         }
 
         public override void SetDefaults()

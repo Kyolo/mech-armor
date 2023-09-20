@@ -6,17 +6,17 @@ Keybinds: {
 Buffs: {
 	BuffLunarArmorDrone: {
 		DisplayName: Lunar Drones
-		Description: "You are assisted by lunar drones."
+		Description: You are assisted by lunar drones.
 	}
 
 	BuffStateCooldown: {
 		DisplayName: State Change Cooldown
-		Description: "Your armor can't change state"
+		Description: Your armor can't change state
 	}
 
 	BuffStateWarmup: {
 		DisplayName: State Change Warmup
-		Description: "Your armor need to finish changing state"
+		Description: Your armor need to finish changing state
 	}
 }
 
@@ -83,172 +83,247 @@ Items: {
 
 	TierAdaBreastplate: {
 		DisplayName: Hard Metal Breastplate
-		Tooltip: "5% Critical Strike Chance
+		Tooltip: 5% Critical Strike Chance
 	}
 
 	TierAdaLeggings: {
 		DisplayName: Hard Metal Leggings
-		Tooltip: "5% Increased Movement Speed"
+		Tooltip: 5% Increased Movement Speed
 	}
 
 	TierAdaMagicHelmet: {
 		DisplayName: Hard Metal Hood
-		Tooltip: "+100 maximum mana"
+		Tooltip: +100 maximum mana
 	}
 
 	TierAdaMeleeHelmet: {
 		DisplayName: Hard Metal Power Helmet
-		Tooltip: "5% Increased Melee Critical Chance\n10% Melee Damage"
+		Tooltip:
+			'''
+			5% Increased Melee Critical Chance
+			10% Melee Damage
+			'''
 	}
 
 	TierAdaRangedHelmet: {
 		DisplayName: Hard Metal Artillery Helmet
-		Tooltip: "5% Ranged Critical Chance"
+		Tooltip: 5% Ranged Critical Chance
 	}
 
 	HolyTierBreastplate: {
 		DisplayName: Holy Mechanized Breastplate
-		Tooltip: "10% increased critical strike chance"
+		Tooltip: 10% increased critical strike chance
 	}
 
 	HolyTierLeggings: {
 		DisplayName: Holy Mechanized Leggings
-		Tooltip: "10% increased movement speed"
+		Tooltip: 10% increased movement speed
 	}
 
 	HolyTierMagicHelmet: {
 		DisplayName: Holy Mage Helmet
-		Tooltip: "Increased maximum mana by 100\n10% increased magical damage"
+		Tooltip:
+			'''
+			Increased maximum mana by 100
+			10% increased magical damage
+			'''
 	}
 
 	HolyTierMeleeHelmet: {
 		DisplayName: Holy Fencer Helmet
-		Tooltip: "5% increased melee damage"
+		Tooltip: 5% increased melee damage
 	}
 
 	HolyTierRangedHelmet: {
 		DisplayName: Holy Ranged Helmet
-		Tooltip: "10% Increased ranged critical chance"
+		Tooltip: 10% Increased ranged critical chance
 	}
 
 	HolyTierSummonHelmet: {
 		DisplayName: Holy Invocator Helmet
-		Tooltip: "Increase your maximum minion count by 1"
+		Tooltip: Increase your maximum minion count by 1
 	}
 
 	PostPTierMagicBreastplate: {
 		DisplayName: Shifting Spectral Breastplate
-		Tooltip: "5% increased magical critical chance\n5% increased magical damage"
+		Tooltip:
+			'''
+			5% increased magical critical chance
+			5% increased magical damage
+			'''
 	}
 
 	PostPTierMagicHelmet: {
 		DisplayName: Shifting Spectral Hood
-		Tooltip: "Increase maximum mana by 100\n10% increased magical damage\n10% increased magical critical chance"
+		Tooltip:
+			'''
+			Increase maximum mana by 100
+			10% increased magical damage
+			10% increased magical critical chance
+			'''
 	}
 
 	PostPTierMagicLeggings: {
 		DisplayName: Shifting Spectral Leggings
-		Tooltip: "5% increased magical damage\n10% increased movement speed"
+		Tooltip:
+			'''
+			5% increased magical damage
+			10% increased movement speed
+			'''
 	}
 
 	PostPTierMeleeBreastplate: {
-		DisplayName: "Configurable Paladin Breastplate"
-		Tooltip: "5% increased melee critical chance\n5% increased melee damage"
+		DisplayName: Configurable Paladin Breastplate
+		Tooltip:
+			'''
+			5% increased melee critical chance
+			5% increased melee damage
+			'''
 	}
 
 	PostPTierMeleeHelmet: {
 		DisplayName: Configurable Paladin Helmet
-		Tooltip: "5% increased melee damage"
+		Tooltip: 5% increased melee damage
 	}
 
 	PostPTierMeleeLeggings: {
 		DisplayName: Configurable Paladin Leggings
-		Tooltip: "5% increased melee critical chance"
+		Tooltip: 5% increased melee critical chance
 	}
 
 	PostPTierRangedBreastplate: {
 		DisplayName: Glowing Ranger Breastplate
-		Tooltip: "10% increased ranged critical chance\n10% increased ranged damage"
+		Tooltip:
+			'''
+			10% increased ranged critical chance
+			10% increased ranged damage
+			'''
 	}
 
 	PostPTierRangedHelmet: {
 		DisplayName: Glowing Ranger Helmet
-		Tooltip: "15% increased ranged damage\n5% increased ranged critical chance"
+		Tooltip:
+			'''
+			15% increased ranged damage
+			5% increased ranged critical chance
+			'''
 	}
 
 	PostPTierRangedLeggings: {
 		DisplayName: Glowing Ranger Leggings
-		Tooltip: "10% increased movement speed"
+		Tooltip: 10% increased movement speed
 	}
 
 	PostPTierSummonBreastplate: {
 		DisplayName: Strange Wood Breastplate
-		Tooltip: "10% increased minon damage"
+		Tooltip: 10% increased minon damage
 	}
 
 	PostPTierSummonHelmet: {
 		DisplayName: Strange Wood Helmet
-		Tooltip: "10% increased minion damage\nIncrease minion slots by 1"
+		Tooltip:
+			'''
+			10% increased minion damage
+			Increase minion slots by 1
+			'''
 	}
 
 	PostPTierSummonLeggings: {
 		DisplayName: Strange Wood Leggings
-		Tooltip: "10% increased movement speed"
+		Tooltip: 10% increased movement speed
 	}
 
 	NebularMechaBreastplate: {
 		DisplayName: Nebular Mecha Breastplate
-		Tooltip: "10% increased magical damage\n10% increased magical critical chance"
+		Tooltip:
+			'''
+			10% increased magical damage
+			10% increased magical critical chance
+			'''
 	}
 
 	NebularMechaHelmet: {
 		DisplayName: Nebular Mecha Helmet
-		Tooltip: "Increase maximum mana by 200\n10% reduced mana cost\n5% increased magical critical chance"
+		Tooltip:
+			'''
+			Increase maximum mana by 200
+			10% reduced mana cost
+			5% increased magical critical chance
+			'''
 	}
 
 	NebularMechaLeggings: {
 		DisplayName: Nebular Mecha Leggings
-		Tooltip: "10% increased movement speed\n10% increased magical damage"
+		Tooltip:
+			'''
+			10% increased movement speed
+			10% increased magical damage
+			'''
 	}
 
 	SolariteMechaBreastplate: {
 		DisplayName: Solarite Mecha Breastplate
-		Tooltip: "Increased life regeneration"
+		Tooltip: Increased life regeneration
 	}
 
 	SolariteMechaHelmet: {
 		DisplayName: Solarite Mecha Helmet
-		Tooltip: "Increased life regeneration\n20% increased melee critical chance"
+		Tooltip:
+			'''
+			Increased life regeneration
+			20% increased melee critical chance
+			'''
 	}
 
 	SolariteMechaLeggings: {
 		DisplayName: Solarite Mecha Leggings
-		Tooltip: "15% increased melee speed\n15% increased movement speed"
+		Tooltip:
+			'''
+			15% increased melee speed
+			15% increased movement speed
+			'''
 	}
 
 	StardustedMechaBreastplate: {
 		DisplayName: Stardusted Mecha Breastplate
-		Tooltip: "20% Increased Minion Damage\nIncrease minion slots by 2"
+		Tooltip:
+			'''
+			20% Increased Minion Damage
+			Increase minion slots by 2
+			'''
 	}
 
 	StardustedMechaHelmet: {
 		DisplayName: Stardusted Mecha Helmet
-		Tooltip: "20% increased minion damage\nIncrease minion slots by 1"
+		Tooltip:
+			'''
+			20% increased minion damage
+			Increase minion slots by 1
+			'''
 	}
 
 	StardustedMechaLeggings: {
 		DisplayName: Stardusted Mecha Leggings
-		Tooltip: "10% increased movement speed\nIncrease minion slots by 2"
+		Tooltip:
+			'''
+			10% increased movement speed
+			Increase minion slots by 2
+			'''
 	}
 
 	VortexianMechaBreastplate: {
 		DisplayName: Vortexian Mecha Breastplate
-		Tooltip: "10% increased ranged damage\n10% increased ranged critical chance\n-25% Ammo Consumption Chance"
+		Tooltip:
+			'''
+			10% increased ranged damage
+			10% increased ranged critical chance
+			-25% Ammo Consumption Chance
+			'''
 	}
 
 	VortexianMechaHelmet: {
 		DisplayName: Vortexian Mecha Helmet
-		Tooltip: "7% increased ranged critical chance"
+		Tooltip: 7% increased ranged critical chance
 	}
 
 	VortexianMechaLeggings: {
@@ -258,77 +333,123 @@ Items: {
 
 	ProtoNebularMechaBreastplate: {
 		DisplayName: Proto Nebular Mecha Breastplate
-		Tooltip: "10% increased movement speed\n5% increased ranged critical chance"
+		Tooltip:
+			'''
+			10% increased movement speed
+			5% increased ranged critical chance
+			'''
 	}
 
 	ProtoNebularMechaHelmet: {
 		DisplayName: Proto Nebular Mecha Helmet
-		Tooltip: "Increase maximum mana by 200\n10% reduced mana cost\n5% increased magical critical chance"
+		Tooltip:
+			'''
+			Increase maximum mana by 200
+			10% reduced mana cost
+			5% increased magical critical chance
+			'''
 	}
 
 	ProtoNebularMechaLeggings: {
 		DisplayName: Proto Nebular Mecha Leggings
-		Tooltip: "10% increased move Speed\n10% increased magic Damage"
+		Tooltip:
+			'''
+			10% increased move Speed
+			10% increased magic Damage
+			'''
 	}
 
 	ProtoSolariteMechaBreastplate: {
 		DisplayName: Proto Solarite Mecha Breastplate
-		Tooltip: "Increased Life Regeneration"
+		Tooltip: Increased Life Regeneration
 	}
 
 	ProtoSolariteMechaHelmet: {
 		DisplayName: Proto Solarite Mecha Helmet
-		Tooltip: "Increased life regeneration\n20% rncreased melee critical chance"
+		Tooltip:
+			'''
+			Increased life regeneration
+			20% rncreased melee critical chance
+			'''
 	}
 
 	ProtoSolariteMechaLeggings: {
 		DisplayName: Proto Solarite Mecha Leggings
-		Tooltip: "15% increased melee speed\n15% increased movement speed"
+		Tooltip:
+			'''
+			15% increased melee speed
+			15% increased movement speed
+			'''
 	}
 
 	ProtoStardustedMechaBreastplate: {
 		DisplayName: Proto Stardusted Mecha Breastplate
-		Tooltip: "20% increased minion damage\nIncrease minion slots by 2"
+		Tooltip:
+			'''
+			20% increased minion damage
+			Increase minion slots by 2
+			'''
 	}
 
 	ProtoStardustedMechaHelmet: {
 		DisplayName: Proto Stardusted Mecha Helmet
-		Tooltip: "20% increased minion damage\nIncrease minion slot by 1"
+		Tooltip:
+			'''
+			20% increased minion damage
+			Increase minion slot by 1
+			'''
 	}
 
 	ProtoStardustedMechaLeggings: {
 		DisplayName: Proto Stardusted Mecha Leggings
-		Tooltip: "10% increased movement speed\nIncrease minion slots by 2"
+		Tooltip:
+			'''
+			10% increased movement speed
+			Increase minion slots by 2
+			'''
 	}
 
 	ProtoVortexianMechaBreastplate: {
 		DisplayName: Proto Vortexian Mecha Breastplate
-		Tooltip: "10% increased ranged damage\n10% increased ranged critical chance\n25% chance not to consume ammo"
+		Tooltip:
+			'''
+			10% increased ranged damage
+			10% increased ranged critical chance
+			25% chance not to consume ammo
+			'''
 	}
 
 	ProtoVortexianMechaHelmet: {
 		DisplayName: Proto Vortexian Mecha Helmet
-		Tooltip: "7% increased ranged critical chance"
+		Tooltip: 7% increased ranged critical chance
 	}
 
 	ProtoVortexianMechaLeggings: {
 		DisplayName: Proto Vortexian Mecha Leggings
-		Tooltip: "10% increased movement speed\n5% increased ranged critical chance"
+		Tooltip:
+			'''
+			10% increased movement speed
+			5% increased ranged critical chance
+			'''
 	}
 
 	PaladinArmorShard: {
 		DisplayName: Paladin Armor Shard
-		Tooltip: "Made out of melted Paladin equipement"
+		Tooltip: Made out of melted Paladin equipement
 	}
 
 	StrangeWood: {
 		DisplayName: Strange Wood
-		Tooltip: "A strange wood taken from the corpse of Plantera.\nUseless as a building material."
+		Tooltip:
+			'''
+			A strange wood taken from the corpse of Plantera.
+			Useless as a building material.
+			'''
 	}
 
 	AdaptativeGun: {
 		DisplayName: Adaptative Gun
-		Tooltip: "A gun which adapt to your armor state."
+		Tooltip: A gun which adapt to your armor state.
 	}
 }
 

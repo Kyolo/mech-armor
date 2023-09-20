@@ -9,18 +9,7 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            DisplayName.SetDefault("Configurable Paladin Leggings");
-*/
-*/
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            Tooltip.SetDefault("5% increased melee critical chance");
-*/
-*/
+
         }
 
         public override void SetDefaults()

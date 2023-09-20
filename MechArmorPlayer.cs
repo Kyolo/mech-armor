@@ -314,7 +314,7 @@ namespace MechArmor
                         MagicDamageAbsorbed += damage;
                     }
 
-                }*/
+                }TEST*/
             }
         }
 
@@ -606,7 +606,7 @@ namespace MechArmor
             clone.ArmorStateType = ArmorStateType;
             clone.PreviousArmorStateType = PreviousArmorStateType;
 		}
-        */
+        TEST*/
 
         public override void CopyClientState(ModPlayer targetCopy)
         {

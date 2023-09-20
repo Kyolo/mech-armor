@@ -10,18 +10,7 @@ namespace MechArmor.Items.Armor.Tier3
     {
         public override void SetStaticDefaults()
         {
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            DisplayName.SetDefault("Holy Mage Helmet");
-*/
-*/
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            Tooltip.SetDefault("Increased maximum mana by 100\n10% increased magical damage");
-*/
-*/
+
         }
 
         public override void SetDefaults()

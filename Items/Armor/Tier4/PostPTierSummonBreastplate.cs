@@ -9,18 +9,7 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            DisplayName.SetDefault("Strange Wood Breastplate");
-*/
-*/
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            Tooltip.SetDefault("10% increased minon damage");
-*/
-*/
+
         }
 
         public override void SetDefaults()

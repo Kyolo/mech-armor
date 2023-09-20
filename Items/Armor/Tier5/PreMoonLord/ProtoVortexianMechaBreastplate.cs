@@ -9,12 +9,7 @@ namespace MechArmor.Items.Armor.Tier5.PreMoonLord
     {
         public override void SetStaticDefaults()
         {
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            Tooltip.SetDefault("10% increased ranged damage\n10% increased ranged critical chance\n25% chance not to consume ammo");
-*/
-*/
+
         }
 
         public override void SetDefaults()

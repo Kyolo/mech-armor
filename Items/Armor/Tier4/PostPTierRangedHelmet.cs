@@ -10,18 +10,7 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            DisplayName.SetDefault("Glowing Ranger Helmet");
-*/
-*/
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            Tooltip.SetDefault("15% increased ranged damage\n5% increased ranged critical chance");
-*/
-*/
+
         }
 
         public override void SetDefaults()

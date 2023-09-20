@@ -9,18 +9,7 @@ namespace MechArmor.Items.Armor.Tier3
     {
         public override void SetStaticDefaults()
         {
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            DisplayName.SetDefault("Holy Mechanized Breastplate");
-*/
-*/
-/* 
-Removed because of localization update
-/* Removed because of localization change
-            Tooltip.SetDefault("10% increased critical strike chance");
-*/
-*/
+
         }
 
         public override void SetDefaults()
