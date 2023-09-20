@@ -348,7 +348,6 @@ namespace MechArmor
                     Projectile proj = Main.projectile[i];
 
                     // When we find one of our drone
-                    Dust.NewDust(proj.Center, 8, 8, 55);
                     if(proj.owner == Player.whoAmI && proj.type == ModContent.ProjectileType<LunarArmorDrone>())
                     {
                         // we shoot a new projectile
