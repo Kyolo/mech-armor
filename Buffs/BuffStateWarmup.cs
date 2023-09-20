@@ -9,8 +9,14 @@ namespace MechArmor.Buffs
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("State change warmup");
+*/
+/* 
+Removed because of localization update
             Description.SetDefault("Your armor need to finish changing state");
+*/
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }

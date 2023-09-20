@@ -9,8 +9,14 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Strange Wood Leggings");
+*/
+/* 
+Removed because of localization update
             Tooltip.SetDefault("10% increased movement speed");
+*/
         }
 
         public override void SetDefaults()

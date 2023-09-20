@@ -9,7 +9,10 @@ namespace MechArmor.Items
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             Tooltip.SetDefault("A strange wood taken from the corpse of Plantera.\nUseless as a building material.");
+*/
         }
 
         public override void SetDefaults()

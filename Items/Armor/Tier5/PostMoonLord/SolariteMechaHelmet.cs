@@ -11,7 +11,10 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             Tooltip.SetDefault("Increased life regeneration\n20% increased melee critical chance");
+*/
         }
 
         public override void SetDefaults()

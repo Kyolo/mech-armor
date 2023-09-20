@@ -10,8 +10,14 @@ namespace MechArmor.Items.Armor.Tier3
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Holy Invocator Helmet");
+*/
+/* 
+Removed because of localization update
             Tooltip.SetDefault("Increase your maximum minion count by 1");
+*/
         }
 
         public override void SetDefaults()

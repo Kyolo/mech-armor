@@ -20,13 +20,13 @@ namespace MechArmor.Projectiles
             LunarBoostedMinion = false;
         }
 
-        public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (LunarBoostedMinion)
-                damage = (int)(damage * 1.5f);
+            if(LunarBoostedMinion)
+                modifiers.SourceDamage *= 1.5f;
         }
 
-        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             // We check if this projectile is magic or if it has an owner
             if (projectile.DamageType == DamageClass.Magic && projectile.owner == Main.myPlayer)
@@ -37,7 +37,7 @@ namespace MechArmor.Projectiles
                 if (mAPlayer.MagicalLifeSteal)
                 {
                     // NOTE: as I'm using the lifesteal from the vampire knives, I need to compensate for the vanilla behavior
-                    projectile.vampireHeal((int)(((float)damage) * mAPlayer.MagicalLifeStealAmount * (1.0f / 0.075f)), projectile.Center, target);
+                    projectile.vampireHeal((int)(((float)damageDone) * mAPlayer.MagicalLifeStealAmount * (1.0f / 0.075f)), projectile.Center, target);
                 }
             }
         }

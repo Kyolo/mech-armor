@@ -10,8 +10,14 @@ namespace MechArmor.Items.Armor.Tier3
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Holy Fencer Helmet");
+*/
+/* 
+Removed because of localization update
             Tooltip.SetDefault("5% increased melee damage");
+*/
         }
 
         public override void SetDefaults()

@@ -9,8 +9,14 @@ namespace MechArmor.Buffs
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("State change cooldown");
+*/
+/* 
+Removed because of localization update
             Description.SetDefault("Your armor can't change state");
+*/
             Main.debuff[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }

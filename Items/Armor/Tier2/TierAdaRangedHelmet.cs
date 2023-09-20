@@ -10,8 +10,14 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Hard Metal Artillery Helmet");
+*/
+/* 
+Removed because of localization update
             Tooltip.SetDefault("5% Ranged Critical Chance");
+*/
         }
 
         public override void SetDefaults()

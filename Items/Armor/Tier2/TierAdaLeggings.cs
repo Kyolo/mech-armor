@@ -9,8 +9,14 @@ namespace MechArmor.Items.Armor.Tier2
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Hard Metal Leggings");
+*/
+/* 
+Removed because of localization update
             Tooltip.SetDefault("5% Increased Movement Speed");
+*/
         }
 
         public override void SetDefaults()

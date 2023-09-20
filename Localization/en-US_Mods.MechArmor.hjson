@@ -1,0 +1,380 @@
+Keybinds: {
+	MechArmorStateChangeReverseKey.DisplayName: Mech Armor State Change Reverse Key
+	MechArmorStateChangeKey.DisplayName: Mech Armor State Change Key
+}
+
+Buffs: {
+	BuffLunarArmorDrone: {
+		DisplayName: Buff Lunar Armor Drone
+		Description: Mods.MechArmor.Buffs.BuffLunarArmorDrone.Description
+	}
+
+	BuffStateCooldown: {
+		DisplayName: Buff State Cooldown
+		Description: Mods.MechArmor.Buffs.BuffStateCooldown.Description
+	}
+
+	BuffStateWarmup: {
+		DisplayName: Buff State Warmup
+		Description: Mods.MechArmor.Buffs.BuffStateWarmup.Description
+	}
+}
+
+Items: {
+	AdvancedPlateProtectedArmorBreastplate: {
+		DisplayName: Advanced Plate Protected Armor Breastplate
+		Tooltip: ""
+	}
+
+	AdvancedPlateProtectedArmorHelmet: {
+		DisplayName: Advanced Plate Protected Armor Helmet
+		Tooltip: ""
+	}
+
+	AdvancedPlateProtectedArmorLeggings: {
+		DisplayName: Advanced Plate Protected Armor Leggings
+		Tooltip: ""
+	}
+
+	HeavyPlateProtectedArmorBreastplate: {
+		DisplayName: Heavy Plate Protected Armor Breastplate
+		Tooltip: ""
+	}
+
+	HeavyPlateProtectedArmorHelmet: {
+		DisplayName: Heavy Plate Protected Armor Helmet
+		Tooltip: ""
+	}
+
+	HeavyPlateProtectedArmorLeggings: {
+		DisplayName: Heavy Plate Protected Armor Leggings
+		Tooltip: ""
+	}
+
+	LightPlateProtectedArmorBreastplate: {
+		DisplayName: Light Plate Protected Armor Breastplate
+		Tooltip: ""
+	}
+
+	LightPlateProtectedArmorHelmet: {
+		DisplayName: Light Plate Protected Armor Helmet
+		Tooltip: ""
+	}
+
+	LightPlateProtectedArmorLeggings: {
+		DisplayName: Light Plate Protected Armor Leggings
+		Tooltip: ""
+	}
+
+	PlateProtectedArmorBreastplate: {
+		DisplayName: Plate Protected Armor Breastplate
+		Tooltip: ""
+	}
+
+	PlateProtectedArmorHelmet: {
+		DisplayName: Plate Protected Armor Helmet
+		Tooltip: ""
+	}
+
+	PlateProtectedArmorLeggings: {
+		DisplayName: Plate Protected Armor Leggings
+		Tooltip: ""
+	}
+
+	TierAdaBreastplate: {
+		DisplayName: Tier Ada Breastplate
+		Tooltip: ""
+	}
+
+	TierAdaLeggings: {
+		DisplayName: Tier Ada Leggings
+		Tooltip: ""
+	}
+
+	TierAdaMagicHelmet: {
+		DisplayName: Tier Ada Magic Helmet
+		Tooltip: ""
+	}
+
+	TierAdaMeleeHelmet: {
+		DisplayName: Tier Ada Melee Helmet
+		Tooltip: ""
+	}
+
+	TierAdaRangedHelmet: {
+		DisplayName: Tier Ada Ranged Helmet
+		Tooltip: ""
+	}
+
+	HolyTierBreastplate: {
+		DisplayName: Holy Tier Breastplate
+		Tooltip: ""
+	}
+
+	HolyTierLeggings: {
+		DisplayName: Holy Tier Leggings
+		Tooltip: ""
+	}
+
+	HolyTierMagicHelmet: {
+		DisplayName: Holy Tier Magic Helmet
+		Tooltip: ""
+	}
+
+	HolyTierMeleeHelmet: {
+		DisplayName: Holy Tier Melee Helmet
+		Tooltip: ""
+	}
+
+	HolyTierRangedHelmet: {
+		DisplayName: Holy Tier Ranged Helmet
+		Tooltip: ""
+	}
+
+	HolyTierSummonHelmet: {
+		DisplayName: Holy Tier Summon Helmet
+		Tooltip: ""
+	}
+
+	PostPTierMagicBreastplate: {
+		DisplayName: Post P Tier Magic Breastplate
+		Tooltip: ""
+	}
+
+	PostPTierMagicHelmet: {
+		DisplayName: Post P Tier Magic Helmet
+		Tooltip: ""
+	}
+
+	PostPTierMagicLeggings: {
+		DisplayName: Post P Tier Magic Leggings
+		Tooltip: ""
+	}
+
+	PostPTierMeleeBreastplate: {
+		DisplayName: Post P Tier Melee Breastplate
+		Tooltip: ""
+	}
+
+	PostPTierMeleeHelmet: {
+		DisplayName: Post P Tier Melee Helmet
+		Tooltip: ""
+	}
+
+	PostPTierMeleeLeggings: {
+		DisplayName: Post P Tier Melee Leggings
+		Tooltip: ""
+	}
+
+	PostPTierRangedBreastplate: {
+		DisplayName: Post P Tier Ranged Breastplate
+		Tooltip: ""
+	}
+
+	PostPTierRangedHelmet: {
+		DisplayName: Post P Tier Ranged Helmet
+		Tooltip: ""
+	}
+
+	PostPTierRangedLeggings: {
+		DisplayName: Post P Tier Ranged Leggings
+		Tooltip: ""
+	}
+
+	PostPTierSummonBreastplate: {
+		DisplayName: Post P Tier Summon Breastplate
+		Tooltip: ""
+	}
+
+	PostPTierSummonHelmet: {
+		DisplayName: Post P Tier Summon Helmet
+		Tooltip: ""
+	}
+
+	PostPTierSummonLeggings: {
+		DisplayName: Post P Tier Summon Leggings
+		Tooltip: ""
+	}
+
+	NebularMechaBreastplate: {
+		DisplayName: Nebular Mecha Breastplate
+		Tooltip: ""
+	}
+
+	NebularMechaHelmet: {
+		DisplayName: Nebular Mecha Helmet
+		Tooltip: ""
+	}
+
+	NebularMechaLeggings: {
+		DisplayName: Nebular Mecha Leggings
+		Tooltip: ""
+	}
+
+	SolariteMechaBreastplate: {
+		DisplayName: Solarite Mecha Breastplate
+		Tooltip: ""
+	}
+
+	SolariteMechaHelmet: {
+		DisplayName: Solarite Mecha Helmet
+		Tooltip: ""
+	}
+
+	SolariteMechaLeggings: {
+		DisplayName: Solarite Mecha Leggings
+		Tooltip: ""
+	}
+
+	StardustedMechaBreastplate: {
+		DisplayName: Stardusted Mecha Breastplate
+		Tooltip: ""
+	}
+
+	StardustedMechaHelmet: {
+		DisplayName: Stardusted Mecha Helmet
+		Tooltip: ""
+	}
+
+	StardustedMechaLeggings: {
+		DisplayName: Stardusted Mecha Leggings
+		Tooltip: ""
+	}
+
+	VortexianMechaBreastplate: {
+		DisplayName: Vortexian Mecha Breastplate
+		Tooltip: ""
+	}
+
+	VortexianMechaHelmet: {
+		DisplayName: Vortexian Mecha Helmet
+		Tooltip: ""
+	}
+
+	VortexianMechaLeggings: {
+		DisplayName: Vortexian Mecha Leggings
+		Tooltip: ""
+	}
+
+	ProtoNebularMechaBreastplate: {
+		DisplayName: Proto Nebular Mecha Breastplate
+		Tooltip: ""
+	}
+
+	ProtoNebularMechaHelmet: {
+		DisplayName: Proto Nebular Mecha Helmet
+		Tooltip: ""
+	}
+
+	ProtoNebularMechaLeggings: {
+		DisplayName: Proto Nebular Mecha Leggings
+		Tooltip: ""
+	}
+
+	ProtoSolariteMechaBreastplate: {
+		DisplayName: Proto Solarite Mecha Breastplate
+		Tooltip: ""
+	}
+
+	ProtoSolariteMechaHelmet: {
+		DisplayName: Proto Solarite Mecha Helmet
+		Tooltip: ""
+	}
+
+	ProtoSolariteMechaLeggings: {
+		DisplayName: Proto Solarite Mecha Leggings
+		Tooltip: ""
+	}
+
+	ProtoStardustedMechaBreastplate: {
+		DisplayName: Proto Stardusted Mecha Breastplate
+		Tooltip: ""
+	}
+
+	ProtoStardustedMechaHelmet: {
+		DisplayName: Proto Stardusted Mecha Helmet
+		Tooltip: ""
+	}
+
+	ProtoStardustedMechaLeggings: {
+		DisplayName: Proto Stardusted Mecha Leggings
+		Tooltip: ""
+	}
+
+	ProtoVortexianMechaBreastplate: {
+		DisplayName: Proto Vortexian Mecha Breastplate
+		Tooltip: ""
+	}
+
+	ProtoVortexianMechaHelmet: {
+		DisplayName: Proto Vortexian Mecha Helmet
+		Tooltip: ""
+	}
+
+	ProtoVortexianMechaLeggings: {
+		DisplayName: Proto Vortexian Mecha Leggings
+		Tooltip: ""
+	}
+
+	PaladinArmorShard: {
+		DisplayName: Paladin Armor Shard
+		Tooltip: ""
+	}
+
+	StrangeWood: {
+		DisplayName: Strange Wood
+		Tooltip: ""
+	}
+
+	AdaptativeGun: {
+		DisplayName: Adaptative Gun
+		Tooltip: ""
+	}
+}
+
+Projectiles.LunarArmorDrone.DisplayName: Lunar Armor Drone
+
+Configs: {
+	MechArmorDisplayConfig: {
+		DisplayName: Mech Armor Display Config
+
+		DefaultArmorStatusPositionX: {
+			Label: Default X position of the state indicator.
+			Tooltip: From left to right and in pixels, starting at 0.
+		}
+
+		DefaultArmorStatusPositionY: {
+			Label: Default Y position of the state indicator.
+			Tooltip: From top to bottom and in pixels, starting at 0.
+		}
+
+		BulletAttractorGenerateDust: {
+			Label: Bullet attractor particle effect
+			Tooltip: If the Bullet Attractor Effect should generate dust to display the range arround the player
+		}
+	}
+
+	MechArmorServerConfig: {
+		DisplayName: Mech Armor configurable functions
+
+		UseTestingRecipes: {
+			Label: Use testing recipes
+			Tooltip: ""
+		}
+
+		ProjectileBlacklist: {
+			Label: Blacklisted Projectiles
+			Tooltip: Projectiles that should be ignored by projectile-affecting effects
+		}
+
+		AiWhitelist: {
+			Label: Whitelisted Projectile AIs
+			Tooltip: Projectile AI that should be affected by projectile-affecting effects
+		}
+
+		BoostLunarMultishot: {
+			Label: Boost Lunar Drone Multishot
+			Tooltip: Increase Lunar Multishot damage. Please only use this if no high level weapons are compatible with it.
+		}
+	}
+}

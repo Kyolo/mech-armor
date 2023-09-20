@@ -11,7 +11,10 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             Tooltip.SetDefault("20% increased minion damage\nIncrease minion slots by 1");
+*/
         }
 
         public override void SetDefaults()

@@ -10,8 +10,14 @@ namespace MechArmor.Items.Armor.Tier3
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Holy Ranger Helmet");
+*/
+/* 
+Removed because of localization update
             Tooltip.SetDefault("10% Increased ranged critical chance");
+*/
         }
 
         public override void SetDefaults()

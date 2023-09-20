@@ -10,7 +10,10 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             Tooltip.SetDefault("10% increased magical damage\n10% increased magical critical chance");
+*/
         }
 
         public override void SetDefaults()

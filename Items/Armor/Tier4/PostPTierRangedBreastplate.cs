@@ -9,8 +9,14 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Glowing Ranger Breastplate");
+*/
+/* 
+Removed because of localization update
             Tooltip.SetDefault("10% increased ranged critical chance\n10% increased ranged damage");
+*/
         }
 
         public override void SetDefaults()

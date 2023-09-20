@@ -10,8 +10,14 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Shifting Spectral Hood");
+*/
+/* 
+Removed because of localization update
             Tooltip.SetDefault("Increase maximum mana by 100\n10% increased magical damage\n10% increased magical critical chance");
+*/
         }
 
         public override void SetDefaults()

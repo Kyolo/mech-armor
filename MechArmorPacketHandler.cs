@@ -54,6 +54,22 @@ namespace MechArmor
 
                         break;
                     }
+                case MechArmorMessageType.MechArmorPlayerMagicAbsorptionChanged:
+                    {
+                        // We change the absorbed amount
+                        int otherPlayer = reader.ReadByte();
+                        MechArmorPlayer modPlr = Main.player[otherPlayer].GetModPlayer<MechArmorPlayer>();
+                        modPlr.MagicDamageAbsorbed = reader.ReadInt32();
+
+                        if(Main.netMode == Terraria.ID.NetmodeID.Server){
+                            ModPacket p = mod.GetPacket();
+                            p.Write((byte)MechArmorMessageType.MechArmorPlayerMagicAbsorptionChanged);
+                            p.Write(otherPlayer);
+                            p.Write(modPlr.MagicDamageAbsorbed);
+                            p.Send(-1, otherPlayer);
+                        }
+                    }
+                break;
                 default:
                     {
                         //We shouldn't enter here, but a bit of caution never hurt anyone

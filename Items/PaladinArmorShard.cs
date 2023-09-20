@@ -9,7 +9,10 @@ namespace MechArmor.Items
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             Tooltip.SetDefault("Made out of melted Paladin equipement");
+*/
         }
 
         public override void SetDefaults()

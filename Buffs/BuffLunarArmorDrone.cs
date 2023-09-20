@@ -15,8 +15,14 @@ namespace MechArmor.Buffs
 
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Lunar Drones");
+*/
+/* 
+Removed because of localization update
             Description.SetDefault("You are assisted by lunar drones.");
+*/
 
             // Prevent manual & nurse cancelation of this buff
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;

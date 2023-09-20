@@ -58,7 +58,10 @@ namespace MechArmor.Items.Weapons
         #region Defaults
 
         public override void SetStaticDefaults() {
+/* 
+Removed because of localization update
             Tooltip.SetDefault("A gun which adapt to your armor state.");
+*/
 
         }
         public override void SetDefaults() {

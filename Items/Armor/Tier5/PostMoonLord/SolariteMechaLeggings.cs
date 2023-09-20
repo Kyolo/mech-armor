@@ -10,7 +10,10 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             Tooltip.SetDefault("15% increased melee speed\n15% increased movement speed");
+*/
         }
 
         public override void SetDefaults()

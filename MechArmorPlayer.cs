@@ -241,14 +241,60 @@ namespace MechArmor
 
         #region Equipement effects
 
-        // Damage Modification
-        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+        {
+            HandleMagicDamageAbsorption(ref modifiers);
+        }
+
+        public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
+        {
+            HandleMagicDamageAbsorption(ref modifiers);
+        }
+
+        public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+        {
+            HandleMagicDamageRetribution(hurtInfo);
+        }
+
+        public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
+        {
+            HandleMagicDamageRetribution(hurtInfo);
+        }
+
+        private void HandleMagicDamageRetribution(Player.HurtInfo hurtInfo)
         {
             if (MagicDamageAbsorption)
             {
-                // First we compute the amount of damage avoided
-                int removedDamage = (int)(damage * MagicDamageAbsorptionAmount);
+                // When hurt, we remove maa and charge the magic damage absorption
+                int diff = hurtInfo.SourceDamage - hurtInfo.Damage;
 
+                if (diff > 0)
+                {
+                    int manaRemoved = Math.Min(diff, Player.statMana);
+
+                    if (manaRemoved > 0)
+                    {
+                        Player.statMana -= manaRemoved;
+                        Player.manaRegenDelay = (int)Player.maxRegenDelay;
+
+                        MagicDamageAbsorbed += diff;
+                    }
+
+                }
+            }
+        }
+
+        // Damage Modification
+        private void HandleMagicDamageAbsorption(ref Player.HurtModifiers modifiers)
+        {
+
+            if (MagicDamageAbsorption)
+            {
+                // First we compute the amount of damage avoided
+                modifiers.FinalDamage *= MagicDamageAbsorptionAmount;
+
+                /*
+                // Doesn't work since the hit rework
                 // We check if there is damage to remove
                 if (removedDamage > 0)
                 {
@@ -268,9 +314,8 @@ namespace MechArmor
                         MagicDamageAbsorbed += damage;
                     }
 
-                }
+                }*/
             }
-            return true;
         }
 
         // Use Time modification
@@ -543,6 +588,7 @@ namespace MechArmor
 
         #region Multiplayer synchronisation
 
+        /*
         // In MP, other clients need accurate information about your player or else bugs happen.
         // clientClone, SyncPlayer, and SendClientChanges, ensure that information is correct.
         // We only need to do this for data that is changed by code not executed by all clients, 
@@ -560,9 +606,18 @@ namespace MechArmor
             clone.ArmorStateType = ArmorStateType;
             clone.PreviousArmorStateType = PreviousArmorStateType;
 		}
+        */
+
+        public override void CopyClientState(ModPlayer targetCopy)
+        {
+            MechArmorPlayer clone = targetCopy as MechArmorPlayer;
+			clone.ArmorState = ArmorState;
+            clone.ArmorStateType = ArmorStateType;
+            clone.PreviousArmorStateType = PreviousArmorStateType;
+        }
 
         // I think this is used to sync players when a player first come into the world
-		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
 			//Create a packet
 			ModPacket packet = Mod.GetPacket();
@@ -575,6 +630,7 @@ namespace MechArmor
 			// MechArmorPlayer fields updated
 			packet.Write(ArmorState);
 			//INSERT OTHER FIELDS HERE
+            packet.Write(MagicDamageAbsorbed);
 			
 			// And finally we send the packet
 			packet.Send(toWho, fromWho);
@@ -594,6 +650,13 @@ namespace MechArmor
 				packet.Write(ArmorState);
 				packet.Send();
 			}
+            if(clone.MagicDamageAbsorbed != MagicDamageAbsorbed) {
+                ModPacket packet = Mod.GetPacket();
+				packet.Write((byte)MechArmorMessageType.MechArmorPlayerMagicAbsorptionChanged);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write(MagicDamageAbsorbed);
+                packet.Send();
+            }
 		}
 
         #endregion

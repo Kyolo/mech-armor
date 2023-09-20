@@ -45,8 +45,8 @@ namespace MechArmor.UI
             container.Top.Set(conf.DefaultArmorStatusPositionY, 0);
             container.Width.Set(148, 0f);
             container.Height.Set(148, 0f);
-            container.OnMouseUp += OnContainerMouseUp;
-            container.OnMouseDown += OnContainerMouseDown;
+            container.OnLeftMouseUp += OnContainerMouseUp;
+            container.OnLeftMouseDown += OnContainerMouseDown;
 
             // setting up the background wheel
             background = new UIImage(ModContent.Request<Texture2D>("MechArmor/UI/status_indicator_base"));

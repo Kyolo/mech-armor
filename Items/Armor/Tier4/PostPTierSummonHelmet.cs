@@ -10,8 +10,14 @@ namespace MechArmor.Items.Armor.Tier4
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Strange Wood Helmet");
+*/
+/* 
+Removed because of localization update
             Tooltip.SetDefault("10% increased minion damage\nIncrease minion slots by 1");
+*/
         }
 
         public override void SetDefaults()

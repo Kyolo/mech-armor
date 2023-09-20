@@ -3,6 +3,7 @@
     internal enum MechArmorMessageType : byte
     {
         MechArmorPlayerSync,
-        MechArmorPlayerArmorStateChanged
+        MechArmorPlayerArmorStateChanged,
+        MechArmorPlayerMagicAbsorptionChanged
     }
 }

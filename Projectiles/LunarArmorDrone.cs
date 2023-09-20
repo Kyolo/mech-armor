@@ -65,7 +65,10 @@ namespace MechArmor.Projectiles
 
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             DisplayName.SetDefault("Lunar Drone");
+*/
             // Sets the amount of frames this minion has on its spritesheet
             Main.projFrames[Projectile.type] = 5;
 

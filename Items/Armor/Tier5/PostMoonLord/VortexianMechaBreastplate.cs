@@ -11,7 +11,10 @@ namespace MechArmor.Items.Armor.Tier5.PostMoonLord
     {
         public override void SetStaticDefaults()
         {
+/* 
+Removed because of localization update
             Tooltip.SetDefault("10% increased ranged damage\n10% increased ranged critical chance\n-25% Ammo Consumption Chance");
+*/
         }
 
         public override void SetDefaults()
