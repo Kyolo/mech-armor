@@ -8,21 +8,20 @@ using Terraria.ModLoader.Config;
 
 namespace MechArmor
 {
-    [Label("Mech Armor configurable functions")]
     public class MechArmorServerConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [DefaultValue(false), Label("Use testing recipes"), ReloadRequired]
+        [DefaultValue(false), ReloadRequired]
         public bool UseTestingRecipes;
 
-        [Label("Blacklisted Projectiles"), Tooltip("Projectiles that should be ignored by projectile-affecting effects"), ReloadRequired]
+        [ReloadRequired]
         public Dictionary<ProjectileDefinition, bool> ProjectileBlacklist;
 
-        [Label("Whitelisted Projectile AIs"), Tooltip("Projectile AI that should be affected by projectile-affecting effects"), ReloadRequired]
+        [ReloadRequired]
         public Dictionary<int, bool> AiWhitelist;
 
-        [Label("Boost Lunar Drone Multishot"), Tooltip("Increase Lunar Multishot damage. Please only use this if no high level weapons are compatible with it."), DefaultValue(false)]
+        [DefaultValue(false)]
         public bool BoostLunarMultishot;
 
 
